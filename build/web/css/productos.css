@@ -1,0 +1,66 @@
+
+.productos {
+    background: white;
+    height: 300px;
+    max-height: 500px;
+    display: inline-block;
+    margin:15px 0 0 15px;
+    width:350px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 20px;    
+}
+hr {
+    width: 20%;
+    border: 3px solid;
+}
+img{
+    border-radius: 20px 0 0 0;
+    width: 200px;
+    height: 200px;
+}
+
+.productos:nth-child(3n+1) {
+    clear: right;   
+}
+.fixmid {
+    width: 86% !important;
+    margin: 0 auto !important;
+}
+.rightInfo{
+    padding-left: 20px;
+    
+}
+.productoName{
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    margin-top:3px;
+}
+.productoDes{
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    margin-top:3px;
+}
+.productoMar{
+    font-family: 'Poppins', sans-serif;
+    font-size: 8px;
+    margin-top: 12px !important;
+    margin-left: 3px;
+}
+.productoCod{
+    margin-top: 3px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+}
+.productoPre{
+    margin-block-end: 0px !important;
+    margin-top: 120px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+}
+.toLeft{
+    padding-left: 0 !important;
+}
+.displayFlex{
+    display: flex;
+}
