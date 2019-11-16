@@ -1,5 +1,7 @@
 *.war
+*.xml
 .DS_Store
 /build
 dist
 /dist
+/nbproject
