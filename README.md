@@ -1,7 +1,11 @@
 # portafolio
 
-Libreries:
-  - ORACLE (driver de oracle ojdbc6.jar)
-  -JSTL 1.2.1 (lo trae netbeans)
-  -JDK 1.8
-  -APACHE TOM CAT (estoy ocupando yo, pero si quieres lo mantan en glass fish)
+Libreries del proyecto:
+
+ * ORACLE (driver de oracle ojdbc6.jar) </br>
+  
+ * JSTL 1.2.1 (lo trae netbeans) </br>
+  
+ * JDK 1.8 </br>
+  
+ * APACHE TOM CAT 7.x (estoy ocupando yo, pero si quieres lo manton en glass fish)
