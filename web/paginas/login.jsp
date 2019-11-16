@@ -14,34 +14,42 @@
      </head>
     <header>
         <%@ include file="/masterpage/menu.jsp" %>
-    </header>
+    </header>         
     <body>
+        <c:if test="${mensaje!=null}">
+            <script>
+                alert("${mensaje}");
+            </script> 
+        </c:if>
         <div class="container-fluid midColor">
             <div class="row justify-content-center">
             <div class="card cardLogin">
                 <div class="card-body">
+                 <form class="d-content pull-right" method="POST" action="/portafolio/login">  
                     <div class="mid">
                    <label class="loginFontTitle text-center">¡Bienvenido al Almacen!</label>
                    <div>
                        <i class="fab fa-slideshare logo "></i></div>
                     </div>
                     <div class="m-50">
+                      
                     <table>
                         <tbody>
                             <tr>
                                 
-                                <td><input class="loginFont" placeholder=" Usuario" type="text" name="txtUsuario" value="" size="30"/></td>
+                                <td><input class="loginFont" placeholder=" Usuario" type="text" name="txtUsuario" value="" size="30" required/></td>
                             </tr>
                             <tr>
                                
-                                <td><input class="loginFont" placeholder=" Contraseña" type="password" name="txtContrasena" value="" size="30"/></td>
+                                <td><input class="loginFont" placeholder=" Contraseña" type="password" name="txtContrasena" value="" size="30" required/></td>
                             </tr>
                         </tbody>
                     </table>
                     </div>
                     <div class="mid">
-             <button class="btn btn-primary mt-5" type="submit" name="btnLogin"><h1 class="loginFontButton">Iniciar Sesion</h1></button>
+                        <input  class="btn-primary rounded-pill font-12 mt-5 loginFontButton" type="submit" name="btnLogin" value="Iniciar Sesion"/>
                     </div>
+                 </form>
                     </div>
             </div>
         </div>
