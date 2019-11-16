@@ -1,5 +1,5 @@
 *.war
-*.xml
+private.xml
 .DS_Store
 /build
 dist
