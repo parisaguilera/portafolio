@@ -6,6 +6,7 @@
 package dao;
 
 import dto.clienteDTO;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,6 +14,6 @@ import dto.clienteDTO;
  */
 public interface clienteDAO extends BaseDAO<clienteDTO>{
     
-    public boolean actualizarEstadoPAGADO(int idBoleta);
-    
+    public ArrayList<clienteDTO> listarTodos(String rut, int estado);
+
 }

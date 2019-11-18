@@ -75,10 +75,7 @@ public class verHistorial extends HttpServlet {
                     //-->ahora llamamos al metodo para Agregar el abono declarado al principio
                     fiado.agregar(pagofiado);
                     //-> set lista para desplegar el nuevo campo agregado
-                     ArrayList<pagoFiadoDTO> fiados = fiado.listarTodos(idDeuda);
-                     //-> Actualizamos la boleta del cliente ya que esta pagada
-                     cliente.actualizarEstadoPAGADO(idDeuda);
-                     
+                     ArrayList<pagoFiadoDTO> fiados = fiado.listarTodos(idDeuda);     
                      //-> mandamos los datos por request.
                         request.setAttribute("fiados", fiados);
                         request.setAttribute("total", total);

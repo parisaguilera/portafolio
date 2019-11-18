@@ -5,8 +5,8 @@
  */
 package servlet;
 
-import daoimp.clientepagofiadoDAOIMP;
-import dto.clientepagofiadoDTO;
+import daoimp.clienteDAOIMP;
+import dto.clienteDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -36,11 +36,18 @@ public class deudas extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
              if (request.getParameter("buscar") != null){
-           clientepagofiadoDAOIMP deuda = new clientepagofiadoDAOIMP();
+                 // estado 1 = aceptado
+                 // estado 2 = rechazado
+                 clienteDAOIMP deuda = new clienteDAOIMP();
            String rut = request.getParameter("txtRut");
            
-            ArrayList<clientepagofiadoDTO> deudas = deuda.listarTodos(rut);
-            request.setAttribute("deudas", deudas);
+            ArrayList<clienteDTO> deudasAceptadas = deuda.listarTodos(rut,1);
+            ArrayList<clienteDTO> deudasRechazadas = deuda.listarTodos(rut,0);
+            
+                 System.out.println(deudasRechazadas.size());
+                 System.out.println(deudasAceptadas.size());
+            request.setAttribute("deudasAceptadas", deudasAceptadas);
+            request.setAttribute("deudasRechazadas", deudasRechazadas);
             request.setAttribute("rut", rut);
            request.getRequestDispatcher("/paginas/deudas.jsp").forward(request, response);
              }
