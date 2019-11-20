@@ -2,6 +2,7 @@ package servlet;
 
 import daoimp.clienteDAOIMP;
 import daoimp.pagoFiadoDAOIMP;
+import dto.clienteDTO;
 import dto.pagoFiadoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,25 +36,29 @@ public class verHistorial extends HttpServlet {
             //setieando el IMP para acceder a sus metodos
             pagoFiadoDAOIMP fiado = new pagoFiadoDAOIMP();
             clienteDAOIMP cliente = new clienteDAOIMP();
-
+           
             //este boton esta en la vista de deudas.jsp
-          if (request.getParameter("verInforme") != null){
+          if (request.getParameter("abonar") != null){
               
             //valores para desplegar una vista limpia
-            String total = request.getParameter("numTotal");
             String rut = request.getParameter("txtRut");
-            int idDeuda = Integer.parseInt(request.getParameter("numDeuda"));
-            
-            //Listamos lo que tengamos en fiado dependiendo el ID del pagofiado
-            ArrayList<pagoFiadoDTO> fiados = fiado.listarTodos(idDeuda);
-            request.setAttribute("fiados", fiados);
-            request.setAttribute("total", total);
-            request.setAttribute("idDeuda", idDeuda);
+            String total = request.getParameter("numTotal");
+            String nombre = request.getParameter("txtNombre");
+            int idCliente = Integer.parseInt(request.getParameter("numIdcliente"));
+            //Listamos lo que tengamos en fiado dependiendo del idCliente
+            ArrayList<pagoFiadoDTO> fiados = fiado.listarTodos(idCliente); 
+            //setiamos el total que llevamos de abono:
+            int totalAbonado= fiado.deudaFiado(idCliente);
             request.setAttribute("rut", rut);
+            request.setAttribute("total", total);
+            request.setAttribute("nombre", nombre);
+            request.setAttribute("fiados", fiados);
+            request.setAttribute("totalAbonado", totalAbonado);
+            request.setAttribute("idCliente", idCliente);
             request.getRequestDispatcher("/paginas/verHistorial.jsp").forward(request, response);
              
             //este boton esta en la vista verHistorial.jsp
-          }else if(request.getParameter("abonar") != null){
+          }else if(request.getParameter("abonarDeuda") != null){
               //<- Parametros para mantener el flujo
               String total = request.getParameter("numTotal");
               String rut = request.getParameter("txtRut");
@@ -62,55 +67,68 @@ public class verHistorial extends HttpServlet {
               //<- Parametros para validar que esta abonando lo correcto.
               int abono = Integer.parseInt(request.getParameter("numAbono"));
               int diferencia = Integer.parseInt(request.getParameter("numDiferencia"));
+              int idCliente= Integer.parseInt(request.getParameter("numIdCliente"));
               //->
               //si la diferencia es igual al abono ENTONCES ESTA BIEN
               if(diferencia==abono){
+                 
                   //<-Parametros para insertar el abono
                     pagoFiadoDTO pagofiado = new pagoFiadoDTO();
-                    int idDeuda = Integer.parseInt(request.getParameter("numIdpago"));
-                    pagofiado.setIdpagofiado(idDeuda);
-                    pagofiado.setIdcliente(Integer.parseInt(request.getParameter("numIdCliente")));                    
+                    pagofiado.setIdcliente(idCliente);                    
                     pagofiado.setAbono(abono);
                     //la DATE esta en el metodo pagofiadoDAOIMP...
                     //-->ahora llamamos al metodo para Agregar el abono declarado al principio
                     fiado.agregar(pagofiado);
                     //-> set lista para desplegar el nuevo campo agregado
-                     ArrayList<pagoFiadoDTO> fiados = fiado.listarTodos(idDeuda);
-                     //-> Actualizamos la boleta del cliente ya que esta pagada
-                     cliente.actualizarEstadoPAGADO(idDeuda);
-                     
+                     ArrayList<pagoFiadoDTO> fiados = fiado.listarTodos(idCliente); 
+                     //set abono
+                      int totalAbonado= fiado.deudaFiado(idCliente);
                      //-> mandamos los datos por request.
                         request.setAttribute("fiados", fiados);
                         request.setAttribute("total", total);
-                        request.setAttribute("idDeuda", idDeuda);
                         request.setAttribute("rut", rut);
                         request.setAttribute("mensaje", "Deuda Saldada");
+                        request.setAttribute("totalAbonado", totalAbonado);
                         request.getRequestDispatcher("/paginas/verHistorial.jsp").forward(request, response);
                         //System.out.println("DEUDA SALDADA");
               //si solo esta abonando:
               }else if(diferencia>abono){
                   //<-Parametros para insertar el abono
                     pagoFiadoDTO pagofiado = new pagoFiadoDTO();
-                    int idDeuda = Integer.parseInt(request.getParameter("numIdpago"));
-                    pagofiado.setIdpagofiado(idDeuda);
-                    pagofiado.setIdcliente(Integer.parseInt(request.getParameter("numIdCliente")));                    
+                    pagofiado.setIdcliente(idCliente);                    
                     pagofiado.setAbono(abono);
                     //la DATE esta en el metodo pagofiadoDAOIMP...
                     //-->ahora llamamos al metodo para Agregar el abono declarado al principio
                     fiado.agregar(pagofiado);
                     //-> set lista para desplegar el nuevo campo agregado
-                     ArrayList<pagoFiadoDTO> fiados = fiado.listarTodos(idDeuda);
+                     ArrayList<pagoFiadoDTO> fiados = fiado.listarTodos(idCliente);
                      //-> Actualizamos la boleta del cliente ya que esta pagada
+                      //set del abono que llevamos
+                    int totalAbonado= fiado.deudaFiado(idCliente);
                      //set mensaje->
                      String mensaje= "Te faltan: "+(diferencia-abono);
                         request.setAttribute("fiados", fiados);
                         request.setAttribute("total", total);
-                        request.setAttribute("idDeuda", idDeuda);
                         request.setAttribute("rut", rut);
                         request.setAttribute("mensaje", mensaje);
+                        request.setAttribute("totalAbonado", totalAbonado);
                         request.getRequestDispatcher("/paginas/verHistorial.jsp").forward(request, response);
                 
-              }        
+              }  
+              
+              //si da atras
+          }else if(request.getParameter("atras") != null){
+              
+                 clienteDAOIMP deuda = new clienteDAOIMP();
+                 String rut = request.getParameter("txtRut");
+           
+            ArrayList<clienteDTO> deudasAceptadas = deuda.listarTodos(rut,1);
+            ArrayList<clienteDTO> deudasRechazadas = deuda.listarFiadosRechazados(rut);            
+            request.setAttribute("deudasAceptadas", deudasAceptadas);
+            request.setAttribute("deudasRechazadas", deudasRechazadas);
+              System.out.println(rut);
+            request.setAttribute("rut", rut);
+           request.getRequestDispatcher("/paginas/deudas.jsp").forward(request, response);
           }
         }
     }

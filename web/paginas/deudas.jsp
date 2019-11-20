@@ -22,7 +22,7 @@
             <div class="row justify-content-center">
                 <div class="card cardRegistro">
                     <div class="left">
-                   <label class="loginFontTitle text-center">Ver Deudas:</label>
+                   <label class="loginFontTitle text-center">Ver Deuda:</label>
                    <form method="POST" action="/portafolio/deudas">
                     <div class="m-5 row">
                         <div class="col-sm-0">
@@ -38,57 +38,85 @@
                        </form>
                     </div>
                      <c:choose>
-              <c:when test="${deudas.size()==0}">
+              <c:when test="${deudasAceptadas.size()== 0 && deudasRechazadas.size()== 0}">
                   <div class="text-center">
-                  <label class="loginFontTitle pt-5">RUT SIN DEUDAS</label>
-                  </div>
+                  <label class="loginFontTitle pt-5">RUT SIN HISTORIAL DE DEUDAS</label>
+                  </div> 
               </c:when>
            <c:otherwise>
-                     <c:if test="${deudas!=null}">
-                         <label class="loginFont text-center mb-5">Al ver tu Informe podras abonar tu Deuda</label>
+                     <c:if test="${deudasAceptadas!=null}">
+                         <label class="loginFont text-center mb-5">Abonar al total de tus Fiados</label>
                             <table class="table table-bordered">
                                 
                                 <thead>
                                     <tr>
-                                        <th>NºDeuda</th>
                                         <th>RUT</th>
                                         <th>NOMBRE</th>
+                                        <th>CONTACTO</th>
                                         <th>DEUDA</th>
-                                        <th>ABONO</th>
                                         <th>ESTADO</th>
                                         <th>ACCIONES</th>
                                     </tr>
                                 </thead>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="deu" items="${deudas}">
-                                        <c:choose>
-                                            <c:when test="${deu.getEstado()==0}">
-                                                <tr class="table-success">
-                                            </c:when>
-                                            <c:otherwise>
-                                                <tr class="table-danger">
-                                            </c:otherwise>
-                                        </c:choose>
-                                            <td>${deu.getIdpagofiado()}</td>
+                                    <c:forEach var="deu" items="${deudasAceptadas}">
+                                     
+                                        <tr>
+   
                                             <td>${deu.getRut()}</td>
                                             <td>${deu.getNombre()}</td>
+                                            <td>${deu.getContacto()}</td>
                                             <td>$ ${deu.getDeuda()}</td>
-                                            <td>$ ${deu.getAbono()}</td>
-                                            <c:choose>
-                                                <c:when test="${deu.getEstado()==0}">
-                                                     <td class="text-success">PAGADO</td>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <td class="text-danger">SIN PAGAR</td>
-                                                </c:otherwise>
-                                            </c:choose>                                            
+                                            <td class="text-success">ACEPTADO</td>                                        
                                             <form method="POST" action="/portafolio/verHistorial">
                                             <input class="loginFont" value="${rut}" maxlength="8" type="hidden" name="txtRut"/>
-                                            <input class="loginFont" value="${deu.getIdpagofiado()}" type="hidden" name="numDeuda"/>
+                                            <input class="loginFont" value="${deu.getNombre()}" type="hidden" name="txtNombre"/>
+                                            <input class="loginFont" value="${deu.getIdcliente()}" type="hidden" name="numIdcliente"/>
                                             <input class="loginFont" value="${deu.getDeuda()}" type="hidden" name="numTotal"/>
                                             <td>
-                                                <input type="submit" name="verInforme" value="Informe" class="btn-primary rounded-pill font-12">
+                                                <input type="submit" name="abonar" value="Abonar" class="btn-primary rounded-pill font-12">
+                                                <input type="submit" name="descargarBoleta" value="Boleta" class="btn-primary rounded-pill font-12">
+                                            </td>  
+                                              
+                                            </form>
+                                        </tr>
+
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                     </c:if>
+                         <%--AQUI LA TABLA RECHAZADAS--%>
+                         <c:if test="${deudasRechazadas!=null}">  
+                              <label class="loginFont text-center mt-5 mb-5">Boletas de Fiados NO Aceptados</label>
+                         <table class="table table-bordered">
+                                
+                                <thead>
+                                    <tr>
+                                        <th>RUT</th>
+                                        <th>NOMBRE</th>
+                                        <th>CONTACTO</th>
+                                        <th>DEUDA</th>
+                                        <th>ESTADO</th>
+                                        <th>ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="deuR" items="${deudasRechazadas}">
+                                     
+                                        <tr class="table-danger">
+   
+                                            <td>${deuR.getRut()}</td>
+                                            <td>${deuR.getNombre()}</td>
+                                            <td>${deuR.getContacto()}</td>
+                                            <td>$ ${deuR.getDeuda()}</td>
+                                            <td class="text-danger">RECHAZADO</td>                                        
+                                            <form method="POST" action="/portafolio/verHistorial">
+                                            <input class="loginFont" value="${rut}" maxlength="8" type="hidden" name="txtRut"/>
+                                            <input class="loginFont" value="" type="hidden" name="numDeuda"/>
+                                            <input class="loginFont" value="${deuR.getDeuda()}" type="hidden" name="numTotal"/>
+                                            <td>
                                                 <input type="submit" name="descargarBoleta" value="Boleta" class="btn-primary rounded-pill font-12">
                                             </td>  
                                               
