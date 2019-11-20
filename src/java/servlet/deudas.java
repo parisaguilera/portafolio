@@ -37,7 +37,7 @@ public class deudas extends HttpServlet {
             
              if (request.getParameter("buscar") != null){
                  // estado 1 = aceptado
-                 // estado 2 = rechazado
+                 // estado 0 = rechazado
                  clienteDAOIMP deuda = new clienteDAOIMP();
            String rut = request.getParameter("txtRut");
            
