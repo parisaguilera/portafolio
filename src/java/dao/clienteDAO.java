@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public interface clienteDAO extends BaseDAO<clienteDTO>{
     
+    public ArrayList<clienteDTO> listarFiadosRechazados(String rut);
+    
     public ArrayList<clienteDTO> listarTodos(String rut, int estado);
 
 }

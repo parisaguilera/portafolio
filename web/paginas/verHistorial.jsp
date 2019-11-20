@@ -25,15 +25,18 @@
             </script> 
             </c:if>
         <c:set var="rut" scope="request" value="${rut}" />
-        <c:set var="idDeuda" scope="request" value="${idDeuda}" />
+        <c:set var="nombre" scope="request" value="${nombre}" />
         <c:set var="total" scope="request" value="${total}" />
         <c:set var="idCliente" scope="request" value="${idCliente}" />
+         <c:set var="totalAbonado" scope="request" value="${totalAbonado}" />
         <div class="container-fluid midColor">
             <div class="row justify-content-center">
                 <div class="card cardRegistro">
                     <div class="left">
-                        <label class="loginFontTitle text-center">Historial:</label><br>
-                    <label class="loginFont">Rut: ${rut} | Folio nº 0000${idDeuda}</label>
+                        <label class="loginFontTitle text-center">Historial de ${nombre}:</label><br>
+                    <label class="loginFont">Rut: ${rut} </label>
+                     <label class="loginFont mt-1">Estas abonando al total de tu deuda</label>
+
                     </div>
                     <div class="mt-5">
                     <table class="table table-bordered"> 
@@ -52,17 +55,18 @@
                                             <td>${fia.getFechaabono()}</td>
                                         </tr>
                                         <c:set var="numIdpago" value="${fia.getIdpagofiado()}" />
-                                        <c:set var="numIdCliente" value="${fia.getIdcliente()}" />
                                     </c:forEach>
                                 </tbody>
                             </table>
                     </div>
                                     
                                      <div class="text-right mt-2 mr-4">
+                                         <c:set var="totalAbonado" value="${totalAbonado}" />
                                           <label class="loginFont">Total Deuda: $ ${total}</label>
-                                          <label class="loginFont">Total Abonado: $ ${pagofiado.deudaFiado(idDeuda)}</label>
+                                          
+                                          <label class="loginFont">Total Abonado: $ ${totalAbonado}</label>
                                           <hr class="hrHistorial">
-                                         <c:set var="diferencia" value="${total - pagofiado.deudaFiado(idDeuda)}" />
+                                         <c:set var="diferencia" value="${total - totalAbonado}" />
                                          <c:choose>
                                             <c:when test="${diferencia>0}">
                                                 <label class="loginFont">Te faltan: $ ${diferencia}</label>
@@ -76,16 +80,16 @@
                                      </div>
                                       
                                     <div class="d-flex mt-5 mr-4">
-                                         <input  class="btn-secondary rounded-pill font-12 ml-2 atras" value="Atras" onClick="history.go(-1);"/>
                                           <form class="d-content pull-right" method="POST" action="/portafolio/verHistorial">
-                                              <input value="${diferencia}" type="hidden" name="numDiferencia"/> 
-                                              <input value="${numIdpago}" type="hidden" name="numIdpago"/> 
-                                             <input value="${numIdCliente}" type="hidden" name="numIdCliente"/>
-                                             <input value="${rut}" type="hidden" name="txtRut"/> 
-                                             <input value="${total}" type="hidden" name="numTotal"/>
-                                             <c:if test="${diferencia>0}">
+                                              <input value="${rut}" type="hidden" name="txtRut"/> 
+                                            <input  class="btn-secondary rounded-pill font-12 ml-2 atras" name="atras" value="Atras" type="submit"/>
+                                            <c:if test="${diferencia>0}">
+                                                <input value="${diferencia}" type="hidden" name="numDiferencia"/> 
+                                                <input value="${numIdpago}" type="hidden" name="numIdpago"/> 
+                                                <input value="${idCliente}" type="hidden" name="numIdCliente"/>
+                                                <input value="${total}" type="hidden" name="numTotal"/>
                                                  <input class="loginFontMID mr-2 margin-auto" min="0" max="${diferencia}" type="number" name="numAbono" required/>
-                                                 <input  class="btn-primary rounded-pill font-12" type="submit" name="abonar" value="Abonar"/>
+                                                 <input  class="btn-primary rounded-pill font-12" type="submit" name="abonarDeuda" value="Abonar"/>
                                              </c:if>
                                          </form>
                                     </div>  

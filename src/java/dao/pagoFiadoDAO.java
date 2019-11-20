@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public interface pagoFiadoDAO extends BaseDAO<pagoFiadoDTO>{
     
-    public ArrayList<pagoFiadoDTO> listarTodos(int idpago);
+    public ArrayList<pagoFiadoDTO> listarTodos(int idCliente);
     public String idToNombre(int idcliente);
-    public int deudaFiado(int idpagofiado);
+    public int deudaFiado(int idCliente);
     
 }

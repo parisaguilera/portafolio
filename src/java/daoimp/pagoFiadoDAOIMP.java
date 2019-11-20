@@ -21,13 +21,13 @@ import java.util.ArrayList;
 public class pagoFiadoDAOIMP implements pagoFiadoDAO {
 
     @Override
-    public ArrayList<pagoFiadoDTO> listarTodos(int idpago) {
+    public ArrayList<pagoFiadoDTO> listarTodos(int idCliente) {
            Connection conexion = Conexion.getConexion();
-        String query = "select * from pagofiado where idpagofiado = ?";
+        String query = "SELECT IDPAGOFIADO,IDCLIENTE,ABONO,FECHAABONO FROM PAGOFIADO WHERE idcliente=?";
         
         try {
             PreparedStatement buscar= conexion.prepareStatement(query);
-            buscar.setInt(1, idpago);
+            buscar.setInt(1, idCliente);
             
             ResultSet rs = buscar.executeQuery();
             
@@ -73,13 +73,12 @@ public class pagoFiadoDAOIMP implements pagoFiadoDAO {
 
     @Override
     public boolean agregar(pagoFiadoDTO dto) {
-String query = "Insert into pagofiado (IDpagofiado,IDcliente,ABONO,FECHAABONO) VALUES(?,?,?,to_date(sysdate,'DD/MM/RR'))";
+String query = "INSERT INTO PAGOFIADO (IDCLIENTE,ABONO,FECHAABONO) VALUES(?,?,to_date(sysdate,'DD/MM/RR'))";
        
         try (Connection conexion = Conexion.getConexion()){
             PreparedStatement agregar = conexion.prepareStatement(query);
-            agregar.setInt(1, dto.getIdpagofiado());
-            agregar.setInt(2, dto.getIdcliente());
-            agregar.setInt(3, dto.getAbono());
+            agregar.setInt(1, dto.getIdcliente());
+            agregar.setInt(2, dto.getAbono());
     
             if (agregar.executeUpdate()>0) {
                 return true;            
@@ -100,16 +99,16 @@ String query = "Insert into pagofiado (IDpagofiado,IDcliente,ABONO,FECHAABONO) V
     }
 
     @Override
-    public int deudaFiado(int idpagofiado) {
+    public int deudaFiado(int idCliente) {
       Connection conexion = Conexion.getConexion();
-        String query = "select sum(abono) as total from pagofiado where idpagofiado= ? group by idpagofiado,idcliente";
+        String query = "SELECT NVL(sum(abono),0) AS TOTAL FROM PAGOFIADO WHERE idcliente=?";
         try {
             PreparedStatement total = conexion.prepareStatement(query);
-            total.setInt(1, idpagofiado);
+            total.setInt(1, idCliente);
             ResultSet rs = total.executeQuery();
             
             if(rs.next()){
-                return rs.getInt("total");
+                return rs.getInt("TOTAL");
             }
             
           } catch (SQLException e) {

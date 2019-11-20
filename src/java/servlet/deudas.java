@@ -42,7 +42,7 @@ public class deudas extends HttpServlet {
            String rut = request.getParameter("txtRut");
            
             ArrayList<clienteDTO> deudasAceptadas = deuda.listarTodos(rut,1);
-            ArrayList<clienteDTO> deudasRechazadas = deuda.listarTodos(rut,0);
+            ArrayList<clienteDTO> deudasRechazadas = deuda.listarFiadosRechazados(rut);
             
                  System.out.println(deudasRechazadas.size());
                  System.out.println(deudasAceptadas.size());

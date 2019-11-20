@@ -71,10 +71,11 @@
                                             <td class="text-success">ACEPTADO</td>                                        
                                             <form method="POST" action="/portafolio/verHistorial">
                                             <input class="loginFont" value="${rut}" maxlength="8" type="hidden" name="txtRut"/>
-                                            <input class="loginFont" value="" type="hidden" name="numDeuda"/>
+                                            <input class="loginFont" value="${deu.getNombre()}" type="hidden" name="txtNombre"/>
+                                            <input class="loginFont" value="${deu.getIdcliente()}" type="hidden" name="numIdcliente"/>
                                             <input class="loginFont" value="${deu.getDeuda()}" type="hidden" name="numTotal"/>
                                             <td>
-                                                <input type="submit" name="verInforme" value="Abonar" class="btn-primary rounded-pill font-12">
+                                                <input type="submit" name="abonar" value="Abonar" class="btn-primary rounded-pill font-12">
                                                 <input type="submit" name="descargarBoleta" value="Boleta" class="btn-primary rounded-pill font-12">
                                             </td>  
                                               
@@ -87,7 +88,7 @@
                      </c:if>
                          <%--AQUI LA TABLA RECHAZADAS--%>
                          <c:if test="${deudasRechazadas!=null}">  
-                              <label class="loginFont text-center mt-5 mb-5">Fiados NO Aceptados</label>
+                              <label class="loginFont text-center mt-5 mb-5">Boletas de Fiados NO Aceptados</label>
                          <table class="table table-bordered">
                                 
                                 <thead>
@@ -116,7 +117,6 @@
                                             <input class="loginFont" value="" type="hidden" name="numDeuda"/>
                                             <input class="loginFont" value="${deuR.getDeuda()}" type="hidden" name="numTotal"/>
                                             <td>
-                                                <input type="submit" name="verInforme" value="Abonar" class="btn-secondary rounded-pill font-12" disabled>
                                                 <input type="submit" name="descargarBoleta" value="Boleta" class="btn-primary rounded-pill font-12">
                                             </td>  
                                               
