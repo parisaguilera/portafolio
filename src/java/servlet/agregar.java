@@ -49,7 +49,7 @@ public class agregar extends HttpServlet {
                         familia.setMedida(medida);
                         new familiaProductoDAOIMP().agregar(familia);
                         request.setAttribute("mensaje", "Categoria Agregada Correctamente");
-                        request.getRequestDispatcher("paginas/admin/categorias.jsp").forward(request, response);
+                        request.getRequestDispatcher("/paginas/admin/categorias.jsp").forward(request, response);
                     }
             }
         }

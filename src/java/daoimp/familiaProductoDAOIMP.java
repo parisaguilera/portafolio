@@ -77,7 +77,24 @@ public class familiaProductoDAOIMP implements familiaProductoDAO{
 
     @Override
     public boolean eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conexion = Conexion.getConexion();
+        String query = "DELETE FROM FAMILIAPRODUCTO WHERE idfamilia= ?";
+        
+        try {
+           
+                PreparedStatement eliminar= conexion.prepareStatement(query);
+                eliminar.setInt(1, id);
+
+                eliminar.execute();
+
+                return true;
+      
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Eliminar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Eliminar : " + e.getMessage());
+        }
+        return false;
     }
 
     @Override
@@ -124,6 +141,27 @@ public class familiaProductoDAOIMP implements familiaProductoDAO{
             System.out.println("Error al ver si existe " + e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public String idtonombre(int idfamilia) {
+              Connection conexion = Conexion.getConexion();
+        String query = "SELECT nombre FROM FAMILIAPRODUCTO WHERE idfamilia=?";
+        try {
+            PreparedStatement aNombre = conexion.prepareStatement(query);
+            aNombre.setInt(1, idfamilia);
+            ResultSet rs = aNombre.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("NOMBRE");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar id a nombre: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar id a nombre: " + e.getMessage());
+        }
+        return null; 
     }
     
 }

@@ -14,7 +14,7 @@
         <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
      </head>
  <%@ include file="/masterpage/menuadmin.jsp" %>
-                                <!-- Modal code goes here-->
+                                <!-- Modal AGREGAR-->
 <div class="modal fade" tabindex="-1" role="dialog" id="modalAgregar">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -51,6 +51,32 @@
   </div>
 </div>
 <!-- /.modal -->	
+                                <!-- Modal ELIMINAR-->
+<div class="modal fade" tabindex="-1" role="dialog" id="modalEliminar">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title loginFontTitle">Eliminar Categoria</h4>
+      </div>
+        <form method="POST" action="/portafolio/eliminar"> 
+            <div class="modal-body">
+          <div class="row">
+              
+              <div id="contenido">
+                  <!-- El cotenido esta en eliminarCategoria.jsp -->
+              </div>
+          </div>
+        </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+             <input type="submit" name="eliminarCategoria" value="Eliminar" class="btn btn-danger">
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+<!-- /.modal -->	
         <c:if test="${mensaje!=null}">
             <script>
                 alert("${mensaje}");
@@ -68,7 +94,7 @@
                             <div class="card-text row">
                                 <p class="col-10 tooltips">* Recuerda que no puedes eliminar categorias con productos asociados</p>
                                 <div class="col-2 text-right" >                         
-                                <input type="submit" name="agregarModal" value="Agregar" class="btn-success rounded-pill font-12">
+                                <input type="submit" name="agregarModal" value="Agregar" class="btn-success rounded-pill font-12" onclick="agregar()">
                                 </div>
                             </div>
 
@@ -91,10 +117,8 @@
                                             <td>${categorias.getMedida()}</td> 
                                             <td>${listaCategorias.cantProductosPorCategoria(categorias.getIdfamilia())}</td>
                                             <td>
-                                                    <form method="POST" action="/portafolio/eliminar">
                                                         <input type="submit" name="editarCategoria" value="Editar" class="btn-info rounded-pill font-12">
-                                                        <input type="submit" name="eliminarCategoria" value="Eliminar" class="btn-danger rounded-pill font-12">
-                                                    </form>
+                                                        <input type="submit" name="eliminarCategoria" value="Eliminar" class="btn-danger rounded-pill font-12" onclick="eliminar(${categorias.getIdfamilia()})">                                 
                                                </td>  
                                               
                                             
@@ -110,22 +134,23 @@
             </div>
     </div>
 </div>
-	<script type="text/javascript">
+<script>
+    function eliminar(idc){
+        
+        
+        document.getElementById("contenido").innerHTML="";
+        $('#modalEliminar').modal('show');
+        $("#contenido").load("/portafolio/paginas/admin/eliminarCategoria.jsp",{id:idc});
+        
+    }
+    
+     function agregar(){
 
-$(document).ready(function(){
-		$('input[name="agregarModal"]').click(function (e) {
-				e.preventDefault();
-				
-				 var bError=false
+        $('#modalAgregar').modal('show');
+    }
+    
+</script>
 
-				$('#modalAgregar').modal('show');
-				return true  
-		
-
-		});
-	});
-	
-	</script>
        </body>
     
 </html>

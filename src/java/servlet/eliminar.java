@@ -5,6 +5,8 @@
  */
 package servlet;
 
+import daoimp.familiaProductoDAOIMP;
+import dto.familiaProductoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -35,6 +37,12 @@ public class eliminar extends HttpServlet {
             
             //->Eliminar categorias:
             if (request.getParameter("eliminarCategoria") != null){
+                int id = Integer.parseInt(request.getParameter("numId"));
+                familiaProductoDTO familia = new familiaProductoDTO();
+                        new familiaProductoDAOIMP().eliminar(id);
+                        System.out.println("paseporaqui");
+                        request.setAttribute("mensaje", "Categoria Eliminada Correctamente");
+                        request.getRequestDispatcher("/paginas/admin/categorias.jsp").forward(request, response);
             
             }
         }

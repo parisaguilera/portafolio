@@ -19,5 +19,6 @@ public interface familiaProductoDAO extends BaseDAO<familiaProductoDTO>{
         public int cantProductosPorCategoria(int idfamilia);
         public boolean actualizar(int id, String nombre, String medida);
         public boolean existe(String nombre);
+        public String idtonombre(int idfamilia);
     
 }
