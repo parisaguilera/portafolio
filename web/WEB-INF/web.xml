@@ -24,6 +24,10 @@
         <servlet-name>agregar</servlet-name>
         <servlet-class>servlet.agregar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editar</servlet-name>
+        <servlet-class>servlet.editar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>deudas</servlet-name>
         <url-pattern>/deudas</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>agregar</servlet-name>
         <url-pattern>/agregar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editar</servlet-name>
+        <url-pattern>/editar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

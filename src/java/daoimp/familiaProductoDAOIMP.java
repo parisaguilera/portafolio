@@ -23,7 +23,7 @@ public class familiaProductoDAOIMP implements familiaProductoDAO{
     @Override
     public ArrayList<familiaProductoDTO> listarTodos() {
     Connection conexion = Conexion.getConexion();
-        String query = "select * from familiaproducto ORDER BY idfamilia asc";
+        String query = "select IDFAMILIA,NOMBRE,UPPER(MEDIDA) AS MEDIDA from familiaproducto ORDER BY idfamilia asc";
         
         try {
             PreparedStatement buscar= conexion.prepareStatement(query);
@@ -48,8 +48,27 @@ public class familiaProductoDAOIMP implements familiaProductoDAO{
     }
 
     @Override
-    public boolean actualizar(int id, String nombre, String medida) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(int idFamilia, String nombre, String medida) {
+         Connection conexion = Conexion.getConexion();
+        String query = "UPDATE FAMILIAPRODUCTO SET NOMBRE = ?, MEDIDA= ? WHERE IDFAMILIA=?";
+        try {
+            PreparedStatement update = conexion.prepareStatement(query);
+            
+            update.setString(1,nombre);
+            update.setString(2,medida);
+            update.setInt(3, idFamilia);
+            update.executeUpdate();
+            update.close();
+          
+            
+                return true;
+  
+          } catch (SQLException e) {
+            System.out.println("Error SQL al Actualizar: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Actualizar: " + e.getMessage());
+        }
+        return false;
     }
 
     @Override
