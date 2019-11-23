@@ -1,7 +1,6 @@
 <%@page import="dto.usuarioDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:useBean id="lista" class="daoimp.familiaProductoDAOIMP"/>  
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="/portafolio/css/estilos.css"/>
 <link rel="stylesheet" type="text/css" href="/portafolio/css/bootstrap.min.css"/>
@@ -42,7 +41,7 @@
                     <%-- primera seccion--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-store-alt"></i> Productos</p>
                     <a href="/portafolio/paginas/admin/categorias.jsp" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Categorias</a>
-                    <a href="/portafolio/paginas/admin/productos.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Productos</a>
+                    <a href="/portafolio/paginas/admin/adminProductos.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Productos</a>
                     <%-- siguiente seccion del sidebar--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-user-friends"></i> Cliente</p>
                     <a href="" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Registrar Cliente</a>

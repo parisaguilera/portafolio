@@ -13,7 +13,7 @@
         <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
      </head>
  <%@ include file="/masterpage/menuadmin.jsp" %>
- <%@ include file="modalCategorias.jsp" %>                               
+ <%@ include file="modalProductos.jsp" %>      
         <c:if test="${mensaje!=null}">
             <script>
                 alert("${mensaje}");
@@ -36,42 +36,49 @@
                             </div>
 
                             <hr>
-                                  <table class="table table-bordered">
+                                  <table class="table table-bordered table-responsive">
                                 
                                 <thead>
                                     <tr>
-                                        <th>NOMBRE</th>
-                                        <th>PRECIO DE COMPRA</th>  
-                                        <th>PRECIO DE VENTA</th>
-                                        <th>CATEGORIA</th>
-                                        <th>MARCA</th>
-                                        <th>FECHA VENCIMIENTO</th>
-                                        <th>CODIGO BARRA</th>
-                                        <th>DESCRIPCION</th>
-                                        <th>STOCK</th>
-                                        <th>STOCK CRITICO</th>
-                                        <th>Acciones</th>
+                                        <th class="headTableText">Categoria</th>
+                                        <th class="headTableText">Nombre</th>
+                                        <th class="headTableText">Marca</th>
+                                        <th class="headTableText">Descripcion</th>
+                                        <th class="headTableText">P.Compra</th>  
+                                        <th class="headTableText">P.Venta</th>
+                                        <th class="headTableText">Fecha Vencimiento</th>
+                                        <th class="headTableText">Codigo Barra</th>
+                                        <th class="headTableText">Stock</th>
+                                        <th class="headTableText">Stock Critico</th>
+                                        <th class="headTableText">Acciones</th>
                                     </tr>
                                 </thead>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="productos" items="${listaProductos.listarTodos()}">
-                                        <tr>
-                                             <td>${productos.getNombre()}</td>
-                                             <td>${productos.getPreciocompra()}</td>
-                                             <td>${productos.getPrecioventa()}</td>
-                                             <td>${productos.getIdfamilia()}</td>
-                                             <td>${productos.getMarca()}</td>
-                                             <td>${productos.getFechavencimiento()}</td>
-                                             <td>${productos.getCodigobarra()}</td>
-                                             <td>${productos.getDescripcion()}</td>
-                                             <td>${productos.getStock()}</td>
-                                             <td>${productos.getStockcritico()}</td>
-                                             <td></td>                          
+                                        <tr class="redaccion">
+                                            <c:set var="categoria" value="${listaProductos.idtonombre(productos.getIdfamilia())}" />
+                                             <td class="bodyTableText">${categoria}</td> 
+                                             <td class="bodyTableText">${productos.getNombre()}</td>
+                                             <td class="bodyTableText">${productos.getMarca()}</td>                                              
+                                             <td class="bodyTableText">${productos.getDescripcion()}</td> 
+                                             <td class="bodyTableText">$ ${productos.getPreciocompra()}</td>
+                                             <td class="bodyTableText">$ ${productos.getPrecioventa()}</td> 
+                                             <td class="bodyTableText">${productos.getFechavencimiento()}</td> 
+                                             <td class="bodyTableText">${productos.getCodigobarra()}</td>  
+                                             <td class="bodyTableText">${productos.getStock()}</td>   
+                                             <td class="bodyTableText">${productos.getStockcritico()}</td>   
+                                             <td>
+                                             <input type="submit" name="editarCategoria" value="Editar" class="btn-info rounded-pill font-12" onclick="editar()">
+                                             <input type="submit" name="eliminarCategoria" value="Eliminar" class="btn-danger rounded-pill font-12" onclick="eliminar()">  
+
+                                                 
+                                             </td>  
                                         </tr>
                                     </c:forEach>
                                 </tbody>
                             </table>
+                     
                              <hr>
                         </div>
                         
@@ -107,4 +114,5 @@
        </body>
     
 </html>
+
 

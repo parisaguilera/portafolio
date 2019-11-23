@@ -40,20 +40,20 @@
                                 
                                 <thead>
                                     <tr>
-                                        <th>NOMBRE</th>
-                                        <th>MEDIDA</th>  
-                                        <th>Productos Asociados</th>
-                                        <th>Acciones</th>
+                                        <th class="headTableText">Nombre</th>
+                                        <th class="headTableText">Medida</th>  
+                                        <th class="headTableText">Productos Asociados</th>
+                                        <th class="headTableText">Acciones</th>
                                     </tr>
                                 </thead>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="categorias" items="${listaCategorias.listarTodos()}">
                                         <tr>
-                                            <td>${categorias.getNombre()}</td>
-                                            <td>${categorias.getMedida()}</td> 
+                                            <td class="bodyTableText">${categorias.getNombre()}</td>
+                                            <td class="bodyTableText">${categorias.getMedida()}</td> 
                                             <c:set var="cantProductos" value="${listaCategorias.cantProductosPorCategoria(categorias.getIdfamilia())}" />
-                                            <td>${cantProductos}</td>
+                                            <td class="bodyTableText">${cantProductos}</td>
                                             <td>
                                                  <c:set var="nombre" value="${categorias.getNombre()}"/>
                                                  <c:set var="idc" value="${categorias.getIdfamilia()}"/>

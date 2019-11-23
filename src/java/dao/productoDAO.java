@@ -13,6 +13,7 @@ public interface productoDAO extends BaseDAO<productoDTO> {
         public ArrayList<productoDTO> listarTodos();
         public ArrayList<productoDTO> listarCategoria(int idfamilia);
         public boolean actualizar(int id, String nombre, String medida);
+        public String idtonombre(int idfamilia);
        
 
 }

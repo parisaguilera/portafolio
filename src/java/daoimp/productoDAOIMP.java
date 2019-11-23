@@ -4,6 +4,7 @@ import bd.Conexion;
 import dao.productoDAO;
 import dto.productoDTO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ public class productoDAOIMP implements productoDAO{
     @Override
     public ArrayList<productoDTO> listarTodos() {
         Connection conexion = Conexion.getConexion();
-        String query = "SELECT * FROM producto";
+        String query = "SELECT * FROM producto ORDER BY IDPRODUCTO desc";
         
         try {
             PreparedStatement buscar= conexion.prepareStatement(query);
@@ -90,12 +91,58 @@ public class productoDAOIMP implements productoDAO{
 
     @Override
     public boolean agregar(productoDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "INSERT INTO producto (NOMBRE,PRECIOCOMPRA,PRECIOVENTA,IDFAMILIA,MARCA,FECHAVENCIMIENTO,CODIGOBARRA,DESCRIPCION,STOCK,STOCKCRITICO) VALUES (?,?,?,?,?,?,?,?,?,?)";
+       
+        try (Connection conexion = Conexion.getConexion()){
+            PreparedStatement agregar = conexion.prepareStatement(query);
+             agregar.setString(1, dto.getNombre());
+             agregar.setInt(2, dto.getPreciocompra());
+             agregar.setInt(3, dto.getPrecioventa());
+             agregar.setInt(4, dto.getIdfamilia());
+             agregar.setString(5, dto.getMarca());
+             agregar.setDate(6, dto.getFechavencimiento());
+             agregar.setString(7, dto.getCodigobarra());
+             agregar.setString(8, dto.getDescripcion());
+             agregar.setInt(9, dto.getStock());
+             agregar.setInt(10, dto.getStockcritico());
+            if (agregar.executeUpdate()>0) {
+                return true;            
+            }        
+        } catch (SQLException w) {
+             System.out.println("Error SQL dao al agregar "+
+                    w.getMessage());
+         }catch(Exception e){
+            System.out.println("Error dao al agregar "+
+                    e.getMessage());
+        }
+        return false;    
     }
 
     @Override
     public boolean eliminar(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String idtonombre(int idfamilia) {
+                     Connection conexion = Conexion.getConexion();
+        String query = "SELECT F.NOMBRE FROM FAMILIAPRODUCTO F JOIN PRODUCTO P ON (F.IDFAMILIA=P.IDFAMILIA) "
+                + "WHERE P.IDFAMILIA=?";
+        try {
+            PreparedStatement aNombre = conexion.prepareStatement(query);
+            aNombre.setInt(1, idfamilia);
+            ResultSet rs = aNombre.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("NOMBRE");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar id a nombre: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar id a nombre: " + e.getMessage());
+        }
+        return null; 
     }
     
 }
