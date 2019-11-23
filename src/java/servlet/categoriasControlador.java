@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author parisbastian
  */
-public class agregar extends HttpServlet {
+public class categoriasControlador extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,25 +33,43 @@ public class agregar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-             /* AQUI VAN TODOS LOS AGREGAR DE LA ADMINISTRACION */
-            
-            //->Agregar categorias:
+            //order: Agregar -> eliminar -> editar
+            familiaProductoDTO familia = new familiaProductoDTO();
+           //->Agregar categorias:
             if (request.getParameter("agregarCategoria") != null){
+                
                  String nombre= request.getParameter("txtNombre").trim();
                  String medida = request.getParameter("selMedida");
                     //validamos si existe el nombre de la categoria
                     if(new familiaProductoDAOIMP().existe(nombre)){
                         request.setAttribute("mensaje", "El nombre de la Categoria ya existe");
                         request.getRequestDispatcher("paginas/admin/categorias.jsp").forward(request, response);
-                    }else{//sino, agregamos normal
-                        familiaProductoDTO familia = new familiaProductoDTO();
+                    }else{//sino, agregamos normal      
                         familia.setNombre(nombre);
                         familia.setMedida(medida);
                         new familiaProductoDAOIMP().agregar(familia);
                         request.setAttribute("mensaje", "Categoria Agregada Correctamente");
                         request.getRequestDispatcher("/paginas/admin/categorias.jsp").forward(request, response);
                     }
+            } else if (request.getParameter("eliminarCategoria") != null){
+                
+                        int id = Integer.parseInt(request.getParameter("numId"));
+                        new familiaProductoDAOIMP().eliminar(id);
+                        System.out.println("paseporaqui");
+                        request.setAttribute("mensaje", "Categoria Eliminada Correctamente");
+                        request.getRequestDispatcher("/paginas/admin/categorias.jsp").forward(request, response);
+            
+            } else if (request.getParameter("editarCategoria") != null){
+                
+                int id = Integer.parseInt(request.getParameter("numId"));
+                 String nombre= request.getParameter("txtNombre").trim();
+                 String medida = request.getParameter("selMedida");
+                        new familiaProductoDAOIMP().actualizar(id,nombre,medida);
+                        request.setAttribute("mensaje", "Categoria Editada Correctamente");
+                        request.getRequestDispatcher("/paginas/admin/categorias.jsp").forward(request, response);
+            
             }
+            
         }
     }
 

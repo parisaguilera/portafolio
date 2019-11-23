@@ -18,7 +18,6 @@ public class productoDTO {
     private int preciocompra;
     private int precioventa;
     private int idfamilia;
-    private int idtipoproducto;
     private String marca;
     private Date fechavencimiento;
     private String codigobarra;
@@ -68,15 +67,6 @@ public class productoDTO {
     public void setIdfamilia(int idfamilia) {
         this.idfamilia = idfamilia;
     }
-
-    public int getIdtipoproducto() {
-        return idtipoproducto;
-    }
-
-    public void setIdtipoproducto(int idtipoproducto) {
-        this.idtipoproducto = idtipoproducto;
-    }
-
     public String getMarca() {
         return marca;
     }

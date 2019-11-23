@@ -5,7 +5,7 @@
       <div class="modal-header">
         <h4 class="modal-title loginFontTitle">Agregar Categoria</h4>
       </div>
-         <form method="POST" action="/portafolio/agregar">
+         <form method="POST" action="/portafolio/categoriasControlador">
             <div class="modal-body">
           <div class="row">
               <div class="col-sm-1">
@@ -42,11 +42,11 @@
       <div class="modal-header">
         <h4 class="modal-title loginFontTitle">Eliminar Categoria</h4>
       </div>
-        <form method="POST" action="/portafolio/eliminar"> 
+        <form method="POST" action="/portafolio/categoriasControlador"> 
             <div class="modal-body">
           <div class="row">
                   <!-- El cotenido esta en eliminarCategoria.jsp -->
-                  <h3 class="modalFont ml-4">Eliminar la categoria</h3><h3 class="modalFont ml-2" id="contenido"></h3>
+                  <h3 class="modalEliminar ml-4">¿ Eliminar la categoria</h3><h3 class="modalEliminar ml-2" id="contenido"></h3>
           </div>
         </div>
       <div class="modal-footer">
@@ -62,7 +62,7 @@
                                <!-- Modal Editar-->
 <div class="modal fade" tabindex="-1" role="dialog" id="modalEditar">
   <div class="modal-dialog modal-lg">
-      <form method="POST" action="/portafolio/editar">
+      <form method="POST" action="/portafolio/categoriasControlador">
     <div class="modal-content">
       <div class="modal-header">
              <div class="row">

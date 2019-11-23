@@ -42,7 +42,7 @@
                     <%-- primera seccion--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-store-alt"></i> Productos</p>
                     <a href="/portafolio/paginas/admin/categorias.jsp" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Categorias</a>
-                    <a href="" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Productos</a>
+                    <a href="/portafolio/paginas/admin/productos.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Productos</a>
                     <%-- siguiente seccion del sidebar--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-user-friends"></i> Cliente</p>
                     <a href="" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Registrar Cliente</a>
