@@ -5,21 +5,20 @@
  */
 package servlet;
 
-import daoimp.usuarioDAOIMP;
-import dto.usuarioDTO;
+import daoimp.familiaProductoDAOIMP;
+import dto.familiaProductoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author parisbastian
  */
-public class login extends HttpServlet {
+public class agregar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,36 +33,27 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession sesion = request.getSession();
+             /* AQUI VAN TODOS LOS AGREGAR DE LA ADMINISTRACION */
             
-            String user= request.getParameter("txtUsuario").trim();
-            String pass = request.getParameter("txtContrasena").trim();
-            
-           
-            if (new usuarioDAOIMP().existe(user)) {
-                
-                if (new usuarioDAOIMP().validarUsuario(user, pass)) {
-                    usuarioDTO usuario = new usuarioDAOIMP().leerUsuario(user);
-                    sesion.setAttribute("usuario", usuario);
-                    System.out.println("LOGIN EXITOSO");
-                    request.getRequestDispatcher("paginas/admin/administracion.jsp").forward(request, response);
-                   
-
-                } else {
-                    System.out.println("Contraseña invalida");
-                    request.setAttribute("mensaje", "Contraseña invalida");
-                    request.getRequestDispatcher("/paginas/login.jsp").forward(request, response);
-                }
-
-           } else {
-                System.out.println("USER NO EXISTE");
-                request.setAttribute("mensaje", "Usuario no existe");
-                request.getRequestDispatcher("/paginas/login.jsp").forward(request, response);
+            //->Agregar categorias:
+            if (request.getParameter("agregarCategoria") != null){
+                 String nombre= request.getParameter("txtNombre").trim();
+                 String medida = request.getParameter("selMedida");
+                    //validamos si existe el nombre de la categoria
+                    if(new familiaProductoDAOIMP().existe(nombre)){
+                        request.setAttribute("mensaje", "El nombre de la Categoria ya existe");
+                        request.getRequestDispatcher("paginas/admin/categorias.jsp").forward(request, response);
+                    }else{//sino, agregamos normal
+                        familiaProductoDTO familia = new familiaProductoDTO();
+                        familia.setNombre(nombre);
+                        familia.setMedida(medida);
+                        new familiaProductoDAOIMP().agregar(familia);
+                        request.setAttribute("mensaje", "Categoria Agregada Correctamente");
+                        request.getRequestDispatcher("/paginas/admin/categorias.jsp").forward(request, response);
+                    }
             }
         }
-
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

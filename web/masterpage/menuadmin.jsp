@@ -4,8 +4,12 @@
 <jsp:useBean id="lista" class="daoimp.familiaProductoDAOIMP"/>  
 <!DOCTYPE html>
 <link rel="stylesheet" type="text/css" href="/portafolio/css/estilos.css"/>
+<link rel="stylesheet" type="text/css" href="/portafolio/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="/portafolio/css/bootstrap.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script defer src="/portafolio/js/all.js"></script> <!--load all styles -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <%
       usuarioDTO usuario = (usuarioDTO) session.getAttribute("usuario");
         %>
@@ -17,7 +21,7 @@
                         <a href="/portafolio/productos?categoria=${categorias.getIdfamilia()}&nombre=${categorias.getNombre()}"><p class="dropstyle">${categorias.getNombre()}</p></a>
                     </c:forEach>             
                 </div></li> --%>
-           <li class="col-sm fixli"><a class="fontstyle" href="/portafolio/paginas/administracion.jsp"><i class="fas fa-cog"></i> Configuracion</a></li>
+           <li class="col-sm fixli"><a class="fontstyle" href="/portafolio/paginas/admin/administracion.jsp"><i class="fas fa-cog"></i> Configuracion</a></li>
             <li class="col-sm fixpos"><a class="middle"><i class="fab fa-slideshare"></i> Almacen Yuyita</a></li>
               <li class="col-sm-2 text-right dropdownx"><a class="fontstyle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                <p class="sesionstyle">Bienvenida/o: <%= usuario.getNombre()%></p>
@@ -37,7 +41,7 @@
                 <div class="pl-3 nav flex-sm-column">
                     <%-- primera seccion--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-store-alt"></i> Productos</p>
-                    <a href="" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Categorias</a>
+                    <a href="/portafolio/paginas/admin/categorias.jsp" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Categorias</a>
                     <a href="" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Productos</a>
                     <%-- siguiente seccion del sidebar--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-user-friends"></i> Cliente</p>
