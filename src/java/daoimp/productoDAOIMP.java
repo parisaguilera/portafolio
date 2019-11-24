@@ -4,6 +4,7 @@ import bd.Conexion;
 import dao.productoDAO;
 import dto.productoDTO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,36 @@ public class productoDAOIMP implements productoDAO{
 
     @Override
     public ArrayList<productoDTO> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conexion = Conexion.getConexion();
+        String query = "SELECT * FROM producto ORDER BY IDPRODUCTO desc";
+        
+        try {
+            PreparedStatement buscar= conexion.prepareStatement(query);
+            ResultSet rs = buscar.executeQuery();
+             ArrayList<productoDTO> lista = new ArrayList<>();
+            while(rs.next()){
+                productoDTO producto = new productoDTO();
+                producto.setIdproducto(rs.getInt("IDPRODUCTO"));
+                producto.setNombre(rs.getString("NOMBRE"));
+                producto.setPreciocompra(rs.getInt("PRECIOCOMPRA"));
+                producto.setPrecioventa(rs.getInt("PRECIOVENTA"));
+                producto.setIdfamilia(rs.getInt("IDFAMILIA"));
+                producto.setMarca(rs.getString("MARCA"));
+                producto.setFechavencimiento(rs.getDate("FECHAVENCIMIENTO"));
+                producto.setCodigobarra(rs.getString("CODIGOBARRA"));
+                producto.setDescripcion(rs.getString("DESCRIPCION"));
+                producto.setStock(rs.getInt("STOCK"));
+                producto.setStockcritico(rs.getInt("STOCKCRITICO"));
+                lista.add(producto);
+            }
+            
+             return lista;
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Listar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Listar : " + e.getMessage());
+        }
+        return null;    
     }
 
     @Override
@@ -35,7 +65,6 @@ public class productoDAOIMP implements productoDAO{
                 producto.setPreciocompra(rs.getInt("PRECIOCOMPRA"));
                 producto.setPrecioventa(rs.getInt("PRECIOVENTA"));
                 producto.setIdfamilia(rs.getInt("IDFAMILIA"));
-                producto.setIdtipoproducto(rs.getInt("IDTIPOPRODUCTO"));
                 producto.setMarca(rs.getString("MARCA"));
                 producto.setFechavencimiento(rs.getDate("FECHAVENCIMIENTO"));
                 producto.setCodigobarra(rs.getString("CODIGOBARRA"));
@@ -54,20 +83,109 @@ public class productoDAOIMP implements productoDAO{
         return null;    
     }
 
-
-    @Override
-    public boolean actualizar(int id, String nombre, String medida) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public boolean agregar(productoDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "INSERT INTO producto (NOMBRE,PRECIOCOMPRA,PRECIOVENTA,IDFAMILIA,MARCA,FECHAVENCIMIENTO,CODIGOBARRA,DESCRIPCION,STOCK,STOCKCRITICO) VALUES (?,?,?,?,?,?,?,?,?,?)";
+       
+        try (Connection conexion = Conexion.getConexion()){
+            PreparedStatement agregar = conexion.prepareStatement(query);
+             agregar.setString(1, dto.getNombre());
+             agregar.setInt(2, dto.getPreciocompra());
+             agregar.setInt(3, dto.getPrecioventa());
+             agregar.setInt(4, dto.getIdfamilia());
+             agregar.setString(5, dto.getMarca());
+             agregar.setDate(6, dto.getFechavencimiento());
+             agregar.setString(7, dto.getCodigobarra());
+             agregar.setString(8, dto.getDescripcion());
+             agregar.setInt(9, dto.getStock());
+             agregar.setInt(10, dto.getStockcritico());
+            if (agregar.executeUpdate()>0) {
+                return true;            
+            }        
+        } catch (SQLException w) {
+             System.out.println("Error SQL dao al agregar "+
+                    w.getMessage());
+         }catch(Exception e){
+            System.out.println("Error dao al agregar "+
+                    e.getMessage());
+        }
+        return false;    
     }
 
     @Override
     public boolean eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            Connection conexion = Conexion.getConexion();
+        String query = "DELETE FROM PRODUCTO WHERE IDPRODUCTO= ?";
+        
+        try {
+           
+                PreparedStatement eliminar= conexion.prepareStatement(query);
+                eliminar.setInt(1, id);
+
+                eliminar.execute();
+
+                return true;
+      
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Eliminar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Eliminar : " + e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public String idtonombre(int idfamilia) {
+                     Connection conexion = Conexion.getConexion();
+        String query = "SELECT F.NOMBRE FROM FAMILIAPRODUCTO F JOIN PRODUCTO P ON (F.IDFAMILIA=P.IDFAMILIA) "
+                + "WHERE P.IDFAMILIA=?";
+        try {
+            PreparedStatement aNombre = conexion.prepareStatement(query);
+            aNombre.setInt(1, idfamilia);
+            ResultSet rs = aNombre.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("NOMBRE");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar id a nombre: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar id a nombre: " + e.getMessage());
+        }
+        return null; 
+    }
+
+    @Override
+    public boolean actualizar(String nombre, int pCompra, int pVenta, int idCategoria, String marca, Date sqlDate, String codigoBarra, String descripcion, int stock, int stockCri, int numId) {
+              Connection conexion = Conexion.getConexion();
+        String query = "UPDATE PRODUCTO SET NOMBRE = ?,PRECIOCOMPRA= ?,PRECIOVENTA= ?,IDFAMILIA= ?,MARCA= ?,FECHAVENCIMIENTO= ?,CODIGOBARRA= ?,DESCRIPCION= ?,STOCK= ?,STOCKCRITICO= ? WHERE IDPRODUCTO=?";
+        try {
+            PreparedStatement update = conexion.prepareStatement(query);
+            
+            update.setString(1,nombre);
+            update.setInt(2,pCompra);
+            update.setInt(3, pVenta);
+            update.setInt(4, idCategoria);
+            update.setString(5, marca);
+            update.setDate(6, sqlDate);
+            update.setString(7, codigoBarra);
+            update.setString(8, descripcion);
+            update.setInt(9, stock);
+            update.setInt(10, stockCri);
+            update.setInt(11, numId);
+            update.executeUpdate();
+            update.close();
+          
+            
+                return true;
+  
+          } catch (SQLException e) {
+            System.out.println("Error SQL al Actualizar: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Actualizar: " + e.getMessage());
+        }
+        return false;
     }
     
 }

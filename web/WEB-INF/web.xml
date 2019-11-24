@@ -17,16 +17,12 @@
         <servlet-class>servlet.login</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>eliminar</servlet-name>
-        <servlet-class>servlet.eliminar</servlet-class>
+        <servlet-name>categoriasControlador</servlet-name>
+        <servlet-class>servlet.categoriasControlador</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>agregar</servlet-name>
-        <servlet-class>servlet.agregar</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>editar</servlet-name>
-        <servlet-class>servlet.editar</servlet-class>
+        <servlet-name>productosControlador</servlet-name>
+        <servlet-class>servlet.productosControlador</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>deudas</servlet-name>
@@ -45,16 +41,12 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>eliminar</servlet-name>
-        <url-pattern>/eliminar</url-pattern>
+        <servlet-name>categoriasControlador</servlet-name>
+        <url-pattern>/categoriasControlador</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>agregar</servlet-name>
-        <url-pattern>/agregar</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>editar</servlet-name>
-        <url-pattern>/editar</url-pattern>
+        <servlet-name>productosControlador</servlet-name>
+        <url-pattern>/productosControlador</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
