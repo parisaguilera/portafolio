@@ -41,6 +41,7 @@ public class productosControlador extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
              //order: Agregar -> eliminar -> editar
                productoDTO producto = new productoDTO();
+                productoDAOIMP pro = new productoDAOIMP();
                
         if (request.getParameter("agregarProducto") != null){
                  int idCategoria = Integer.parseInt(request.getParameter("selCat"));
@@ -67,12 +68,18 @@ public class productosControlador extends HttpServlet {
                         producto.setCodigobarra(codigoBarra);
                         producto.setStock(stock);
                         producto.setStockcritico(stockCri);
-                        productoDAOIMP pro = new productoDAOIMP();
                         System.out.println(sqlDate);
                         System.out.println(nombre+" pc:"+pCompra+" pv:"+pVenta+" idcate:"+idCategoria+" marca:"+marca+" codbarra:"+codigoBarra+" descripcion:"+descripcion+" sto:"+stock+"stoc: "+stockCri);
                         pro.agregar(producto);
                            request.setAttribute("mensaje", "Producto Agregado Correctamente");
                         request.getRequestDispatcher("/paginas/admin/adminProductos.jsp").forward(request, response);
+            }else if (request.getParameter("eliminarProducto") != null){
+                
+                        int id = Integer.parseInt(request.getParameter("numId"));
+                        pro.eliminar(id);
+                        request.setAttribute("mensaje", "Producto Eliminado Correctamente");
+                        request.getRequestDispatcher("/paginas/admin/adminProductos.jsp").forward(request, response);
+            
             }
         } catch (ParseException ex) {
             Logger.getLogger(productosControlador.class.getName()).log(Level.SEVERE, null, ex);

@@ -120,7 +120,24 @@ public class productoDAOIMP implements productoDAO{
 
     @Override
     public boolean eliminar(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            Connection conexion = Conexion.getConexion();
+        String query = "DELETE FROM PRODUCTO WHERE IDPRODUCTO= ?";
+        
+        try {
+           
+                PreparedStatement eliminar= conexion.prepareStatement(query);
+                eliminar.setInt(1, id);
+
+                eliminar.execute();
+
+                return true;
+      
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Eliminar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Eliminar : " + e.getMessage());
+        }
+        return false;
     }
 
     @Override

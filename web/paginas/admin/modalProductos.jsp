@@ -74,13 +74,13 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title loginFontTitle">Eliminar Categoria</h4>
+        <h4 class="modal-title loginFontTitle">Eliminar Producto</h4>
       </div>
         <form method="POST" action="/portafolio/productosControlador"> 
             <div class="modal-body">
           <div class="row">
                   <!-- El cotenido esta en eliminarCategoria.jsp -->
-                  <h3 class="modalEliminar ml-4">¿ Eliminar la categoria</h3><h3 class="modalEliminar ml-2" id="contenido"></h3>
+                  <h3 class="modalEliminar ml-4">¿ Eliminar el producto</h3><h3 class="modalEliminar ml-2" id="contenido"></h3>
           </div>
         </div>
       <div class="modal-footer">

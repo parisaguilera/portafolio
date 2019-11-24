@@ -36,7 +36,7 @@
                             </div>
 
                             <hr>
-                                  <table class="table table-bordered table-responsive">
+                                  <table class="table table-bordered">
                                 
                                 <thead>
                                     <tr>
@@ -69,8 +69,10 @@
                                              <td class="bodyTableText">${productos.getStock()}</td>   
                                              <td class="bodyTableText">${productos.getStockcritico()}</td>   
                                              <td>
-                                             <input type="submit" name="editarCategoria" value="Editar" class="btn-info rounded-pill font-12" onclick="editar()">
-                                             <input type="submit" name="eliminarCategoria" value="Eliminar" class="btn-danger rounded-pill font-12" onclick="eliminar()">  
+                                                 <c:set var="nombre" value="${productos.getNombre()}"/>
+                                                 <c:set var="idc" value="${productos.getIdproducto()}"/>
+                                             <input type="submit" name="editarProducto" value="Editar" class="btn-info rounded-pill font-12" onclick="editar(${idc},'${nombre}')">
+                                             <input type="submit" name="eliminarProducto" value="Eliminar" class="btn-danger rounded-pill font-12" onclick="eliminar(${idc},'${nombre}')">  
 
                                                  
                                              </td>  
@@ -91,7 +93,7 @@
     
         document.getElementById("contenido").innerHTML="";
         $('#modalEliminar').modal('show');
-        $("#contenido").load("/portafolio/paginas/admin/eliminarCategoria.jsp",{idc,nombre});
+        $("#contenido").load("/portafolio/paginas/admin/adminProductos.jsp",{idc,nombre});
         
     }
      function eliminarAlert(){
@@ -106,7 +108,7 @@
     function editar(idc,nombre){
         document.getElementById("titulo").innerHTML="";
         $('#modalEditar').modal('show');
-        $("#titulo").load("/portafolio/paginas/admin/editarCategoria.jsp",{idc,nombre});
+        $("#titulo").load("/portafolio/paginas/admin/adminProductos.jsp",{idc,nombre});
     }
     
 </script>
