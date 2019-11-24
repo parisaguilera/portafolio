@@ -6,13 +6,14 @@
 package dao;
 
 import dto.productoDTO;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public interface productoDAO extends BaseDAO<productoDTO> {
     
         public ArrayList<productoDTO> listarTodos();
         public ArrayList<productoDTO> listarCategoria(int idfamilia);
-        public boolean actualizar(int id, String nombre, String medida);
+        public boolean actualizar(String nombre,int pCompra,int pVenta,int idCategoria,String marca,Date sqlDate,String codigoBarra,String descripcion,int stock,int stockCri,int numId);
         public String idtonombre(int idfamilia);
        
 

@@ -72,15 +72,37 @@ public class productosControlador extends HttpServlet {
                         System.out.println(nombre+" pc:"+pCompra+" pv:"+pVenta+" idcate:"+idCategoria+" marca:"+marca+" codbarra:"+codigoBarra+" descripcion:"+descripcion+" sto:"+stock+"stoc: "+stockCri);
                         pro.agregar(producto);
                            request.setAttribute("mensaje", "Producto Agregado Correctamente");
-                        request.getRequestDispatcher("/paginas/admin/adminProductos.jsp").forward(request, response);
+
             }else if (request.getParameter("eliminarProducto") != null){
                 
                         int id = Integer.parseInt(request.getParameter("numId"));
                         pro.eliminar(id);
                         request.setAttribute("mensaje", "Producto Eliminado Correctamente");
-                        request.getRequestDispatcher("/paginas/admin/adminProductos.jsp").forward(request, response);
+
+            
+            } else if (request.getParameter("editarCategoria") != null){
+                
+                    String nombre = request.getParameter("txtNombre").trim();
+                    int pCompra = Integer.parseInt(request.getParameter("numCompra"));
+                    int pVenta = Integer.parseInt(request.getParameter("numVenta"));
+                    int idCategoria = Integer.parseInt(request.getParameter("selCat"));
+                    String marca = request.getParameter("txtMarca").trim();
+                     java.util.Date datex = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fechaVen"));
+                     java.sql.Date sqlDate = new java.sql.Date(datex.getTime()); 
+                     //cambiar el codigo de barra:
+                    String codigoBarra = "sda";
+                     String descripcion = request.getParameter("txtDescripcion").trim(); 
+                    int stock = Integer.parseInt(request.getParameter("numStock"));
+                    int stockCri = Integer.parseInt(request.getParameter("numStockCri"));
+                    int numId=Integer.parseInt(request.getParameter("numId"));
+                    System.out.println(numId);
+                 pro.actualizar(nombre,pCompra,pVenta,idCategoria,marca,sqlDate,codigoBarra,descripcion,stock,stockCri,numId);
+                     request.setAttribute("mensaje", "Producto Editado Correctamente");
             
             }
+        
+           request.getRequestDispatcher("/paginas/admin/adminProductos.jsp").forward(request, response);
+           
         } catch (ParseException ex) {
             Logger.getLogger(productosControlador.class.getName()).log(Level.SEVERE, null, ex);
         }

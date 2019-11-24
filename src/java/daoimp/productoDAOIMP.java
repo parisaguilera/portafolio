@@ -83,12 +83,6 @@ public class productoDAOIMP implements productoDAO{
         return null;    
     }
 
-
-    @Override
-    public boolean actualizar(int id, String nombre, String medida) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public boolean agregar(productoDTO dto) {
         String query = "INSERT INTO producto (NOMBRE,PRECIOCOMPRA,PRECIOVENTA,IDFAMILIA,MARCA,FECHAVENCIMIENTO,CODIGOBARRA,DESCRIPCION,STOCK,STOCKCRITICO) VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -160,6 +154,38 @@ public class productoDAOIMP implements productoDAO{
             System.out.println("Error al pasar id a nombre: " + e.getMessage());
         }
         return null; 
+    }
+
+    @Override
+    public boolean actualizar(String nombre, int pCompra, int pVenta, int idCategoria, String marca, Date sqlDate, String codigoBarra, String descripcion, int stock, int stockCri, int numId) {
+              Connection conexion = Conexion.getConexion();
+        String query = "UPDATE PRODUCTO SET NOMBRE = ?,PRECIOCOMPRA= ?,PRECIOVENTA= ?,IDFAMILIA= ?,MARCA= ?,FECHAVENCIMIENTO= ?,CODIGOBARRA= ?,DESCRIPCION= ?,STOCK= ?,STOCKCRITICO= ? WHERE IDPRODUCTO=?";
+        try {
+            PreparedStatement update = conexion.prepareStatement(query);
+            
+            update.setString(1,nombre);
+            update.setInt(2,pCompra);
+            update.setInt(3, pVenta);
+            update.setInt(4, idCategoria);
+            update.setString(5, marca);
+            update.setDate(6, sqlDate);
+            update.setString(7, codigoBarra);
+            update.setString(8, descripcion);
+            update.setInt(9, stock);
+            update.setInt(10, stockCri);
+            update.setInt(11, numId);
+            update.executeUpdate();
+            update.close();
+          
+            
+                return true;
+  
+          } catch (SQLException e) {
+            System.out.println("Error SQL al Actualizar: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Actualizar: " + e.getMessage());
+        }
+        return false;
     }
     
 }

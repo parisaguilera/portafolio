@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="listaProductos" class="daoimp.productoDAOIMP"/> 
+<jsp:useBean id="listaProductos" class="daoimp.productoDAOIMP"/>
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -69,9 +70,10 @@
                                              <td class="bodyTableText">${productos.getStock()}</td>   
                                              <td class="bodyTableText">${productos.getStockcritico()}</td>   
                                              <td>
+                                                 <c:set var="idfam" value="${productos.getIdfamilia()}"/>
                                                  <c:set var="nombre" value="${productos.getNombre()}"/>
                                                  <c:set var="idc" value="${productos.getIdproducto()}"/>
-                                             <input type="submit" name="editarProducto" value="Editar" class="btn-info rounded-pill font-12" onclick="editar(${idc},'${nombre}')">
+                                             <input type="submit" name="editarProducto" value="Editar" class="btn-info rounded-pill font-12" onclick="editar(${idc},'${nombre}',${idfam})">
                                              <input type="submit" name="eliminarProducto" value="Eliminar" class="btn-danger rounded-pill font-12" onclick="eliminar(${idc},'${nombre}')">  
 
                                                  
@@ -93,22 +95,18 @@
     
         document.getElementById("contenido").innerHTML="";
         $('#modalEliminar').modal('show');
-        $("#contenido").load("/portafolio/paginas/admin/adminProductos.jsp",{idc,nombre});
+        $("#contenido").load("/portafolio/paginas/admin/eliminarProducto.jsp",{idc,nombre});
         
-    }
-     function eliminarAlert(){
-
-        alert("No puedes eliminar una categoria con productos asociados");
     }
      function agregar(){
 
         $('#modalAgregar').modal('show');
     }
     
-    function editar(idc,nombre){
-        document.getElementById("titulo").innerHTML="";
+    function editar(idc,nombre,idfam){
+        document.getElementById("cuerpo").innerHTML="";
         $('#modalEditar').modal('show');
-        $("#titulo").load("/portafolio/paginas/admin/adminProductos.jsp",{idc,nombre});
+        $("#cuerpo").load("/portafolio/paginas/admin/editarProducto.jsp",{idc,nombre,idfam});
     }
     
 </script>
