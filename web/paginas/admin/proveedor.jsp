@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="listaCategorias" class="daoimp.familiaProductoDAOIMP"/> 
+<jsp:useBean id="listaProveedor" class="daoimp.proveedorDAOIMP"/>
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -13,7 +14,7 @@
         <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
      </head>
  <%@ include file="/masterpage/menuadmin.jsp" %>
- <%@ include file="modalCategorias.jsp" %>                               
+ <%@ include file="modalProveedor.jsp" %>      
         <c:if test="${mensaje!=null}">
             <script>
                 alert("${mensaje}");
@@ -22,14 +23,14 @@
      <div class="col">
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">
-                      <label class="card-title loginFontTitle text-center">Modulo de Categorias</label>
+                      <label class="card-title loginFontTitle text-center">Modulo de Proveedor</label>
                         <div class="card-text">
                             <p class="textoExplicativo">
-                               Aqui podras Agregar,Leer,Editar y borrar Categorias
+                               Aqui podras Agregar,Leer,Editar y borrar Proveedor
                             </p>
                          
                             <div class="card-text row">
-                                <p class="col-10 tooltips">* Recuerda que no puedes eliminar categorias con productos asociados</p>
+                                <p class="col-10 tooltips"></p>
                                 <div class="col-2 text-right" >                         
                                 <input type="submit" name="agregarModal" value="Agregar" class="btn-success rounded-pill font-12" onclick="agregar()">
                                 </div>
@@ -40,37 +41,34 @@
                                 
                                 <thead>
                                     <tr>
+                                        <th class="headTableText">Id Proveedor</th>
                                         <th class="headTableText">Nombre</th>
-                                        <th class="headTableText">Medida</th>  
-                                        <th class="headTableText">Productos Asociados</th>
-                                        <th class="headTableText">Acciones</th>
+                                        <th class="headTableText">Datos Contacto</th>
+                                        <th class="headTableText">Rubro</th>
+                                         <th class="headTableText">Acciones</th>  
                                     </tr>
                                 </thead>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="categorias" items="${listaCategorias.listarTodos()}">
+                                    <c:forEach var="proovedores" items="${listaProveedor.listarTodos()}">
                                         <tr class="redaccion">
-                                            <td class="bodyTableText">${categorias.getNombre()}</td>
-                                            <td class="bodyTableText">${categorias.getMedida()}</td> 
-                                            <c:set var="cantProductos" value="${listaCategorias.cantProductosPorCategoria(categorias.getIdfamilia())}" />
-                                            <td class="bodyTableText">${cantProductos}</td>
-                                            <td>
-                                                 <c:set var="nombre" value="${categorias.getNombre()}"/>
-                                                 <c:set var="idc" value="${categorias.getIdfamilia()}"/>
-                                                <input type="submit" name="editarCategoria" value="Editar" class="btn-info rounded-pill font-12" onclick="editar(${idc},'${nombre}')">
-                                                <c:choose>
-                                                     <c:when test="${cantProductos==0}">
-                                                    <input type="submit" name="eliminarCategoria" value="Eliminar" class="btn-danger rounded-pill font-12" onclick="eliminar(${idc},'${nombre}')">  
-                                                    </c:when>
-                                                <c:otherwise>
-                                                    <input type="submit" name="eliminarCategoria" value="Eliminar" class="btn-light rounded-pill font-12 disabled" onclick="eliminarAlert()"> 
-                                                </c:otherwise>
-                                                </c:choose>                                                                                   
-                                               </td>                                 
+                                             <td class="bodyTableText">${proovedores.getIdproveedor()}</td> 
+                                             <td class="bodyTableText">${proovedores.getNombre()}</td>
+                                             <td class="bodyTableText">${proovedores.getDatoscontacto()}</td>                                              
+                                             <td class="bodyTableText">${proovedores.getRubro()}</td> 
+                                             <td>
+                                                <c:set var="nombre" value="${proovedores.getNombre()}"/>
+                                                 <c:set var="idc" value="${proovedores.getIdproveedor()}"/>
+                                             <input type="submit" name="editarProveedor" value="Editar" class="btn-info rounded-pill font-12" onclick="editar(${idc},'${nombre}')">
+                                             <input type="submit" name="eliminarProveedor" value="Eliminar" class="btn-danger rounded-pill font-12" onclick="eliminar(${idc},'${nombre}')">  
+
+                                                 
+                                             </td>  
                                         </tr>
                                     </c:forEach>
                                 </tbody>
                             </table>
+                     
                              <hr>
                         </div>
                         
@@ -83,12 +81,8 @@
     
         document.getElementById("contenido").innerHTML="";
         $('#modalEliminar').modal('show');
-        $("#contenido").load("/portafolio/paginas/admin/eliminarCategoria.jsp",{idc,nombre});
+        $("#contenido").load("/portafolio/paginas/admin/eliminarProveedor.jsp",{idc,nombre});
         
-    }
-     function eliminarAlert(){
-
-        alert("No puedes eliminar una categoria con productos asociados");
     }
      function agregar(){
 
@@ -106,4 +100,3 @@
        </body>
     
 </html>
-

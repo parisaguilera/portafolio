@@ -8,17 +8,13 @@
          <form method="POST" action="/portafolio/categoriasControlador">
             <div class="modal-body">
           <div class="row">
-              <div class="col-sm-1">
+              <div class="col-sm-6">
                   <h3 class="modalFont">Nombre:</h3>
-              </div>    
-              <div class="col-sm-5 pl-4">    
-                  <input type="text" name="txtNombre" required/>
+                  <input  class="form-control" type="text" name="txtNombre" required/>
               </div>
-              <div class="col-sm-1">
+              <div class="col-sm-6">
                   <h3 class="modalFont">Medida:</h3>
-              </div>
-              <div class="col-sm-5 pl-4">
-                  <select class="custom-select" name="selMedida">
+                  <select  class="form-control custom-select" name="selMedida">
                         <option value="Unidad">UNIDAD</option>
                         <option value="Kilo">KILO</option>
                     </select>
@@ -73,17 +69,13 @@
          
             <div class="modal-body">
           <div class="row">
-              <div class="col-sm-1">
+              <div class="col-sm-6">
                   <h3 class="modalFont">Nombre:</h3>
-              </div>    
-              <div class="col-sm-5 pl-4">    
-                  <input type="text" name="txtNombre" required/>
+                  <input  class="form-control" type="text" name="txtNombre" required/>
               </div>
-              <div class="col-sm-1">
+              <div class="col-sm-6">
                   <h3 class="modalFont">Medida:</h3>
-              </div>
-              <div class="col-sm-5 pl-4">
-                  <select class="custom-select" name="selMedida">
+                  <select  class="form-control custom-select" name="selMedida">
                         <option value="Unidad">UNIDAD</option>
                         <option value="Kilo">KILO</option>
                     </select>

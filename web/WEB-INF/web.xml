@@ -24,6 +24,10 @@
         <servlet-name>productosControlador</servlet-name>
         <servlet-class>servlet.productosControlador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>proveedorControlador</servlet-name>
+        <servlet-class>servlet.proveedorControlador</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>deudas</servlet-name>
         <url-pattern>/deudas</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>productosControlador</servlet-name>
         <url-pattern>/productosControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>proveedorControlador</servlet-name>
+        <url-pattern>/proveedorControlador</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
