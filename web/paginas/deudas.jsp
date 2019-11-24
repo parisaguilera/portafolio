@@ -38,14 +38,18 @@
                        </form>
                     </div>
                      <c:choose>
-              <c:when test="${deudasAceptadas.size()== 0 && deudasRechazadas.size()== 0}">
+              <c:when test="${deudasAceptadas.size()== 0 && deudasRechazadas.size()== 0 && deudasPendientes.size()== 0}">
                   <div class="text-center">
                   <label class="loginFontTitle pt-5">RUT SIN HISTORIAL DE DEUDAS</label>
                   </div> 
               </c:when>
            <c:otherwise>
-                     <c:if test="${deudasAceptadas!=null}">
-                         <label class="loginFont text-center mb-5">Abonar al total de tus Fiados</label>
+
+                     <c:if test="${deudasAceptadas.size()>=1}">
+                         
+                         <label class="loginFont text-center mb-5">Abona al total de tus Fiados</label>
+                         <hr>
+                         <label class="loginFont text-center mt-5 mb-5">Boletas de fiados Aceptados</label>
                             <table class="table table-bordered">
                                 
                                 <thead>
@@ -55,6 +59,7 @@
                                         <th>CONTACTO</th>
                                         <th>DEUDA</th>
                                         <th>ESTADO</th>
+                                        <th>¿PAGADO?</th>
                                         <th>ACCIONES</th>
                                     </tr>
                                 </thead>
@@ -68,18 +73,34 @@
                                             <td>${deu.getNombre()}</td>
                                             <td>${deu.getContacto()}</td>
                                             <td>$ ${deu.getDeuda()}</td>
-                                            <td class="text-success">ACEPTADO</td>                                        
-                                            <form method="POST" action="/portafolio/verHistorial">
-                                            <input class="loginFont" value="${rut}" maxlength="8" type="hidden" name="txtRut"/>
-                                            <input class="loginFont" value="${deu.getNombre()}" type="hidden" name="txtNombre"/>
-                                            <input class="loginFont" value="${deu.getIdcliente()}" type="hidden" name="numIdcliente"/>
-                                            <input class="loginFont" value="${deu.getDeuda()}" type="hidden" name="numTotal"/>
+                                            <td class="text-success">ACEPTADO</td>
+                                             <c:set var="deudaFiado" scope="request" value="${deudaFiado}" />
+                                          <c:choose>
+                                            <c:when test="${deudaFiado==deu.getDeuda()}">
+                                               <td class="text-success">SI</td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td class="text-danger">NO</td>
+                                            </c:otherwise>
+                                        </c:choose>
+                                            
                                             <td>
+                                                <form method="POST" action="/portafolio/verHistorial">
+                                                    <input class="loginFont" value="${rut}" maxlength="8" type="hidden" name="txtRut"/>
+                                                    <input class="loginFont" value="${deu.getNombre()}" type="hidden" name="txtNombre"/>
+                                                    <input class="loginFont" value="${deu.getIdcliente()}" type="hidden" name="numIdcliente"/>
+                                                    <input class="loginFont" value="${deu.getDeuda()}" type="hidden" name="numTotal"/>
+                                            <c:choose>
+                                                <c:when test="${deudaFiado==deu.getDeuda()}">
+                                                    <input type="submit" value="Abonar" class="btn-light rounded-pill font-12" disabled>
+                                                </c:when>
+                                                <c:otherwise>
                                                 <input type="submit" name="abonar" value="Abonar" class="btn-primary rounded-pill font-12">
+                                                </c:otherwise>
+                                            </c:choose>   
                                                 <input type="submit" name="descargarBoleta" value="Boleta" class="btn-primary rounded-pill font-12">
+                                                 </form>
                                             </td>  
-                                              
-                                            </form>
                                         </tr>
 
                                     </c:forEach>
@@ -87,7 +108,8 @@
                             </table>
                      </c:if>
                          <%--AQUI LA TABLA RECHAZADAS--%>
-                         <c:if test="${deudasRechazadas!=null}">  
+                         <c:if test="${deudasRechazadas.size()>=1}"> 
+                             <hr>
                               <label class="loginFont text-center mt-5 mb-5">Boletas de Fiados NO Aceptados</label>
                          <table class="table table-bordered">
                                 
@@ -116,6 +138,49 @@
                                             <input class="loginFont" value="${rut}" maxlength="8" type="hidden" name="txtRut"/>
                                             <input class="loginFont" value="" type="hidden" name="numDeuda"/>
                                             <input class="loginFont" value="${deuR.getDeuda()}" type="hidden" name="numTotal"/>
+                                            <td>
+                                                <input type="submit" name="descargarBoleta" value="Boleta" class="btn-primary rounded-pill font-12">
+                                            </td>  
+                                              
+                                            </form>
+                                        </tr>
+
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+
+                        </c:if>
+                              <%--AQUI LA TABLA PENDIENTE--%>
+                         <c:if test="${deudasPendientes.size()>=1}"> 
+                             <hr>
+                              <label class="loginFont text-center mt-5 mb-5">Boletas de Fiados Pendientes</label>
+                         <table class="table table-bordered">
+                                
+                                <thead>
+                                    <tr>
+                                        <th>RUT</th>
+                                        <th>NOMBRE</th>
+                                        <th>CONTACTO</th>
+                                        <th>DEUDA</th>
+                                        <th>ESTADO</th>
+                                        <th>ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="deuP" items="${deudasPendientes}">
+                                     
+                                        <tr class="table-info">
+   
+                                            <td>${deuP.getRut()}</td>
+                                            <td>${deuP.getNombre()}</td>
+                                            <td>${deuP.getContacto()}</td>
+                                            <td>$ ${deuP.getDeuda()}</td>
+                                            <td class="text-info">PENDIENTE</td>                                        
+                                            <form method="POST" action="/portafolio/verHistorial">
+                                            <input class="loginFont" value="${rut}" maxlength="8" type="hidden" name="txtRut"/>
+                                            <input class="loginFont" value="" type="hidden" name="numDeuda"/>
+                                            <input class="loginFont" value="${deuP.getDeuda()}" type="hidden" name="numTotal"/>
                                             <td>
                                                 <input type="submit" name="descargarBoleta" value="Boleta" class="btn-primary rounded-pill font-12">
                                             </td>  
