@@ -121,9 +121,15 @@ public class verHistorial extends HttpServlet {
               
                  clienteDAOIMP deuda = new clienteDAOIMP();
                  String rut = request.getParameter("txtRut");
-           
+            //-> PARA SABER EL TOTAL ABONADO
+                 pagoFiadoDAOIMP abonado = new pagoFiadoDAOIMP();
+           int idcliente=deuda.rutToId(rut);
+           int deudaFiado = abonado.deudaFiado(idcliente);
+           //-> finalizar saber total abonado
             ArrayList<clienteDTO> deudasAceptadas = deuda.listarTodos(rut,1);
-            ArrayList<clienteDTO> deudasRechazadas = deuda.listarFiadosRechazados(rut);            
+            ArrayList<clienteDTO> deudasRechazadas = deuda.listarFiadosRechazados(rut); 
+               //enviamos el total abonado
+            request.setAttribute("deudaFiado", deudaFiado);
             request.setAttribute("deudasAceptadas", deudasAceptadas);
             request.setAttribute("deudasRechazadas", deudasRechazadas);
               System.out.println(rut);

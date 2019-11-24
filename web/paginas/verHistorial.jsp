@@ -88,7 +88,7 @@
                                                 <input value="${numIdpago}" type="hidden" name="numIdpago"/> 
                                                 <input value="${idCliente}" type="hidden" name="numIdCliente"/>
                                                 <input value="${total}" type="hidden" name="numTotal"/>
-                                                 <input class="loginFontMID mr-2 margin-auto" min="0" max="${diferencia}" type="number" name="numAbono" required/>
+                                                 <input class="loginFontMID mr-2 margin-auto" min="0" max="${diferencia}" type="number" name="numAbono"/>
                                                  <input  class="btn-primary rounded-pill font-12" type="submit" name="abonarDeuda" value="Abonar"/>
                                              </c:if>
                                          </form>

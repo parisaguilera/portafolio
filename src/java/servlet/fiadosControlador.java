@@ -6,11 +6,8 @@
 package servlet;
 
 import daoimp.clienteDAOIMP;
-import daoimp.pagoFiadoDAOIMP;
-import dto.clienteDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author parisbastian
  */
-public class deudas extends HttpServlet {
+public class fiadosControlador extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,32 +33,38 @@ public class deudas extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-             if (request.getParameter("buscar") != null){
-                 // estado 3 = pago sin fiado
+           clienteDAOIMP cliente = new clienteDAOIMP();
+        //condificon para boton en estado de pendiente
+           if (request.getParameter("aceptarFiadoPen") != null){
+               
+                // estado 3 = pago sin fiado
                  // estado 2 = PENDIENTE
                  // estado 1 = aceptado
                  // estado 0 = rechazado
-                 clienteDAOIMP deuda = new clienteDAOIMP();
-                
-           String rut = request.getParameter("txtRut");
-            //-> PARA SABER EL TOTAL ABONADO
-                 pagoFiadoDAOIMP abonado = new pagoFiadoDAOIMP();
-           int idcliente=deuda.rutToId(rut);
-           int deudaFiado = abonado.deudaFiado(idcliente);
-           //-> finalizar saber total abonado
-            ArrayList<clienteDTO> deudasAceptadas = deuda.listarTodos(rut,1);
-            ArrayList<clienteDTO> deudasPendientes = deuda.listarTodos(rut,2);
-            ArrayList<clienteDTO> deudasRechazadas = deuda.listarFiadosRechazados(rut);
-            
-                 System.out.println(deudasPendientes.size());
-                 //enviamos el total abonado
-            request.setAttribute("deudaFiado", deudaFiado);
-            request.setAttribute("deudasAceptadas", deudasAceptadas);
-            request.setAttribute("deudasRechazadas", deudasRechazadas);
-             request.setAttribute("deudasPendientes", deudasPendientes);
-            request.setAttribute("rut", rut);
-           request.getRequestDispatcher("/paginas/deudas.jsp").forward(request, response);
-             }
+               int idBoleta = Integer.parseInt(request.getParameter("idBoleta"));
+               
+               cliente.actualizarEstado(1, idBoleta);
+               request.setAttribute("mensaje", "Fiado PENDIENTE pasa a ACEPTADO");
+               request.getRequestDispatcher("/paginas/admin/fiados.jsp").forward(request, response);
+           
+           }else if (request.getParameter("rechazarFiadoPen") != null){
+               
+               int idBoleta = Integer.parseInt(request.getParameter("idBoleta"));
+               
+               cliente.actualizarEstado(0, idBoleta);
+               request.setAttribute("mensaje", "Fiado PENDIENTE pasa a RECHAZADO");
+               request.getRequestDispatcher("/paginas/admin/fiados.jsp").forward(request, response);
+               
+           }
+           //condicion para boton en estado rechazado
+           else if (request.getParameter("aceptarFiadoRe") != null){
+               
+               int idBoleta = Integer.parseInt(request.getParameter("idBoleta"));
+               
+               cliente.actualizarEstado(1, idBoleta);
+               request.setAttribute("mensaje", "Fiado RECHAZADO pasa a ACEPTADO");
+               request.getRequestDispatcher("/paginas/admin/fiados.jsp").forward(request, response);
+           }
         }
     }
 

@@ -98,7 +98,83 @@ public class clienteDAOIMP implements clienteDAO{
         }
         return null;  
     }
-    
+
+    @Override
+    public int rutToId(String rut) {
+        Connection conexion = Conexion.getConexion();
+        String query = "SELECT idcliente FROM cliente WHERE rut=? GROUP BY idcliente";
+        try {
+            PreparedStatement aNombre = conexion.prepareStatement(query);
+            aNombre.setString(1, rut);
+            ResultSet rs = aNombre.executeQuery();
+            
+            if(rs.next()){
+                return rs.getInt("IDCLIENTE");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar Rut a id: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar Rut a id:" + e.getMessage());
+        }
+        return 0; 
+    }
+
+    @Override
+    public ArrayList<clienteDTO> listarTodosEstado(int estado) {
+          Connection conexion = Conexion.getConexion();
+        String query =  "select idboleta,rut,UPPER(nombre) as NOMBRE, contacto,deuda,estado from cliente WHERE estado=? ORDER BY IDBOLETA DESC";
+        
+        try {
+            PreparedStatement buscar= conexion.prepareStatement(query);
+            buscar.setInt(1, estado);
+            
+            ResultSet rs = buscar.executeQuery();
+            
+             ArrayList<clienteDTO> lista = new ArrayList<>();
+            while(rs.next()){
+                clienteDTO cliente = new clienteDTO();
+                cliente.setIdboleta(rs.getInt("IDBOLETA"));
+                cliente.setRut(rs.getString("RUT"));
+                cliente.setNombre(rs.getString("NOMBRE"));
+                cliente.setContacto(rs.getString("CONTACTO"));
+                cliente.setDeuda(rs.getInt("DEUDA"));
+                cliente.setEstado(rs.getInt("ESTADO"));
+                lista.add(cliente);
+            }
+            
+             return lista;
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Listar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Listar : " + e.getMessage());
+        }
+        return null;  
+    }
+
+    @Override
+    public boolean actualizarEstado(int estado,int idBoleta) {
+               Connection conexion = Conexion.getConexion();
+        String query = "UPDATE CLIENTE SET ESTADO = ? WHERE IDBOLETA=?";
+        try {
+            PreparedStatement update = conexion.prepareStatement(query);
+
+            update.setInt(1, estado);
+              update.setInt(2, idBoleta);
+            update.executeUpdate();
+            update.close();
+          
+            
+                return true;
+  
+          } catch (SQLException e) {
+            System.out.println("Error SQL al Actualizar: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Actualizar: " + e.getMessage());
+        }
+        return false;
+    }
+
     
    
     

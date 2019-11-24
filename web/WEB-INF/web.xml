@@ -28,6 +28,10 @@
         <servlet-name>proveedorControlador</servlet-name>
         <servlet-class>servlet.proveedorControlador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>fiadosControlador</servlet-name>
+        <servlet-class>servlet.fiadosControlador</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>deudas</servlet-name>
         <url-pattern>/deudas</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>proveedorControlador</servlet-name>
         <url-pattern>/proveedorControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>fiadosControlador</servlet-name>
+        <url-pattern>/fiadosControlador</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

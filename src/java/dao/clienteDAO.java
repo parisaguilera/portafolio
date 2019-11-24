@@ -18,4 +18,10 @@ public interface clienteDAO extends BaseDAO<clienteDTO>{
     
     public ArrayList<clienteDTO> listarTodos(String rut, int estado);
 
+    public ArrayList<clienteDTO> listarTodosEstado(int estado);
+    
+    public boolean actualizarEstado(int estado,int idBoleta);
+    
+    public int rutToId(String rut);
+
 }
