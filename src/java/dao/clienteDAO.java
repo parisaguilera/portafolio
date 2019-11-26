@@ -19,6 +19,13 @@ public interface clienteDAO extends BaseDAO<clienteDTO>{
     public ArrayList<clienteDTO> listarTodos(String rut, int estado);
 
     public ArrayList<clienteDTO> listarTodosEstado(int estado);
+   
+    //->fichacliente.jsp
+    //Este array es para listar la ficha cliente
+    public ArrayList<clienteDTO> listarFicha();
+    public ArrayList<clienteDTO> listarFichaRut(String rut);
+    public ArrayList<clienteDTO> listarTodosFicha(String rut, int estado);
+    public clienteDTO clienteFicha(String rut);
     
     public boolean actualizarEstado(int estado,int idBoleta);
     
