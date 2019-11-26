@@ -175,6 +175,125 @@ public class clienteDAOIMP implements clienteDAO{
         return false;
     }
 
+    @Override
+    public ArrayList<clienteDTO> listarFicha() {
+               Connection conexion = Conexion.getConexion();
+        String query =  "SELECT IDCLIENTE,UPPER(NOMBRE) AS NOMBRE,RUT,CONTACTO FROM CLIENTE GROUP BY IDCLIENTE,NOMBRE,RUT,CONTACTO";
+        
+        try {
+            PreparedStatement buscar= conexion.prepareStatement(query);
+            ResultSet rs = buscar.executeQuery();
+            
+             ArrayList<clienteDTO> lista = new ArrayList<>();
+            while(rs.next()){
+                clienteDTO cliente = new clienteDTO();
+                cliente.setIdcliente(rs.getInt("IDCLIENTE"));
+                cliente.setNombre(rs.getString("NOMBRE"));
+                cliente.setRut(rs.getString("RUT"));
+                cliente.setContacto(rs.getString("CONTACTO"));
+                
+                lista.add(cliente);
+            }
+            
+             return lista;
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Listar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Listar : " + e.getMessage());
+        }
+        return null;  
+    }
+
+    @Override
+    public ArrayList<clienteDTO> listarFichaRut(String rut) {
+                      Connection conexion = Conexion.getConexion();
+        String query =  "SELECT * FROM CLIENTE WHERE rut=?";
+        
+        try {
+            PreparedStatement buscar= conexion.prepareStatement(query);
+            buscar.setString(1, rut);
+            ResultSet rs = buscar.executeQuery();
+            
+             ArrayList<clienteDTO> lista = new ArrayList<>();
+            while(rs.next()){
+                clienteDTO cliente = new clienteDTO();
+                cliente.setIdcliente(rs.getInt("IDCLIENTE"));
+                cliente.setNombre(rs.getString("NOMBRE"));
+                cliente.setContacto(rs.getString("CONTACTO"));
+                cliente.setIdboleta(rs.getInt("IDBOLETA"));
+                cliente.setDeuda(rs.getInt("DEUDA"));
+                cliente.setRut(rs.getString("RUT"));
+                cliente.setEstado(rs.getInt("ESTADO"));
+                
+                lista.add(cliente);
+            }
+            
+             return lista;
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Listar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Listar : " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public clienteDTO clienteFicha(String rut) {
+                        Connection conexion = Conexion.getConexion();
+        String query =  "SELECT IDCLIENTE,NOMBRE,RUT,CONTACTO FROM CLIENTE WHERE rut=? GROUP BY IDCLIENTE,NOMBRE,RUT,CONTACTO";
+        
+        try {
+            PreparedStatement buscar= conexion.prepareStatement(query);
+            buscar.setString(1, rut);
+            ResultSet rs = buscar.executeQuery();
+            while(rs.next()){
+                clienteDTO cliente = new clienteDTO();
+                cliente.setIdcliente(rs.getInt("IDCLIENTE"));
+                cliente.setNombre(rs.getString("NOMBRE"));
+                cliente.setRut(rs.getString("RUT"));
+                cliente.setContacto(rs.getString("CONTACTO"));
+
+                 return cliente;
+            }
+            
+            
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Listar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Listar : " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<clienteDTO> listarTodosFicha(String rut, int estado) {
+           Connection conexion = Conexion.getConexion();
+        String query =  "SELECT idboleta,deuda FROM cliente where rut=? and estado=?";
+        
+        try {
+            PreparedStatement buscar= conexion.prepareStatement(query);
+            buscar.setString(1, rut);
+            buscar.setInt(2, estado);
+            
+            ResultSet rs = buscar.executeQuery();
+            
+             ArrayList<clienteDTO> lista = new ArrayList<>();
+            while(rs.next()){
+                clienteDTO cliente = new clienteDTO();
+                cliente.setIdboleta(rs.getInt("idboleta"));
+                cliente.setDeuda(rs.getInt("DEUDA"));
+                lista.add(cliente);
+            }
+            
+             return lista;
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Listar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Listar : " + e.getMessage());
+        }
+        return null;  
+    }
+
     
    
     
