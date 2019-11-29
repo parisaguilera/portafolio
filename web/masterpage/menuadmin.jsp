@@ -45,7 +45,7 @@
                     <%-- siguiente seccion del sidebar--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-user-friends"></i> Cliente</p>
                     <a href="/portafolio/paginas/admin/fichaclientes.jsp" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Ficha Clientes</a>
-                    <a href="" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Registrar Venta</a>
+                    <a href="/portafolio/paginas/admin/registrarventa.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Registrar Venta</a>
                     <a href="/portafolio/paginas/admin/fiados.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Admin Fiados</a>
                     <%-- siguiente seccion del sidebar--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-boxes"></i> Proveedores</p>

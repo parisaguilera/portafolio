@@ -294,6 +294,26 @@ public class clienteDAOIMP implements clienteDAO{
         return null;  
     }
 
+    @Override
+    public boolean existeRut(String rut) {
+                    Connection conexion = Conexion.getConexion();
+        String query = "SELECT RUT FROM CLIENTE WHERE RUT=?";
+        try {
+            PreparedStatement buscar = conexion.prepareStatement(query);
+
+            buscar.setString(1, rut);
+            ResultSet rs =buscar.executeQuery();
+            
+             return rs.next();   
+  
+          } catch (SQLException e) {
+            System.out.println("Error SQL al buscar: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al buscar: " + e.getMessage());
+        }
+        return false;
+    }
+
     
    
     

@@ -34,14 +34,14 @@
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">
                     <div class="text-center">
-                     <label class="card-title loginFontTitle">Ficha de <%= cliente.getNombre() %></label>
+                        <label class="card-title loginFontTitle">Ficha de <%= cliente.getNombre().toUpperCase() %></label>
                     </div>
                     <div class="form-row mt-5">
                         <div class="col-md-1">
                             <h2 class="textoExplicativo">Nombre</h2>                
                         </div>
                         <div class="col-md-3">
-                              <input type="text" placeholder="<%= cliente.getNombre() %>" class="form-control">
+                              <input type="text" placeholder="<%= cliente.getNombre().toUpperCase() %>" class="form-control" disabled>
                         </div>
                         
                         
@@ -49,14 +49,14 @@
                             <h2 class="textoExplicativo">Rut</h2>
                         </div>
                         <div class="col-md-3">
-                              <input type="text" placeholder="<%= cliente.getRut()%>"  class="form-control">
+                              <input type="text" placeholder="<%= cliente.getRut()%>"  class="form-control" disabled>
                         </div>
                         
                         <div class="col-md-1">
                             <h2 class="textoExplicativo">Contacto</h2>
                         </div>
                         <div class="col-md-3">
-                              <input type="text" placeholder="<%= cliente.getContacto() %>" class="form-control">
+                              <input type="text" placeholder="<%= cliente.getContacto() %>" class="form-control" disabled>
                         </div>
                     </div>
                         <!-- set arreglos -->
@@ -73,7 +73,7 @@
                                 <div class="card-body p-0">
                                     <c:choose>
                                             <c:when test="${listaPen.size()==0}">
-                                                <label class="loginFontTitle">Sin fiados Aceptados</label>
+                                                <label class="loginFontTitle">Sin fiados Pendientes</label>
                                             </c:when>
                                             <c:otherwise>
                                                 <table class="table table-bordered">
