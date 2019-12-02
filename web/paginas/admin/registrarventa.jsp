@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="/portafolio/css/configuracion.css"/>
         <script defer src="../js/all.js"></script> <!--load all styles -->
         <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+         <link rel="stylesheet" type="text/css" href="/portafolio/css/productos.css"/>
 
 
      </head>
@@ -28,7 +29,7 @@
                                 <p class="col tooltips">* Clientes nuevos se deberan registrar</p>
                             </div>
                                 <div class="card-text row">
-                                <p class="col-10 tooltips">* Los productos que no sean legibles deben ser ingresados manualmente</p>
+                                <p class="col tooltips">* Los productos que no sean legibles deben ser ingresados manualmente</p>
                                 </div>
                             <hr>
                               
@@ -39,22 +40,26 @@
                                     </div>
                                     <div class="col-4">
                                         <input class="form-control" id="rut" type="text" name="txtRut" maxlength="8" minlength="8">
+                                        <p class="col tooltips">* Solamente los primeros 8 numeros sin guion</p>
                                     </div>
                                     <div class="col-4 text-left mt-1">
                                            <input type="submit" name="ingresarVenta" value="Vender" class="btn-primary rounded-pill font-12" onclick="test()">
                                     </div>
                             </div>
-                        
+                      
                       <div class="card-text row text-center">
                              <div class="loader" id="loader" style="display:none;"></div>
-                                    <div id="existeCliente">
+                                    <div class="container-fluid" id="existeCliente">
                                    
                                    
                                     </div>
-                            </div>  
+                            </div>
+
+       
             </div>
-            </div>
+        
     </div>
+</div>
 </div>
        </body>
        <script>
