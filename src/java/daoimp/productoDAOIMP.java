@@ -187,5 +187,41 @@ public class productoDAOIMP implements productoDAO{
         }
         return false;
     }
+
+    @Override
+    public productoDTO listarPorID(int idProducto) {
+              Connection conexion = Conexion.getConexion();
+        String query = "SELECT * FROM producto WHERE IDPRODUCTO = ?";
+        
+        try {
+            PreparedStatement buscar= conexion.prepareStatement(query);
+            buscar.setInt(1, idProducto);
+            
+            ResultSet rs = buscar.executeQuery();
+            
+             productoDTO producto = new productoDTO();
+            while(rs.next()){
+                producto.setIdproducto(rs.getInt("IDPRODUCTO"));
+                producto.setNombre(rs.getString("NOMBRE"));
+                producto.setPreciocompra(rs.getInt("PRECIOCOMPRA"));
+                producto.setPrecioventa(rs.getInt("PRECIOVENTA"));
+                producto.setIdfamilia(rs.getInt("IDFAMILIA"));
+                producto.setMarca(rs.getString("MARCA"));
+                producto.setFechavencimiento(rs.getDate("FECHAVENCIMIENTO"));
+                producto.setCodigobarra(rs.getString("CODIGOBARRA"));
+                producto.setDescripcion(rs.getString("DESCRIPCION"));
+                producto.setStock(rs.getInt("STOCK"));
+                producto.setStockcritico(rs.getInt("STOCKCRITICO"));
+            }
+            
+             return producto;
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Listar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Listar : " + e.getMessage());
+        }
+        return null;  
+    }
+                
     
 }

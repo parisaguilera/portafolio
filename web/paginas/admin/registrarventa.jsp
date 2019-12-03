@@ -34,28 +34,26 @@
                             <hr>
                               
                         </div>
+                      <form action="/portafolio/paginas/admin/ventarut.jsp" method="GET">
                          <div class="card-text row text-center">
+                             
                                     <div class="col-4 text-right">
                                        <label class="card-title loginFontTitle">Ingresar Rut:</label>
                                     </div>
                                     <div class="col-4">
-                                        <input class="form-control" id="rut" type="text" name="txtRut" maxlength="8" minlength="8">
+                                        <input class="form-control" id="rut" type="text" name="rut" maxlength="8" minlength="8">
                                         <p class="col tooltips">* Solamente los primeros 8 numeros sin guion</p>
                                     </div>
                                     <div class="col-4 text-left mt-1">
-                                           <input type="submit" name="ingresarVenta" value="Vender" class="btn-primary rounded-pill font-12" onclick="test()">
-                                    </div>
-                            </div>
-                      
-                      <div class="card-text row text-center">
-                             <div class="loader" id="loader" style="display:none;"></div>
-                                    <div class="container-fluid" id="existeCliente">
-                                   
-                                   
-                                    </div>
-                            </div>
+                                           <input type="submit" value="Vender" class="btn-primary rounded-pill font-12 " onclick="redireccion()">
 
-       
+                                    </div>
+                           
+                            </div>
+                        </form>
+                 
+                             <div class="loader" id="loader" style="display:none;"></div>
+
             </div>
         
     </div>
@@ -64,13 +62,9 @@
        </body>
        <script>
 
-            function test(){
+            function redireccion(){
     
-            document.getElementById("existeCliente").innerHTML="";
-            var txtRut =document.getElementById("rut").value;
-            $("existeCliente").show();
              $(".loader").fadeIn("slow");
-            $("#existeCliente").load("/portafolio/paginas/admin/ventarut.jsp",{txtRut});
             }
        </script>
 

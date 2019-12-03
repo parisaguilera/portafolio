@@ -5,12 +5,21 @@
  */
 package servlet;
 
+import daoimp.boletaDAOIMP;
+import daoimp.clienteDAOIMP;
+import daoimp.productoDAOIMP;
+import dto.boletaDTO;
+import dto.clienteDTO;
+import dto.listaProductosCarrito;
+import dto.productoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,7 +40,126 @@ public class carro extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getRequestDispatcher("/paginas/admin/registrarventa.jsp").forward(request, response);
+            
+            listaProductosCarrito datos =null;
+            
+             String rut = request.getParameter("rut");
+            request.setAttribute("rut",rut);
+            
+            clienteDAOIMP cliente = new clienteDAOIMP();
+            boolean existe = cliente.existeRut(rut);
+
+            HttpSession sesion = request.getSession();
+            ArrayList<productoDTO> lista = (ArrayList) sesion.getAttribute("carrito");
+            
+            
+            if(request.getParameter("finalizarVenta") != null){
+                
+                boletaDAOIMP generandoBoleta = new boletaDAOIMP();
+                int idBoleta=generandoBoleta.nuevoIDboleta();
+                int cantidad=1;
+
+                 for (productoDTO dto : lista) { 
+                        boletaDTO boleta = new boletaDTO();
+                          boleta.setIdboleta(idBoleta);
+                          boleta.setIdproducto(dto.getIdproducto());
+                          boleta.setCantidad(cantidad);
+                          boleta.setTotal((dto.getPrecioventa())*cantidad);
+                         generandoBoleta.agregar(boleta);
+                                    
+                }
+                 if(existe==false){
+                          String nombre = request.getParameter("nombreCliente");
+                          String contacto = request.getParameter("contactoCliente");
+                          clienteDTO cli = new clienteDTO();
+                          
+                          System.out.println(nombre);
+                          System.out.println(contacto);
+                          int idCliente= cliente.nuevoIDcliente();
+                          cli.setIdcliente(idCliente);
+                          cli.setNombre(nombre);
+                          cli.setContacto(contacto);
+                          cli.setIdboleta(idBoleta);
+                          int total=generandoBoleta.totalPorBoleta(idBoleta);
+                          cli.setDeuda(total);
+                          cli.setRut(rut);
+                          cli.setEstado(3);      
+                          cliente.agregar(cli);
+                          
+                            request.setAttribute("nombreNuevo",nombre);
+                              request.setAttribute("contactoNuevo",contacto);
+                   }else{
+                            clienteDTO cli = new clienteDTO();
+                            int idCliente= cliente.nuevoIDcliente();
+                            cli.setIdcliente(idCliente);
+                            String nombre=cliente.rutAnombre(rut);
+                            String contacto=cliente.rutAcontacto(rut);
+                            cli.setNombre(nombre);
+                            cli.setContacto(contacto);
+                            cli.setIdboleta(idBoleta);
+                            int total=generandoBoleta.totalPorBoleta(idBoleta);
+                            cli.setDeuda(total);
+                            cli.setRut(rut);
+                            cli.setEstado(3);  
+                            
+                            cliente.agregar(cli);
+                           
+                 }
+                
+                 
+                 
+                 request.getRequestDispatcher("/paginas/admin/finalizarcarro.jsp").forward(request, response);
+                 
+            }else if(request.getParameter("idPro")!=""){
+
+                    int idProducto = Integer.parseInt(request.getParameter("idPro"));
+
+                        if(idProducto!=0){
+                            
+                            
+                               for (productoDTO dto : lista) { 
+                                if(idProducto == dto.getIdproducto()){
+                                    request.setAttribute("mensaje", "Ya agregaste ese Producto!");
+                                    request.setAttribute("carrito",lista);
+                                    request.getRequestDispatcher("/paginas/admin/ventarut.jsp").forward(request, response);
+                                    
+                                }
+                               }
+                            
+                               
+
+                                                    productoDTO producto = new productoDTO();
+                                                   productoDAOIMP pro = new productoDAOIMP();
+
+
+                                                   producto = pro.listarPorID(idProducto);
+
+                                                  lista.add(producto);
+
+                                                   request.setAttribute("carrito",lista);
+                                                                            if(existe==false){
+                                                                                
+                                                                                  String nombre = request.getParameter("nombreCliente");
+                                                                                  String contacto = request.getParameter("contactoCliente");
+                                                                                  System.out.println(contacto+nombre);
+                                                                                  request.setAttribute("nombreNuevo",nombre);
+                                                                                  request.setAttribute("contactoNuevo",contacto);
+                                                                            }
+                                                   request.getRequestDispatcher("/paginas/admin/ventarut.jsp").forward(request, response);
+
+
+                        }else{
+                        request.setAttribute("mensaje", "Producto NO existe");
+                        }
+            }else{
+                  if(existe==false){
+                   String nombre = request.getParameter("nombreCliente");
+                  String contacto = request.getParameter("contactoCliente");
+                   request.setAttribute("nombreNuevo",nombre);
+                    request.setAttribute("contactoNuevo",contacto);
+                                                                            }
+            request.getRequestDispatcher("/paginas/admin/ventarut.jsp").forward(request, response);
+             }
         }
     }
 

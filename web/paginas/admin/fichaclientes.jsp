@@ -26,7 +26,6 @@
                             <p class="textoExplicativo">
                                Aqui podras ver y descargar todos las fichas de clientes que pidieron Fiados.
                             </p>
-                               <div class="loader"></div>
 
 
                             <hr>
