@@ -23,7 +23,28 @@ public class clienteDAOIMP implements clienteDAO{
 
     @Override
     public boolean agregar(clienteDTO dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "INSERT INTO CLIENTE (IDCLIENTE,NOMBRE,CONTACTO,IDBOLETA,DEUDA,RUT,ESTADO) VALUES (?,?,?,?,?,?,?)";
+       
+        try (Connection conexion = Conexion.getConexion()){
+            PreparedStatement agregar = conexion.prepareStatement(query);
+             agregar.setInt(1, dto.getIdcliente());
+             agregar.setString(2, dto.getNombre());
+             agregar.setString(3, dto.getContacto());
+             agregar.setInt(4, dto.getIdboleta());
+             agregar.setInt(5, dto.getDeuda());
+             agregar.setString(6, dto.getRut());
+             agregar.setInt(7, dto.getEstado());
+            if (agregar.executeUpdate()>0) {
+                return true;            
+            }        
+        } catch (SQLException w) {
+             System.out.println("Error SQL dao al agregar "+
+                    w.getMessage());
+         }catch(Exception e){
+            System.out.println("Error dao al agregar "+
+                    e.getMessage());
+        }
+        return false;  
     }
 
     @Override
@@ -292,6 +313,115 @@ public class clienteDAOIMP implements clienteDAO{
             System.out.println("Error al Listar : " + e.getMessage());
         }
         return null;  
+    }
+
+    @Override
+    public boolean existeRut(String rut) {
+                    Connection conexion = Conexion.getConexion();
+        String query = "SELECT RUT FROM CLIENTE WHERE RUT=?";
+        try {
+            PreparedStatement buscar = conexion.prepareStatement(query);
+
+            buscar.setString(1, rut);
+            ResultSet rs =buscar.executeQuery();
+            
+             return rs.next();   
+  
+          } catch (SQLException e) {
+            System.out.println("Error SQL al buscar: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al buscar: " + e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public int nuevoIDcliente()  {
+              Connection conexion = Conexion.getConexion();
+        String query = "SELECT rut FROM cliente GROUP BY rut";
+        
+        try {
+            PreparedStatement buscar= conexion.prepareStatement(query);
+            
+            ResultSet rs = buscar.executeQuery();
+            
+           int total = 0;
+                        while (rs.next()){
+                          
+                           total++;
+                        }
+
+            
+             return total+1;
+         } catch (SQLException e) {
+            System.out.println("Error SQL al enumerar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al enumerar : " + e.getMessage());
+        }
+        return 0;  
+    }
+
+    @Override
+    public String rutAnombre(String rut) {
+              Connection conexion = Conexion.getConexion();
+        String query = "SELECT nombre FROM cliente WHERE rut=? GROUP BY nombre";
+        try {
+            PreparedStatement aNombre = conexion.prepareStatement(query);
+            aNombre.setString(1, rut);
+            ResultSet rs = aNombre.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("NOMBRE");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar rut a nombre: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar rut a nombre: " + e.getMessage());
+        }
+        return null; 
+    }
+
+    @Override
+    public String rutAcontacto(String rut) {
+              Connection conexion = Conexion.getConexion();
+        String query = "SELECT contacto FROM cliente WHERE rut=? GROUP BY contacto";
+        try {
+            PreparedStatement aContacto = conexion.prepareStatement(query);
+            aContacto.setString(1, rut);
+            ResultSet rs = aContacto.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("CONTACTO");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar rut a contacto: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar rut a contacto: " + e.getMessage());
+        }
+        return null; 
+    }
+
+    @Override
+    public int rutAID(String rut) {
+         Connection conexion = Conexion.getConexion();
+        String query = "SELECT IDCLIENTE FROM cliente WHERE rut=? GROUP BY idcliente";
+        try {
+            PreparedStatement aContacto = conexion.prepareStatement(query);
+            aContacto.setString(1, rut);
+            ResultSet rs = aContacto.executeQuery();
+            
+            if(rs.next()){
+                return rs.getInt("IDCLIENTE");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar rut a ID: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar rut a ID: " + e.getMessage());
+        }
+        return 0; 
     }
 
     

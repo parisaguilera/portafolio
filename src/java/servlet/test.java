@@ -5,23 +5,18 @@
  */
 package servlet;
 
-import daoimp.usuarioDAOIMP;
-import dto.productoDTO;
-import dto.usuarioDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author parisbastian
  */
-public class login extends HttpServlet {
+public class test extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,39 +31,20 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession sesion = request.getSession();
-            
-            String user= request.getParameter("txtUsuario").trim();
-            String pass = request.getParameter("txtContrasena").trim();
             
            
-            if (new usuarioDAOIMP().existe(user)) {
+            
+                if(request.getParameter("checkFiado") != null){
+                System.out.println("dijo que si");
                 
-                if (new usuarioDAOIMP().validarUsuario(user, pass)) {
-                    usuarioDTO usuario = new usuarioDAOIMP().leerUsuario(user);
-                    ArrayList<productoDTO> lista = new ArrayList<productoDTO>();
-                    sesion.setAttribute("usuario", usuario);
-                    sesion.setAttribute("carrito", lista);
-                    System.out.println("LOGIN EXITOSO");
-                    System.out.println(lista.size());
-                    request.getRequestDispatcher("paginas/admin/administracion.jsp").forward(request, response);
-                   
-
-                } else {
-                    System.out.println("Contraseña invalida");
-                    request.setAttribute("mensaje", "Contraseña invalida");
-                    request.getRequestDispatcher("/paginas/login.jsp").forward(request, response);
-                }
-
-           } else {
-                System.out.println("USER NO EXISTE");
-                request.setAttribute("mensaje", "Usuario no existe");
-                request.getRequestDispatcher("/paginas/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/paginas/test.jsp").forward(request, response);
+            }else{
+                System.out.println("dijo que no");
+               
+                request.getRequestDispatcher("/paginas/test.jsp").forward(request, response);
             }
         }
-
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

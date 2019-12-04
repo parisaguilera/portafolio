@@ -24,13 +24,9 @@
                       <label class="card-title loginFontTitle text-center">Ficha de Clientes</label>
                         <div class="card-text">
                             <p class="textoExplicativo">
-                               Aqui podras ver todos los clientes que pidieron Fiados.
+                               Aqui podras ver y descargar todos las fichas de clientes que pidieron Fiados.
                             </p>
-                         
-                            <div class="card-text row">
-                                <p class="col-10 tooltips">* Recuerda que no puedes eliminar categorias con productos asociados</p>
 
-                            </div>
 
                             <hr>
                                   <table class="table table-bordered">

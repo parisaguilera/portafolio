@@ -84,6 +84,7 @@
                                               <input value="${rut}" type="hidden" name="txtRut"/> 
                                             <input  class="btn-secondary rounded-pill font-12 ml-2 atras" name="atras" value="Atras" type="submit"/>
                                             <c:if test="${diferencia>0}">
+                                                 <input value="${nombre}" type="hidden" name="nombre"/> 
                                                 <input value="${diferencia}" type="hidden" name="numDiferencia"/> 
                                                 <input value="${numIdpago}" type="hidden" name="numIdpago"/> 
                                                 <input value="${idCliente}" type="hidden" name="numIdCliente"/>

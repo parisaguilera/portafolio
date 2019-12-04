@@ -30,5 +30,13 @@ public interface clienteDAO extends BaseDAO<clienteDTO>{
     public boolean actualizarEstado(int estado,int idBoleta);
     
     public int rutToId(String rut);
+    
+    //registrar venta
+    public boolean existeRut(String rut);
 
+    //carrito
+    public int nuevoIDcliente();
+    public String rutAnombre(String rut);
+    public String rutAcontacto(String rut);
+    public int rutAID(String rut);
 }
