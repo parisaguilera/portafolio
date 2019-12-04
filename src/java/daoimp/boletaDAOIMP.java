@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -92,6 +93,36 @@ public class boletaDAOIMP implements boletaDAO{
             System.out.println("Error al sacar total: " + e.getMessage());
         }
         return 0;
+    }
+
+    @Override
+    public ArrayList<boletaDTO> listarTodosporIDBOLETA(int idboleta) {
+        Connection conexion = Conexion.getConexion();
+        String query =  "SELECT b.* FROM boleta b JOIN cliente c on(b.idboleta=c.idboleta) WHERE c.idboleta=?";
+        
+        try {
+            PreparedStatement buscar= conexion.prepareStatement(query);
+            buscar.setInt(1, idboleta);
+            
+            ResultSet rs = buscar.executeQuery();
+            
+             ArrayList<boletaDTO> lista = new ArrayList<>();
+            while(rs.next()){
+                boletaDTO boleta = new boletaDTO();
+                boleta.setIdboleta(rs.getInt("IDBOLETA"));
+                boleta.setIdproducto(rs.getInt("IDPRODUCTO"));
+                boleta.setCantidad(rs.getInt("CANTIDAD"));
+                boleta.setTotal(rs.getInt("TOTAL"));
+                lista.add(boleta);
+            }
+            
+             return lista;
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Listar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Listar : " + e.getMessage());
+        }
+        return null;  
     }
     
 }

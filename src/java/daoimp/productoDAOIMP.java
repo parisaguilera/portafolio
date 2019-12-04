@@ -222,6 +222,27 @@ public class productoDAOIMP implements productoDAO{
         }
         return null;  
     }
+
+    @Override
+    public String idproductotonombre(int idproducto) {
+        Connection conexion = Conexion.getConexion();
+        String query = "SELECT nombre FROM producto WHERE idproducto=?";
+        try {
+            PreparedStatement aNombre = conexion.prepareStatement(query);
+            aNombre.setInt(1, idproducto);
+            ResultSet rs = aNombre.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("NOMBRE");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar id a nombre: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar id a nombre: " + e.getMessage());
+        }
+        return null; 
+    }
                 
     
 }

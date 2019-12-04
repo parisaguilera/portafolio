@@ -62,6 +62,7 @@ public class verHistorial extends HttpServlet {
               //<- Parametros para mantener el flujo
               String total = request.getParameter("numTotal");
               String rut = request.getParameter("txtRut");
+              String nombre = request.getParameter("nombre");
               //->
               
               //<- Parametros para validar que esta abonando lo correcto.
@@ -84,6 +85,7 @@ public class verHistorial extends HttpServlet {
                      //set abono
                       int totalAbonado= fiado.deudaFiado(idCliente);
                      //-> mandamos los datos por request.
+                        request.setAttribute("nombre", nombre);
                         request.setAttribute("fiados", fiados);
                         request.setAttribute("total", total);
                         request.setAttribute("rut", rut);
@@ -107,11 +109,13 @@ public class verHistorial extends HttpServlet {
                     int totalAbonado= fiado.deudaFiado(idCliente);
                      //set mensaje->
                      String mensaje= "Te faltan: "+(diferencia-abono);
+                        request.setAttribute("nombre", nombre);
                         request.setAttribute("fiados", fiados);
                         request.setAttribute("total", total);
                         request.setAttribute("rut", rut);
                         request.setAttribute("mensaje", mensaje);
                         request.setAttribute("totalAbonado", totalAbonado);
+                        request.setAttribute("idCliente", idCliente);
                         request.getRequestDispatcher("/paginas/verHistorial.jsp").forward(request, response);
                 
               }  

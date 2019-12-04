@@ -23,7 +23,7 @@
      <div class="col">
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">
-                      <label class="card-title loginFontTitle text-center">Registar Venta</label>
+                      <label class="card-title loginFontTitle text-center">Registrar Venta</label>
                         <div class="card-text">
                             <div class="card-text row">
                                 <p class="col tooltips">* Clientes nuevos se deberan registrar</p>

@@ -29,7 +29,8 @@
                                 <label class="loginFont" >*RUT: </label>
                          </div>
                         <div class="col-sm-9">
-                                <input class="loginFont" value="${rut}" maxlength="8" type="number" name="txtRut"/>
+                                <input class="loginFont" value="${rut}" min="1000000" max="9999999999" id="rut" type="number" name="txtRut"/>
+                                <p class="tooltips">* Solamente los primeros 8 numeros sin guion</p>
                         </div>
                         <div class="col-sm-0">
                         <input type="submit" name="buscar" value="Buscar" class="btn-primary rounded-pill mt-2 font-12">
@@ -201,4 +202,11 @@
             </div>
                      
         </body>
+        <script>
+            var input=  document.getElementById('rut');
+            input.addEventListener('input',function(){
+              if (this.value.length > 8) 
+                 this.value = this.value.slice(0,8); 
+            })
+            </script>
 </html>

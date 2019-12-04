@@ -38,4 +38,5 @@ public interface clienteDAO extends BaseDAO<clienteDTO>{
     public int nuevoIDcliente();
     public String rutAnombre(String rut);
     public String rutAcontacto(String rut);
+    public int rutAID(String rut);
 }

@@ -403,6 +403,27 @@ public class clienteDAOIMP implements clienteDAO{
         return null; 
     }
 
+    @Override
+    public int rutAID(String rut) {
+         Connection conexion = Conexion.getConexion();
+        String query = "SELECT IDCLIENTE FROM cliente WHERE rut=? GROUP BY idcliente";
+        try {
+            PreparedStatement aContacto = conexion.prepareStatement(query);
+            aContacto.setString(1, rut);
+            ResultSet rs = aContacto.executeQuery();
+            
+            if(rs.next()){
+                return rs.getInt("IDCLIENTE");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar rut a ID: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar rut a ID: " + e.getMessage());
+        }
+        return 0; 
+    }
+
     
    
     

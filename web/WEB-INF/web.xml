@@ -36,6 +36,10 @@
         <servlet-name>carro</servlet-name>
         <servlet-class>servlet.carro</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>test</servlet-name>
+        <servlet-class>servlet.test</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>deudas</servlet-name>
         <url-pattern>/deudas</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>carro</servlet-name>
         <url-pattern>/carro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>test</servlet-name>
+        <url-pattern>/test</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

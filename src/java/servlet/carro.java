@@ -10,7 +10,6 @@ import daoimp.clienteDAOIMP;
 import daoimp.productoDAOIMP;
 import dto.boletaDTO;
 import dto.clienteDTO;
-import dto.listaProductosCarrito;
 import dto.productoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,9 +40,8 @@ public class carro extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            listaProductosCarrito datos =null;
             
-             String rut = request.getParameter("rut");
+            String rut = request.getParameter("rut");
             request.setAttribute("rut",rut);
             
             clienteDAOIMP cliente = new clienteDAOIMP();
@@ -51,9 +49,13 @@ public class carro extends HttpServlet {
 
             HttpSession sesion = request.getSession();
             ArrayList<productoDTO> lista = (ArrayList) sesion.getAttribute("carrito");
-            
-            
+                 // estado 3 = pago sin fiado
+                 // estado 2 = PENDIENTE
+                 // estado 1 = aceptado
+                 // estado 0 = rechazado
+
             if(request.getParameter("finalizarVenta") != null){
+                
                 
                 boletaDAOIMP generandoBoleta = new boletaDAOIMP();
                 int idBoleta=generandoBoleta.nuevoIDboleta();
@@ -69,13 +71,12 @@ public class carro extends HttpServlet {
                                     
                 }
                  if(existe==false){
+                     
+                            //NUEVOS CLIENTES-->
                           String nombre = request.getParameter("nombreCliente");
                           String contacto = request.getParameter("contactoCliente");
-                          clienteDTO cli = new clienteDTO();
-                          
-                          System.out.println(nombre);
-                          System.out.println(contacto);
                           int idCliente= cliente.nuevoIDcliente();
+                          clienteDTO cli = new clienteDTO();
                           cli.setIdcliente(idCliente);
                           cli.setNombre(nombre);
                           cli.setContacto(contacto);
@@ -83,32 +84,64 @@ public class carro extends HttpServlet {
                           int total=generandoBoleta.totalPorBoleta(idBoleta);
                           cli.setDeuda(total);
                           cli.setRut(rut);
-                          cli.setEstado(3);      
+                          
+                          if(request.getParameter("checkFiado") != null){
+                              
+                                cli.setEstado(2);
+                                int tipoBoleta = 2;
+                                request.setAttribute("tipoBoleta",tipoBoleta);
+
+                                }else{
+                                int tipoBoleta = 3;
+                                request.setAttribute("tipoBoleta",tipoBoleta);
+                                cli.setEstado(3); 
+                          
+                          }
                           cliente.agregar(cli);
                           
-                            request.setAttribute("nombreNuevo",nombre);
-                              request.setAttribute("contactoNuevo",contacto);
+                              request.setAttribute("idboleta",idBoleta);
+                              request.setAttribute("nombre",nombre);
+                              request.setAttribute("rut",rut);
+                              
+                              
+                              
                    }else{
+                            //CLIENTE YA REGISTRADO -->
                             clienteDTO cli = new clienteDTO();
-                            int idCliente= cliente.nuevoIDcliente();
-                            cli.setIdcliente(idCliente);
                             String nombre=cliente.rutAnombre(rut);
                             String contacto=cliente.rutAcontacto(rut);
+                            int idCliente= cliente.rutAID(rut);
+                            
+                            cli.setIdcliente(idCliente);
                             cli.setNombre(nombre);
                             cli.setContacto(contacto);
                             cli.setIdboleta(idBoleta);
                             int total=generandoBoleta.totalPorBoleta(idBoleta);
                             cli.setDeuda(total);
                             cli.setRut(rut);
-                            cli.setEstado(3);  
+                            
+                            if(request.getParameter("checkFiado") != null){
+                                
+                                    cli.setEstado(2);
+                                     int tipoBoleta = 2;
+                                    request.setAttribute("tipoBoleta",tipoBoleta);
+
+                                    }else{
+
+                                    cli.setEstado(3); 
+                                     int tipoBoleta = 3;
+                                    request.setAttribute("tipoBoleta",tipoBoleta);
+                            } 
                             
                             cliente.agregar(cli);
+                            
+                             request.setAttribute("idboleta",idBoleta);
+                             request.setAttribute("nombre",nombre);
+                             request.setAttribute("rut",rut);
                            
                  }
-                
-                 
-                 
-                 request.getRequestDispatcher("/paginas/admin/finalizarcarro.jsp").forward(request, response);
+                 lista.clear();
+                 request.getRequestDispatcher("/paginas/admin/carrofinalizado.jsp").forward(request, response);
                  
             }else if(request.getParameter("idPro")!=""){
 

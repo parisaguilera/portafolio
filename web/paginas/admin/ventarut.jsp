@@ -1,7 +1,6 @@
 
 <%@page import="dto.productoDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dto.listaProductosCarrito"%>
 <%@page import="daoimp.productoDAOIMP"%>
 <%@page import="daoimp.clienteDAOIMP"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -228,14 +227,20 @@
                                                         <input id="nomVenta" name="nombreCliente" type="hidden" value="" >
                                                         <input id="conVenta" name="contactoCliente" type="hidden" value="" >
                                                       </c:if>
+                                                        <div class="label">
+                                                    <label class="mr-5 opcionFiado">¿Quiere optar por FIADO?   <input class="ml-3 form-check-input" type="checkbox" name="checkFiado" value="0"></label>
+                                                        </div>
+                                          </div>
+                                         <div class="col-3">
                                                     <input type="submit" name="finalizarVenta" value="Registrar Venta" class="btn-success rounded-pill finalizarVenta" onclick="cliente()">
                                         </div>
                                     </div>
+                                 
+                                 
                 </form>
-             </c:if>            
+                </c:if>            
                                         
-                                    </div>
-                            </div>
+                                    
 
        
             </div>
