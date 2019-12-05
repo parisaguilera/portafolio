@@ -19,8 +19,8 @@
                     </c:forEach>             
                 </div></li>
             <li class="col-sm fixpos"><a class="middle"><i class="fab fa-slideshare"></i> Almacen Yuyita</a></li>
-            <li class="col-sm-2 text-right"><a class="fontstyle" href="/portafolio/paginas/deudas.jsp">Ver Deuda <i class="far fa-address-book"></i></a></li>
-            <li class="col-sm-0 text-left"><a class="fontstyle" href="/portafolio/paginas/login.jsp">Login <i class="fas fa-sign-in-alt"></i></a></li>
+            <li class="col-sm-2 text-right"><a class="fontstyle" href="/portafolio/paginas/deudas.jsp"><i class="far fa-address-book"></i> Ver Deuda</a></li>
+            <li class="col-sm-0 text-left"><a class="fontstyle" href="/portafolio/paginas/login.jsp"><i class="fas fa-sign-in-alt"></i> Login</a></li>
             <%-- <li class="text-left"><a class="fontstyle" href="/portafolio/paginas/carrito.jsp">Mi Carro<span class="label label-info">0</span> <i class="fas fa-shopping-cart"></i></a></li>--%>
         </nav>            
   </div>

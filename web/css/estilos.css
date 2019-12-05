@@ -175,6 +175,10 @@ li{
     font-family: 'Poppins', sans-serif;
     font-size: 12px !important; 
 }
+.fontBotonOrden{
+    font-family: 'Poppins', sans-serif;
+    font-size: 8px !important; 
+}
 .loginFont{
     font-family: 'Poppins', sans-serif;
     font-size: 18px;

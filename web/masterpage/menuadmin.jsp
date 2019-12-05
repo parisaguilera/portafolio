@@ -50,7 +50,7 @@
                     <%-- siguiente seccion del sidebar--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-boxes"></i> Proveedores</p>
                     <a href="/portafolio/paginas/admin/proveedor.jsp" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Modulo Proveedor</a>
-                    <a href="" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Ordenar Pedido</a>
+                    <a href="/portafolio/paginas/admin/ordenarpedido.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Ordenar Pedido</a>
                     <a href="" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Recepcion</a>
                     <%-- siguiente seccion del sidebar--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-clipboard"></i> Informe y Estadisticas</p>

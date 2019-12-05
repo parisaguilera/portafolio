@@ -5,15 +5,13 @@
  */
 package dao;
 
-import dto.clientepagofiadoDTO;
-import java.util.ArrayList;
+import dto.ordenpedidoDTO;
 
 /**
  *
  * @author parisbastian
  */
-public interface clientepagofiadoDAO extends BaseDAO<clientepagofiadoDTO>{
+public interface ordenPedidoDAO extends BaseDAO<ordenpedidoDTO>{
     
-    public ArrayList<clientepagofiadoDTO> listarTodos(String rut);
-    
+    public int nuevoIDordenPedido();
 }

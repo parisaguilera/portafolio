@@ -17,4 +17,6 @@ public interface  proveedorDAO extends BaseDAO<proveedorDTO> {
      public ArrayList<proveedorDTO> listarTodos();
      public boolean actualizar(String nombre,String datosContacto,String rubro,int id);
      
+     public String idtorubro(int idProveedor);
+     
 }

@@ -5,11 +5,9 @@
  */
 package servlet;
 
-import daoimp.usuarioDAOIMP;
-
-import dto.productoDTO;
+import daoimp.productosPedidoDAOIMP;
+import dto.ordenpedidoDTO;
 import dto.productospedidoDTO;
-import dto.usuarioDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author parisbastian
  */
-public class login extends HttpServlet {
+public class ordenPedido extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,41 +36,47 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession sesion = request.getSession();
             
-            String user= request.getParameter("txtUsuario").trim();
-            String pass = request.getParameter("txtContrasena").trim();
-            
-           
-            if (new usuarioDAOIMP().existe(user)) {
-                
-                if (new usuarioDAOIMP().validarUsuario(user, pass)) {
-                    usuarioDTO usuario = new usuarioDAOIMP().leerUsuario(user);
-                    ArrayList<productoDTO> lista = new ArrayList<productoDTO>();
-                    ArrayList<productospedidoDTO> listaOrden = new ArrayList<productospedidoDTO>();
-                    sesion.setAttribute("usuario", usuario);
-                    sesion.setAttribute("carrito", lista);
-                    sesion.setAttribute("listaOrden", listaOrden);
-                    System.out.println("LOGIN EXITOSO");
-                    System.out.println(lista.size());
-                    request.getRequestDispatcher("paginas/admin/administracion.jsp").forward(request, response);
-                   
+             String nombreProveedor = request.getParameter("selOrden");
+             int idProducto = Integer.parseInt(request.getParameter("idproducto"));
+             int idProveedor = Integer.parseInt(request.getParameter("idProv"));
+               request.setAttribute("idPro",idProveedor);
+                request.setAttribute("selOrden",nombreProveedor);
+             productosPedidoDAOIMP pro = new productosPedidoDAOIMP();
+             
+             HttpSession sesion = request.getSession();
+             
+             ArrayList<productospedidoDTO> listaOrden = (ArrayList) sesion.getAttribute("listaOrden");
+             
+              if(request.getParameter("agregarProducto") != null){
+                  
+                    
+                    productospedidoDTO producto = new productospedidoDTO();
+                    
+                    producto= pro.obtenerPorID(idProducto);
+                    
+                  
+                    listaOrden.add(producto);
+                    request.setAttribute("listaOrden",listaOrden);
+                    System.out.println(listaOrden.size());
+                    request.getRequestDispatcher("/paginas/admin/orden.jsp").forward(request, response);
+              
+              }else if(request.getParameter("eliminarProducto") != null){
+                  
+                  int index= Integer.parseInt(request.getParameter("indexLista"));
+                  index=index -1;
+                  
+                  listaOrden.remove(index);
 
-                } else {
-                    System.out.println("Contraseña invalida");
-                    request.setAttribute("mensaje", "Contraseña invalida");
-                    request.getRequestDispatcher("/paginas/login.jsp").forward(request, response);
-                }
-
-           } else {
-                System.out.println("USER NO EXISTE");
-                request.setAttribute("mensaje", "Usuario no existe");
-                request.getRequestDispatcher("/paginas/login.jsp").forward(request, response);
-            }
+                 
+     
+                    request.setAttribute("listaOrden",listaOrden);
+                    System.out.println(listaOrden.size());
+                    request.getRequestDispatcher("/paginas/admin/orden.jsp").forward(request, response);
+              
+              }
         }
-
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
