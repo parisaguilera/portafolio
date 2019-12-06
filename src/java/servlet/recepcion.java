@@ -46,8 +46,8 @@ public class recepcion extends HttpServlet {
               String nombre = request.getParameter("nombre");
               String rubro = request.getParameter("rubro");
                request.setAttribute("idorden",idOrdenPedido);
-                request.setAttribute("nombre",nombre);
-                 request.setAttribute("rubro",rubro);
+               request.setAttribute("nombre",nombre);
+               request.setAttribute("rubro",rubro);
                 
               request.getRequestDispatcher("/paginas/admin/historialrecepcion.jsp").forward(request, response);
               
