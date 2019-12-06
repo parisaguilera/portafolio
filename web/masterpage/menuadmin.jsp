@@ -12,7 +12,7 @@
         <%
       usuarioDTO usuario = (usuarioDTO) session.getAttribute("usuario");
         %>
-    <div class="navegador">
+    <div class="navegador sticky-top">
         <nav class="navbar bg-secondary">    
            <%-- <li class="col-sm dropdownx"><a class="fontstyle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias <i class="fas fa-caret-down"></i></a>
                 <div class="dropdown-contentx  bg-secondary">
@@ -35,8 +35,8 @@
        <body>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2 px-1 bg-light min-vh-100">
-            <div class="py-2 sticky-top flex-grow-1">
+        <div class="col-sm-2 px-1 bg-light min-vh-100 fixSidebar">
+            <div class="py-2 sticky-top flex-grow-1 ">
                 <div class="pl-3 nav flex-sm-column">
                     <%-- primera seccion--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-store-alt"></i> Productos</p>
@@ -51,7 +51,7 @@
                     <p class="pt-5 sidebarFont"><i class="fas fa-boxes"></i> Proveedores</p>
                     <a href="/portafolio/paginas/admin/proveedor.jsp" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Modulo Proveedor</a>
                     <a href="/portafolio/paginas/admin/ordenarpedido.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Ordenar Pedido</a>
-                    <a href="" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Recepcion</a>
+                    <a href="/portafolio/paginas/admin/recepcion.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Recepcion</a>
                     <%-- siguiente seccion del sidebar--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-clipboard"></i> Informe y Estadisticas</p>
                     <a href="" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Informes</a>

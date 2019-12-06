@@ -5,12 +5,16 @@
  */
 package servlet;
 
+import daoimp.ordenPedidoDAOIMP;
 import daoimp.productosPedidoDAOIMP;
 import dto.ordenpedidoDTO;
 import dto.productospedidoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +40,37 @@ public class ordenPedido extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+             HttpSession sesion = request.getSession();
+             ArrayList<productospedidoDTO> listaOrden = (ArrayList) sesion.getAttribute("listaOrden");
+            
+             if(request.getParameter("finalizarOrden") != null){
+                  ordenPedidoDAOIMP ord = new ordenPedidoDAOIMP();
+                 String total = request.getParameter("total");
+                 int idorden = ord.nuevoIDordenPedido();
+                 int idProveedor = Integer.parseInt(request.getParameter("idProv"));
+                 
+              java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+                
+                 
+                 for (productospedidoDTO dto : listaOrden) {
+                     //recepcion entra en 0 ya que entra como en "Espera"
+                     ordenpedidoDTO orden = new ordenpedidoDTO();
+                     orden.setIdordenpedido(idorden);
+                     orden.setIdproveedor(idProveedor);
+                     orden.setFecha(date);
+                     orden.setIdproductospedido(dto.getIdproductospedido());
+                     orden.setRecepcion(0);
+                     ord.agregar(orden);
+                 }
+                 
+                 listaOrden.clear();
+                 request.setAttribute("total",total);
+                 request.setAttribute("idorden",idorden);
+                 request.setAttribute("idProveedor",idProveedor);
+                 request.getRequestDispatcher("/paginas/admin/ordenfinalizada.jsp").forward(request, response); 
+                 
+             }else{
+            
             
              String nombreProveedor = request.getParameter("selOrden");
              int idProducto = Integer.parseInt(request.getParameter("idproducto"));
@@ -44,9 +79,7 @@ public class ordenPedido extends HttpServlet {
                 request.setAttribute("selOrden",nombreProveedor);
              productosPedidoDAOIMP pro = new productosPedidoDAOIMP();
              
-             HttpSession sesion = request.getSession();
              
-             ArrayList<productospedidoDTO> listaOrden = (ArrayList) sesion.getAttribute("listaOrden");
              
               if(request.getParameter("agregarProducto") != null){
                   
@@ -75,6 +108,7 @@ public class ordenPedido extends HttpServlet {
                     request.getRequestDispatcher("/paginas/admin/orden.jsp").forward(request, response);
               
               }
+            }
         }
     }
 

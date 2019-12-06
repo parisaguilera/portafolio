@@ -17,6 +17,7 @@ public class ordenpedidoDTO {
     private int idproveedor;
     private Date fecha;
     private int idproductospedido;
+    private int recepcion;
 
     public ordenpedidoDTO() {
     }
@@ -52,6 +53,15 @@ public class ordenpedidoDTO {
     public void setIdproductospedido(int idproductospedido) {
         this.idproductospedido = idproductospedido;
     }
+
+    public int getRecepcion() {
+        return recepcion;
+    }
+
+    public void setRecepcion(int recepcion) {
+        this.recepcion = recepcion;
+    }
+    
     
     
 }

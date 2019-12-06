@@ -44,6 +44,10 @@
         <servlet-name>ordenPedido</servlet-name>
         <servlet-class>servlet.ordenPedido</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>recepcion</servlet-name>
+        <servlet-class>servlet.recepcion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>deudas</servlet-name>
         <url-pattern>/deudas</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>ordenPedido</servlet-name>
         <url-pattern>/ordenPedido</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>recepcion</servlet-name>
+        <url-pattern>/recepcion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

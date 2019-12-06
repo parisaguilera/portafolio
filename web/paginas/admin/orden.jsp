@@ -97,7 +97,8 @@
                                 </thead>
                                 <tbody>
                                     <c:forEach var="pro" items="${productos}">
-                                        <tr class="redaccion">
+
+                                         <tr class="redaccion">
                                             <td class="bodyTableText">${pro.getNombre()}</td>
                                             <td class="bodyTableText">${pro.getMarca()}</td> 
                                             <td class="bodyTableText">${pro.getDescripcion()}</td> 
@@ -111,10 +112,25 @@
                                                     <input type="hidden" name="idproducto" value="${pro.getIdproductospedido()}">
                                                     <input type="hidden" name="idProv" value="<%= idProveedor %>">
                                                     
-                                             <input type="submit" name="agregarProducto" value="Agregar" class="btn-success rounded-pill fontBotonOrden">
+                                                    <c:set var="agregado" value="${false}" />
+                                                    <c:forEach var="proOrden" items="${listaOrden}">
+                                                                            <c:if test="${pro.getIdproductospedido()==proOrden.getIdproductospedido()}">
+                                                                                 <c:set var="agregado" value="${true}" />
+                                                                            </c:if>
+                                                    </c:forEach>
+                                                      <c:choose>
+                                                                <c:when test="${agregado==true}">
+                                                                    <input type="submit" value="En Canasta" class="btn-info rounded-pill fontBotonOrden" disabled>  
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <input type="submit" name="agregarProducto" value="Agregar" class="btn-success rounded-pill fontBotonOrden">
+                                                                </c:otherwise>
+                                                     </c:choose>
                                                 </form>
                                             </td>
                                         </tr>
+                                                
+
                                     </c:forEach>
                                 </tbody>
                             </table>
@@ -180,9 +196,20 @@
                                       </fieldset>
                                      
                                  </div>
-                                         
+                                            
                              </div>
-
+                                        <div class="row mt-5">
+                                         
+                                          <c:if test="${listaOrden.size()!=0}">
+                                            <div class="col text-right">
+                                               <form method="POST" action="/portafolio/ordenPedido">
+                                                     <input type="hidden" name="total" value=" ${total}">
+                                                     <input type="hidden" name="idProv" value="<%= idProveedor %>">
+                                                    <input type="submit" name="finalizarOrden" value="Ordenar Pedido" class="btn-success rounded-pill finalizarVenta"">
+                                               </form>
+                                               </div>
+                                            </c:if>
+                                       </div>  
             </div>
         
     </div>

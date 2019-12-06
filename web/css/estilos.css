@@ -160,6 +160,14 @@ li{
     color: #6c757d;
 
 }
+.finalizado:hover{
+    font-family: 'Poppins', sans-serif;
+    font-size: 21px;
+    text-align: center;
+    font-weight: 800;
+    color: #6c757d;
+
+}
 
 
 .hrHistorial{
@@ -178,6 +186,10 @@ li{
 .fontBotonOrden{
     font-family: 'Poppins', sans-serif;
     font-size: 8px !important; 
+}
+.fontBotonRecepcion{
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px !important; 
 }
 .loginFont{
     font-family: 'Poppins', sans-serif;
@@ -249,4 +261,7 @@ margin-top: 50px !important;
     font-size: 12px;
     margin-top:3px;
     color: #6c757d;
+}
+.fixSidebar{
+    z-index: 22 !important;
 }

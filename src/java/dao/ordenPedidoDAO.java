@@ -6,6 +6,7 @@
 package dao;
 
 import dto.ordenpedidoDTO;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,5 +14,8 @@ import dto.ordenpedidoDTO;
  */
 public interface ordenPedidoDAO extends BaseDAO<ordenpedidoDTO>{
     
+     public ArrayList<ordenpedidoDTO> listarTodosAgrupados();
+    public ArrayList<ordenpedidoDTO> listarTodosporOrden(int idordenpedido);
     public int nuevoIDordenPedido();
+    public int totalOrdenes();
 }
