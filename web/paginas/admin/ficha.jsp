@@ -34,7 +34,7 @@
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">
                     <div class="text-center">
-                        <label class="card-title loginFontTitle">Ficha de <%= cliente.getNombre().toUpperCase() %></label>
+                        <label class="card-title loginFontTitle text">Ficha de: <u><%= cliente.getNombre().toUpperCase() %></u></label>
                     </div>
                     <div class="form-row mt-5">
                         <div class="col-md-1">
@@ -60,14 +60,16 @@
                         </div>
                     </div>
                         <!-- set arreglos -->
-                            <c:set var="listaPen" value="<%= cli.listarTodosFicha(rut,2) %>" />
-                            <c:set var="listaRe" value="<%= cli.listarTodosFicha(rut,0) %>" />
-                            <c:set var="listaAce" value="<%= cli.listarTodosFicha(rut,1) %>" />
+                            <c:set var="listaPagados" value="<%= cli.listarTodosFicha(rut,3) %>"/>    
+                            <c:set var="listaPen" value="<%= cli.listarTodosFicha(rut,2) %>"/>
+                            <c:set var="listaAce" value="<%= cli.listarTodosFicha(rut,1) %>"/>
+                            <c:set var="listaRe" value="<%= cli.listarTodosFicha(rut,0) %>"/>
+                            
                     <!-- Seccion de sus boletas-->
                     <div class="form-row mt-5">
                         <div class="col-md-4">
-                            <div class="card text-center">
-                                <div class="card-header">
+                            <div class="card ">
+                                <div class="card-header text-center">
                                     <h5 class="text-info">Fiados Pendientes</h5>
                                 </div>
                                 <div class="card-body p-0">
@@ -93,8 +95,8 @@
                                                             <tr class="redaccion">
                                                                 
                                                                 <td class="bodyTableText"><%= i+=1 %></td>
-                                                                <td class="bodyTableText">${fiadosPen.getIdboleta()}</td>
-                                                                <td class="bodyTableText">${fiadosPen.getDeuda()}</td>
+                                                                <td class="bodyTableText">0000${fiadosPen.getIdboleta()}</td>
+                                                                <td class="bodyTableText">$ ${fiadosPen.getDeuda()}</td>
                                                             </tr>
                                                          </c:forEach>
                                                     </tbody>
@@ -102,7 +104,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                 </div>
-                                <div class="card-footer text-muted">
+                                <div class="card-footer text-muted text-center">
                                   <p class="text-info"><%= i %> Fiados Pendientes</p>
                                 </div>
                               </div>                
@@ -111,8 +113,8 @@
                         i=0;
                             %>
                         <div class="col-md-4">
-                            <div class="card text-center">
-                                <div class="card-header table-success">
+                            <div class="card ">
+                                <div class="card-header table-success text-center">
                                    <h5 class="text-success">Fiados Aceptados</h5>
                                 </div>
                                 <div class="card-body p-0">
@@ -136,8 +138,8 @@
                                                          <c:forEach var="fiadosAce" items="${listaAce}">
                                                             <tr class="redaccion">
                                                                 <td class="bodyTableText"><%= i+=1 %></td>
-                                                                <td class="bodyTableText">${fiadosAce.getIdboleta()}</td>
-                                                                <td class="bodyTableText">${fiadosAce.getDeuda()}</td>                      
+                                                                <td class="bodyTableText">0000${fiadosAce.getIdboleta()}</td>
+                                                                <td class="bodyTableText">$ ${fiadosAce.getDeuda()}</td>                      
                                                             </tr>
                                                          </c:forEach>
                                                     </tbody>
@@ -145,7 +147,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                 </div>
-                                <div class="card-footer text-muted">
+                                <div class="card-footer text-muted text-center">
                                  <p class="text-success"><%= i %> Fiados Aceptados<p>
                                 </div>
                               </div>     
@@ -154,8 +156,8 @@
                         i=0;
                             %>
                         <div class="col-md-4">
-                            <div class="card text-center">
-                                <div class="card-header">
+                            <div class="card ">
+                                <div class="card-header text-center">
                                   <h5 class="text-danger">Fiados Rechazados</h5>
                                 </div>
                                 <div class="card-body p-0">
@@ -179,8 +181,8 @@
                                                          <c:forEach var="fiadosRe" items="${listaRe}">
                                                             <tr class="redaccion">
                                                                 <td class="bodyTableText"><%= i+=1 %></td>
-                                                                <td class="bodyTableText">${fiadosRe.getIdboleta()}</td>
-                                                                <td class="bodyTableText">${fiadosRe.getDeuda()}</td>                             
+                                                                <td class="bodyTableText">0000${fiadosRe.getIdboleta()}</td>
+                                                                <td class="bodyTableText">$ ${fiadosRe.getDeuda()}</td>                             
                                                             </tr>
                                                          </c:forEach>
                                                     </tbody>
@@ -188,14 +190,57 @@
                                             </c:otherwise>
                                         </c:choose>
                                 </div>
-                                <div class="card-footer text-muted">
+                                <div class="card-footer text-muted text-center">
                                     <p class="text-danger"><%= i %> Fiados Rechazados</p>
                                 </div>
                               </div>     
                         </div>
-
+                            <% 
+                        i=0;
+                            %>
                     </div>
-                    
+                                <div class="row mt-5">
+                                    <div class="col">
+                                        <div class="card ">
+                                <div class="card-header text-center">
+                                  <h5 class="text-primary">Compras pagadas Directamente</h5>
+                                </div>
+                                <div class="card-body p-0">
+                                           <c:choose>
+                                            <c:when test="${listaPagados.size()==0}">
+                                                <label class="loginFontTitle">Sin compras directas</label>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <table class="table table-bordered">
+                                
+                                            <thead>
+                                                <tr>
+                                                    <th class="headTableText">Nº Pago</th>
+                                                    <th class="headTableText">N º Boleta</th>
+                                                    <th class="headTableText">Total</th>  
+
+                                                </tr>
+                                            </thead>
+                                            
+                                                    <tbody>
+                                                         <c:forEach var="listaPa" items="${listaPagados}">
+                                                            <tr class="redaccion">
+                                                                <td class="bodyTableText"><%= i+=1 %></td>
+                                                                <td class="bodyTableText">0000${listaPa.getIdboleta()}</td>
+                                                                <td class="bodyTableText">$ ${listaPa.getDeuda()}</td>                             
+                                                            </tr>
+                                                         </c:forEach>
+                                                    </tbody>
+                                            </table>
+                                            </c:otherwise>
+                                        </c:choose>
+                                </div>
+                                <div class="card-footer text-muted text-center">
+                                    <p class="text-primary"><%= i %> Compras directas</p>
+                                </div>
+                              </div>     
+                                    </div>
+                                </div>
             </div>
             </div>
     </div>

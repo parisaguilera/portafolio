@@ -63,11 +63,11 @@
                                 <tbody>
                                     <c:forEach var="fiadosPen" items="${listaPen}">
                                         <tr class="table-info redaccion">
-                                            <td class="bodyTableText">${fiadosPen.getIdboleta()}</td>
+                                            <td class="bodyTableText">0000${fiadosPen.getIdboleta()}</td>
                                             <td class="bodyTableText">${fiadosPen.getRut()}</td>
                                             <td class="bodyTableText">${fiadosPen.getNombre()}</td>
                                             <td class="bodyTableText">${fiadosPen.getContacto()}</td>
-                                            <td class="bodyTableText">${fiadosPen.getDeuda()}</td>
+                                            <td class="bodyTableText">$ ${fiadosPen.getDeuda()}</td>
                                             <td class="bodyTableText text-info">PENDIENTE</td>
                                             <td>
                                                  <form method="POST" action="/portafolio/fiadosControlador">
@@ -80,11 +80,11 @@
                                     </c:forEach>
                                      <c:forEach var="fiadosRe" items="${listaRe}">
                                         <tr class="table-danger redaccion">
-                                            <td class="bodyTableText">${fiadosRe.getIdboleta()}</td>
+                                            <td class="bodyTableText">0000${fiadosRe.getIdboleta()}</td>
                                             <td class="bodyTableText">${fiadosRe.getRut()}</td>
                                             <td class="bodyTableText">${fiadosRe.getNombre()}</td>
                                             <td class="bodyTableText">${fiadosRe.getContacto()}</td>
-                                            <td class="bodyTableText">${fiadosRe.getDeuda()}</td>
+                                            <td class="bodyTableText">$ ${fiadosRe.getDeuda()}</td>
                                             <td class="bodyTableText text-danger">RECHAZADO</td>
                                             <td>
                                                  <form method="POST" action="/portafolio/fiadosControlador">
@@ -123,11 +123,11 @@
                                 <tbody>
                                     <c:forEach var="fiadosAcep" items="${listaAce}">
                                         <tr class="table-success redaccion">
-                                            <td class="bodyTableText">${fiadosAcep.getIdboleta()}</td>
+                                            <td class="bodyTableText">0000${fiadosAcep.getIdboleta()}</td>
                                             <td class="bodyTableText">${fiadosAcep.getRut()}</td>
                                             <td class="bodyTableText">${fiadosAcep.getNombre()}</td>
                                             <td class="bodyTableText">${fiadosAcep.getContacto()}</td>
-                                            <td class="bodyTableText">${fiadosAcep.getDeuda()}</td>
+                                            <td class="bodyTableText">$ ${fiadosAcep.getDeuda()}</td>
                                             <td class="bodyTableText text-success">ACEPTADO</td>                                
                                         </tr>
                                     </c:forEach>
