@@ -59,8 +59,8 @@
                                     <c:forEach var="productos" items="${listaProductos.listarTodos()}">
                                         <tr class="redaccion">
                                             <c:set var="categoria" value="${listaProductos.idtonombre(productos.getIdfamilia())}" />
-                                             <td class="bodyTableText">${categoria}</td> 
-                                             <td class="bodyTableText">${productos.getNombre()}</td>
+                                             <td class="bodyTableTextImportante fondoImportante">${categoria}</td> 
+                                             <td class="bodyTableTextImportante fondoImportante">${productos.getNombre()}</td>
                                              <td class="bodyTableText">${productos.getMarca()}</td>                                              
                                              <td class="bodyTableText">${productos.getDescripcion()}</td> 
                                              <td class="bodyTableText">$ ${productos.getPreciocompra()}</td>

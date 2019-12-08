@@ -6,7 +6,9 @@
 package servlet;
 
 import daoimp.usuarioDAOIMP;
+
 import dto.productoDTO;
+import dto.productospedidoDTO;
 import dto.usuarioDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,8 +49,10 @@ public class login extends HttpServlet {
                 if (new usuarioDAOIMP().validarUsuario(user, pass)) {
                     usuarioDTO usuario = new usuarioDAOIMP().leerUsuario(user);
                     ArrayList<productoDTO> lista = new ArrayList<productoDTO>();
+                    ArrayList<productospedidoDTO> listaOrden = new ArrayList<productospedidoDTO>();
                     sesion.setAttribute("usuario", usuario);
                     sesion.setAttribute("carrito", lista);
+                    sesion.setAttribute("listaOrden", listaOrden);
                     System.out.println("LOGIN EXITOSO");
                     System.out.println(lista.size());
                     request.getRequestDispatcher("paginas/admin/administracion.jsp").forward(request, response);

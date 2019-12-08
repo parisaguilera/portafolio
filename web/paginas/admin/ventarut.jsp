@@ -172,9 +172,9 @@
             <c:if test="${carrito.size()!=0}">
                 <form method="POST" action="/portafolio/carro">
                          <div class="row mt-5">
-                        <fieldset class="border p-2 col-12 text-center sinLados">
+                        <fieldset class="border p-0 col-12 text-center sinLados">
                         <legend  class="w-auto modalFont">Carro</legend>
-                           <table class="table table-bordered">
+                           <table class="table table-bordered mb-5">
                                 
                                 <thead>
                                     <tr>
@@ -192,7 +192,7 @@
                                    <c:set var="total" value="${0}"/>
                                      <c:forEach var="carro" items="${carrito}">
                                          
-                                         <c:set var="idfamiliaPROCarrito" value="${carro.getIdproducto()}" />
+                                         <c:set var="idfamiliaPROCarrito" value="${carro.getIdfamilia()}" />
                                             <c:set var="productosCategoriaCarrito" value="${productoIMP.idtonombre(idfamiliaPROCarrito)}" />
                                             <tr class="redaccion">
                                             <td class="bodyTableText">${carro.getNombre()} - ${carro.getMarca()} ® - ${carro.getCodigobarra()}</td>

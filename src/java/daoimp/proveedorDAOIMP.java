@@ -115,5 +115,49 @@ public class proveedorDAOIMP implements proveedorDAO{
         }
         return false;
     }
+
+    @Override
+    public String idtorubro(int idProveedor) {
+        
+       Connection conexion = Conexion.getConexion();
+        String query = "SELECT RUBRO FROM PROVEEDOR WHERE IDPROVEEDOR=?";
+        try {
+            PreparedStatement aNombre = conexion.prepareStatement(query);
+            aNombre.setInt(1, idProveedor);
+            ResultSet rs = aNombre.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("RUBRO");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar id a rubro: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar id a rubro: " + e.getMessage());
+        }
+        return null; 
+    }
+
+    @Override
+    public String idtonombre(int idProveedor) { 
+        
+        Connection conexion = Conexion.getConexion();
+        String query = "SELECT NOMBRE FROM PROVEEDOR WHERE IDPROVEEDOR=?";
+        try {
+            PreparedStatement aNombre = conexion.prepareStatement(query);
+            aNombre.setInt(1, idProveedor);
+            ResultSet rs = aNombre.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("NOMBRE");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar id a NOMBRE: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar id a NOMBRE: " + e.getMessage());
+        }
+        return null; 
+    }
     
 }

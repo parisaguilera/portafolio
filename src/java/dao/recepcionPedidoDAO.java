@@ -5,15 +5,12 @@
  */
 package dao;
 
-import dto.clientepagofiadoDTO;
-import java.util.ArrayList;
+import dto.recepcionpedidoDTO;
 
 /**
  *
  * @author parisbastian
  */
-public interface clientepagofiadoDAO extends BaseDAO<clientepagofiadoDTO>{
-    
-    public ArrayList<clientepagofiadoDTO> listarTodos(String rut);
+public interface recepcionPedidoDAO extends BaseDAO<recepcionpedidoDTO>{
     
 }

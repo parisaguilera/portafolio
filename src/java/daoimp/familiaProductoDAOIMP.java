@@ -182,5 +182,27 @@ public class familiaProductoDAOIMP implements familiaProductoDAO{
         }
         return null; 
     }
+
+    @Override
+    public String idtomedida(int idfamilia) {
+Connection conexion = Conexion.getConexion();
+        String query = "SELECT medida FROM FAMILIAPRODUCTO WHERE idfamilia=?";
+        try {
+            PreparedStatement aNombre = conexion.prepareStatement(query);
+            aNombre.setInt(1, idfamilia);
+            ResultSet rs = aNombre.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("MEDIDA");
+            }
+            
+          } catch (SQLException e) {
+            System.out.println("Error SQL pasar id a medida: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al pasar id a medida: " + e.getMessage());
+        }
+        return null; 
+
+    }
     
 }
