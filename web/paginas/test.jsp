@@ -3,6 +3,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="cliente" class="daoimp.clienteDAOIMP" />
 <jsp:useBean id="boleta" class="daoimp.boletaDAOIMP" />
+<jsp:useBean id="producto" class="daoimp.productosPedidoDAOIMP" />
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        
         <h1>${cliente.nuevoIDcliente()}</h1>
         <h1>${cliente.rutAID("12312131")}</h1>
         <h1>${boleta.nuevoIDboleta()}</h1>

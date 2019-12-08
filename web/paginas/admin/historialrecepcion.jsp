@@ -2,6 +2,7 @@
 <jsp:useBean id="orden" class="daoimp.ordenPedidoDAOIMP"/>
 <jsp:useBean id="prov" class="daoimp.proveedorDAOIMP"/>
 <jsp:useBean id="producto" class="daoimp.productosPedidoDAOIMP"/>
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -26,18 +27,15 @@
      <div class="col">
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">
-                      <label class="card-title loginFontTitle text-center">Recepcion de Ordenes</label>
+                    <label class="card-title loginFontTitle text-center">Historial de la Orden: <strong class="text-info">0000${idorden}</strong></label>
                         <div class="card-text">
-                            <p class="textoExplicativo">
-                               Aqui podras Aceptar las recepciones que se generan cuando Ordenas un pedido
-                            </p>
                             <div class="card-text row">
-                                <p class="col-10 tooltips">* Historial, en el cual podras ver el pedido.</p>
+                                <p class="col-10 tooltips">* Historial, en el cual podras ver el pedido hecho al proveedor.</p>
                             </div>
                               <hr>
                             <div class="row mb-5">
                                 <div class="col text-center">
-                                    <label class="card-title loginFontTitle finalizado">${nombre} - <strong class="text-info">${rubro}</strong></label>
+                                    <label class="card-title loginFontTitle finalizado">Proveedor: <strong class="text-info"> ${nombre} - ${rubro}</strong></label>
                                 </div>
                             </div>
                                 
@@ -61,7 +59,7 @@
                                              <td class="bodyTableText">0000${orden.getIdordenpedido()}</td>
                                              <c:set var="pro" value="${producto.obtenerPorID(orden.getIdproductospedido())}" />
                                              <td class="bodyTableText">${pro.getNombre()}</td>
-                                              <td class="bodyTableText">${pro.getCantidad()}</td>
+                                             <td class="bodyTableText">${pro.getCantidad()} ${producto.sacarMedida(pro.getIdfamilia())}</td>
                                               <td class="bodyTableText">$ ${pro.getTotalcompra()}</td>
                                              <c:set var="total" value="${total + pro.getTotalcompra()}" />
                                         </tr>

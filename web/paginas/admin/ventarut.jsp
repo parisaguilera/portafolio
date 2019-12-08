@@ -192,7 +192,7 @@
                                    <c:set var="total" value="${0}"/>
                                      <c:forEach var="carro" items="${carrito}">
                                          
-                                         <c:set var="idfamiliaPROCarrito" value="${carro.getIdproducto()}" />
+                                         <c:set var="idfamiliaPROCarrito" value="${carro.getIdfamilia()}" />
                                             <c:set var="productosCategoriaCarrito" value="${productoIMP.idtonombre(idfamiliaPROCarrito)}" />
                                             <tr class="redaccion">
                                             <td class="bodyTableText">${carro.getNombre()} - ${carro.getMarca()} ® - ${carro.getCodigobarra()}</td>

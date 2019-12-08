@@ -54,13 +54,7 @@
                     <p class="productoDes">${pro.getDescripcion()}</p><br>
                 </div>
                 </div>
-                <div class="col-4">
-                    <input placeholder="" type="hidden" name="ID" value="${pro.getIdproducto()}"/>
-                    <div class="mt-1">
-                        <input type="submit" name="agregar" value="Agregar" class="btn-primary rounded-pill"></div>
-                    <div class="mt-1">
-                        <input type="submit" name="verMas" value="Ver Mas" class="btn-primary rounded-pill"></div>
-                    </div>
+
                    </div>
                      </form>
                  </div>

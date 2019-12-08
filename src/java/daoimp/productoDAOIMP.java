@@ -243,6 +243,56 @@ public class productoDAOIMP implements productoDAO{
         }
         return null; 
     }
+
+    @Override
+    public boolean existeProducto(String nombre, int idfamilia) {
+       
+       String nombreP = null;
+        try {
+            Connection conexion = Conexion.getConexion();
+            String query = " SELECT NOMBRE FROM producto WHERE nombre=? AND IDFAMILIA=?";
+            PreparedStatement validar = conexion.prepareStatement(query);
+            validar.setString(1, nombre);
+            validar.setInt(2, idfamilia);
+            ResultSet rs = validar.executeQuery();
+            while (rs.next()) {
+                nombreP = rs.getString("NOMBRE");
+            }
+            if (nombreP != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException w) {
+            System.out.println("Error SQL al ver si existe" + w.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al ver si existe " + e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean actualizarStockActual(int cantidad, String nombre, int idfamilia) {
+               Connection conexion = Conexion.getConexion();
+        String query = "UPDATE producto SET stock=stock+? WHERE nombre=? AND IDFAMILIA=?";
+        try {
+            PreparedStatement update = conexion.prepareStatement(query);
+            update.setInt(1, cantidad);
+            update.setString(2, nombre);
+            update.setInt(3, idfamilia);
+            update.executeUpdate();
+            update.close();
+          
+            
+                return true;
+  
+          } catch (SQLException e) {
+            System.out.println("Error SQL al Actualizar: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Actualizar: " + e.getMessage());
+        }
+        return false;
+    }
                 
     
 }

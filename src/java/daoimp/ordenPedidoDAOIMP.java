@@ -160,5 +160,25 @@ public class ordenPedidoDAOIMP implements ordenPedidoDAO{
         }
         return null; 
     }
+
+    @Override
+    public boolean aprobarOrden(int idOrdenPedido) {
+           Connection conexion = Conexion.getConexion();
+        String query = "UPDATE ORDENPEDIDO SET recepcion=1 WHERE idordenpedido=?";
+        try {
+            PreparedStatement update = conexion.prepareStatement(query);
+
+            update.setInt(1, idOrdenPedido);
+            update.executeUpdate();
+            update.close();
+                return true;
+  
+          } catch (SQLException e) {
+            System.out.println("Error SQL al aprobar: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al aprobar: " + e.getMessage());
+        }
+        return false;
+    }
     
 }

@@ -18,4 +18,5 @@ public interface ordenPedidoDAO extends BaseDAO<ordenpedidoDTO>{
     public ArrayList<ordenpedidoDTO> listarTodosporOrden(int idordenpedido);
     public int nuevoIDordenPedido();
     public int totalOrdenes();
+    public boolean aprobarOrden(int idOrdenPedido);
 }

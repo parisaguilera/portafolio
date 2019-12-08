@@ -23,7 +23,6 @@
                 alert("${mensaje}");
             </script> 
         </c:if>
-        
      <div class="col">
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">
@@ -54,14 +53,14 @@
                                 <tbody>
                                    
                                     <c:forEach var="ord" items="${orden.listarTodosAgrupados()}">
-                                         
+                                         <c:set var="nombreProveedor" value="${prov.idtonombre(ord.getIdproveedor())}" />
+                                         <c:set var="rubroProveedor" value="${prov.idtorubro(ord.getIdproveedor())}" />
                                         <tr class="redaccion">
                                         
                                             
                                              <td class="bodyTableText">0000${ord.getIdordenpedido()}</td>
-                                             <td class="bodyTableText">${prov.idtonombre(ord.getIdproveedor())}"</td>
-                                             
-                                             <td class="bodyTableText">${prov.idtorubro(ord.getIdproveedor())}</td>
+                                             <td class="bodyTableText">${nombreProveedor}</td>
+                                             <td class="bodyTableText">${rubroProveedor}</td>
                                              <td class="bodyTableText">${ord.getFecha()}</td>
                                              <c:if test="${ord.getRecepcion()==0}">
                                               <td class="bodyTableText text-info">En Espera</td>   
@@ -72,15 +71,16 @@
                                               <td class="bodyTableText">
                                                      <form method="POST" action="/portafolio/recepcion">
                                                        <input type="hidden" name="idorden" value="${ord.getIdordenpedido()}" >
-                                                       <input type="hidden" name="nombre" value="${prov.idtonombre(ord.getIdproveedor())}" >
-                                                       <input type="hidden" name="rubro" value="${prov.idtorubro(ord.getIdproveedor())}" >
+                                                       <input type="hidden" name="nombre" value="${nombreProveedor}" >
+                                                       <input type="hidden" name="rubro" value="${rubroProveedor}" >
                                               <c:choose>
                                                                 <c:when test="${ord.getRecepcion()==0}">
+                                                                    <input type="hidden" name="idUsuario" value="<%= usuario.getIdusuario()%>" >
+                                                                    <input type="hidden" name="idProv" value="${ord.getIdproveedor()}" >
                                                                     <input type="submit" name="aceptarOrden" value="Aceptar Orden" class="btn-success rounded-pill fontBotonRecepcion">
                                                                     <input type="submit" name="verOrden" value="Ver Orden" class="btn-info rounded-pill fontBotonRecepcion">  
                                                                 </c:when>
                                                                 <c:otherwise>
-                                                                    <input type="submit" value="Aceptado" class="btn-info rounded-pill fontBotonRecepcion" >
                                                                     <input type="submit" name="verOrden" value="Ver Orden" class="btn-info rounded-pill fontBotonRecepcion"> 
                                                                 </c:otherwise>
                                                      </c:choose>

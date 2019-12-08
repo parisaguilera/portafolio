@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="proveedor" class="daoimp.proveedorDAOIMP"/>  
 <!DOCTYPE html>
@@ -21,6 +22,14 @@
                 alert("${mensaje}");
             </script> 
         </c:if>
+             <%     
+      HttpSession sesion = request.getSession();
+      
+      ArrayList<Object[]> listaOrden = (ArrayList<Object[]>) sesion.getAttribute("listaOrden");
+      listaOrden.clear();
+
+
+          %>
      <div class="col">
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">

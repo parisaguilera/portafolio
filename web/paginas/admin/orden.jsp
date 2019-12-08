@@ -1,7 +1,7 @@
 <%@page import="daoimp.proveedorDAOIMP"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="productos" class="daoimp.productosPedidoDAOIMP"/>
+<jsp:useBean id="prod" class="daoimp.productosPedidoDAOIMP"/>
 
 
 <!DOCTYPE html>
@@ -42,8 +42,8 @@
         </c:if>
              <c:set var="nombreProv" value="<%= nombreProveedor %>" />
             <c:set var="rubro" value="<%= rubro %>" />
-            <c:set var="familia" value="${productos.sacarFamilia(rubro)}" />
-            <c:set var="productos" value="${productos.listarCategoria(familia)}" />
+            <c:set var="familia" value="${prod.sacarFamilia(rubro)}" />
+            <c:set var="productos" value="${prod.listarCategoria(familia)}" />
             <c:set var="listaOrden" value="<%= listaOrden %>" />
      <div class="col">
            <div class="mt-5 card w-100">
@@ -82,7 +82,12 @@
                                  <div class="col-6">
                                       <fieldset class="border p-0 col-12 text-center sinLados">
                                         <legend  class="w-auto modalFont">${rubro}</legend>
-                                       <table class="table table-bordered mb-5">
+                                <c:choose>
+                                     <c:when test="${productos.size()==0}">
+                                         <h1  class="modalFont mt-5 mb-5"> Proveedor Sin productos</h1>
+                                      </c:when>
+                               <c:otherwise>                                
+                                 <table class="table table-bordered mb-5">
                                 
                                 <thead>
                                     <tr>
@@ -102,7 +107,7 @@
                                             <td class="bodyTableText">${pro.getNombre()}</td>
                                             <td class="bodyTableText">${pro.getMarca()}</td> 
                                             <td class="bodyTableText">${pro.getDescripcion()}</td> 
-                                            <td class="bodyTableText">${pro.getCantidad()}</td>
+                                            <td class="bodyTableText">${pro.getCantidad()} ${prod.sacarMedida(pro.getIdfamilia())}</td>
                                             <td class="bodyTableText">$${pro.getTotalcompra()}</td>
                                             <td>
                                                 <form method="POST" action="/portafolio/ordenPedido">
@@ -134,6 +139,8 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
+                               </c:otherwise>
+                       </c:choose>
                                       </fieldset>
                                  </div>
                                  <div class="col-6">
@@ -165,7 +172,7 @@
                                             <td class="bodyTableText">${pro.getNombre()}</td>
                                             <td class="bodyTableText">${pro.getMarca()}</td> 
                                             <td class="bodyTableText">${pro.getDescripcion()}</td> 
-                                            <td class="bodyTableText">${pro.getCantidad()}</td>
+                                            <td class="bodyTableText">${pro.getCantidad()} ${prod.sacarMedida(pro.getIdfamilia())}</td>
                                             <td class="bodyTableText">$${pro.getTotalcompra()}</td>
                                             <% 
                                                 i+=1;
