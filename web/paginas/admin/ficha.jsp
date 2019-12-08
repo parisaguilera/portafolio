@@ -20,6 +20,15 @@
                 alert("${mensaje}");
             </script> 
         </c:if>
+            <script>
+
+             $(function() {
+    
+             $(".loader").fadeOut("slow");
+             
+             });
+            
+            </script>
             
              <%     
                   
@@ -75,7 +84,9 @@
                                 <div class="card-body p-0">
                                     <c:choose>
                                             <c:when test="${listaPen.size()==0}">
+                                                <div class="text-center">
                                                 <label class="loginFontTitle">Sin fiados Pendientes</label>
+                                                </div>
                                             </c:when>
                                             <c:otherwise>
                                                 <table class="table table-bordered">
@@ -115,12 +126,15 @@
                         <div class="col-md-4">
                             <div class="card ">
                                 <div class="card-header table-success text-center">
+                                    
                                    <h5 class="text-success">Fiados Aceptados</h5>
                                 </div>
                                 <div class="card-body p-0">
                                     <c:choose>
                                             <c:when test="${listaAce.size()==0}">
+                                                <div class="text-center">
                                                 <label class="loginFontTitle">Sin fiados Aceptados</label>
+                                                </div>
                                             </c:when>
                                             <c:otherwise>
                                                 <table class="table table-bordered">
@@ -163,7 +177,9 @@
                                 <div class="card-body p-0">
                                            <c:choose>
                                             <c:when test="${listaRe.size()==0}">
+                                                <div class="text-center">
                                                 <label class="loginFontTitle">Sin fiados Rechazados</label>
+                                                </div>
                                             </c:when>
                                             <c:otherwise>
                                                 <table class="table table-bordered">

@@ -5,6 +5,6 @@
                   int id = Integer.parseInt(request.getParameter("idc"));
                  String nombre = request.getParameter("nombre");
           %>
-          "<%=nombre %>" ?
+          <%=nombre %> ?
           <input value="<%= id %>" type="hidden" name="numId"/> 
   

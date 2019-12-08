@@ -19,5 +19,6 @@ public interface productoDAO extends BaseDAO<productoDTO> {
         public String idproductotonombre(int idproducto);
         public boolean existeProducto(String nombre, int idfamilia);
         public boolean actualizarStockActual(int cantidad, String nombre, int idfamilia);
+         public boolean restarAlStockActual(int cantidad,int idproducto);
 
 }

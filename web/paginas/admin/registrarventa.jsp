@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,12 @@
                 alert("${mensaje}");
             </script> 
         </c:if>
+             <%     
+      HttpSession sesion = request.getSession(); 
+      ArrayList<Object[]> lista = (ArrayList<Object[]>) sesion.getAttribute("carrito");
+      lista.clear();
+
+          %>
      <div class="col">
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">

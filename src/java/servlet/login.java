@@ -6,6 +6,7 @@
 package servlet;
 
 import daoimp.usuarioDAOIMP;
+import dto.productoCarroDTO;
 
 import dto.productoDTO;
 import dto.productospedidoDTO;
@@ -48,7 +49,7 @@ public class login extends HttpServlet {
                 
                 if (new usuarioDAOIMP().validarUsuario(user, pass)) {
                     usuarioDTO usuario = new usuarioDAOIMP().leerUsuario(user);
-                    ArrayList<productoDTO> lista = new ArrayList<productoDTO>();
+                    ArrayList<productoCarroDTO> lista = new ArrayList<productoCarroDTO>();
                     ArrayList<productospedidoDTO> listaOrden = new ArrayList<productospedidoDTO>();
                     sesion.setAttribute("usuario", usuario);
                     sesion.setAttribute("carrito", lista);

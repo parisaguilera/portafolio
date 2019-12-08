@@ -21,6 +21,15 @@
                 alert("${mensaje}");
             </script> 
         </c:if>
+            <script>
+
+             $(function() {
+    
+             $(".loader").fadeOut("slow");
+             
+             });
+            
+            </script>
          <c:set var="idorden" scope="request" value="${idorden}" />
           <c:set var="nombre" scope="request" value="${nombre}" />
            <c:set var="rubro" scope="request" value="${rubro}" />

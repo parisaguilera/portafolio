@@ -198,10 +198,17 @@
                                             <td class="bodyTableText">${carro.getNombre()} - ${carro.getMarca()} ® - ${carro.getCodigobarra()}</td>
                                             <td class="bodyTableText">${productosCategoriaCarrito}</td>
                                             <td class="bodyTableText">${carro.getStock()}</td>
-                                            <td class="bodyTableText"> <input type="number" name="numCan" class="cantidad" value="1" min="1" max="${carro.getStock()}"></td> 
+                                            <td class="bodyTableText"> 
+                                                <form method="POST" action="/portafolio/carro">
+                                                  <input type="hidden" name="idPro" value="${carro.getIdproducto()}">
+                                                 <input type="number" name="numCan" class="cantidad" value="${carro.getCantidad()}" min="1" max="${carro.getStock()}">
+                                                 <input type="submit" name="actualizarCantidad" value="Actualizar" class="btn-warning rounded-pill">
+                                                    
+                                                </form>
+                                            </td> 
                                             <td class="bodyTableText">$ ${carro.getPrecioventa()}</td>
-                                            <td class="bodyTableText">$ ${carro.getPrecioventa()}</td> 
-                                           <c:set var="total" value="${total + carro.getPrecioventa()}" />
+                                            <td class="bodyTableText">$ ${carro.getTotal()}</td> 
+                                           <c:set var="total" value="${total + carro.getTotal()}" />
                                            
                                             
                                         </tr>

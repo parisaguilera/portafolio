@@ -1,6 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:useBean id="nomcat1" class="daoimp.familiaProductoDAOIMP"/> 
+<jsp:useBean id="nomcat1" class="daoimp.familiaProductoDAOIMP"/>
+ <script>
+
+             $(function() {
+    
+             $(".loader").fadeOut("slow");
+             
+             });
+            
+            </script>
 
          <%     
                   int id = Integer.parseInt(request.getParameter("idc"));

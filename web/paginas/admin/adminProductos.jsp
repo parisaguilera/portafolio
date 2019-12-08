@@ -85,7 +85,7 @@
                      
                              <hr>
                         </div>
-                        
+                      <div class="loader" id="loader" style="display:none;"></div>  
             </div>
             </div>
     </div>
@@ -104,8 +104,10 @@
     }
     
     function editar(idc,nombre,idfam){
+        
         document.getElementById("cuerpo").innerHTML="";
         $('#modalEditar').modal('show');
+        $(".loader").fadeIn("slow");
         $("#cuerpo").load("/portafolio/paginas/admin/editarProducto.jsp",{idc,nombre,idfam});
     }
     
