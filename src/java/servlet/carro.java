@@ -10,6 +10,7 @@ import daoimp.clienteDAOIMP;
 import daoimp.productoDAOIMP;
 import dto.boletaDTO;
 import dto.clienteDTO;
+import dto.productoCarroDTO;
 import dto.productoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,33 +49,88 @@ public class carro extends HttpServlet {
             boolean existe = cliente.existeRut(rut);
 
             HttpSession sesion = request.getSession();
-            ArrayList<productoDTO> lista = (ArrayList) sesion.getAttribute("carrito");
+            ArrayList<productoCarroDTO> lista = (ArrayList) sesion.getAttribute("carrito");
+           
                  // estado 3 = pago sin fiado
                  // estado 2 = PENDIENTE
                  // estado 1 = aceptado
                  // estado 0 = rechazado
+                if(request.getParameter("eliminarProducto")!= null){ 
+                         int idProducto = Integer.parseInt(request.getParameter("idPro"));
+                         productoCarroDTO eliminar = new productoCarroDTO();
+                        
+                    for (productoCarroDTO dto : lista) { 
+                                if(idProducto == dto.getIdproducto()){
+                                    eliminar=dto;
 
-            if(request.getParameter("finalizarVenta") != null){
+                                        
+                                }
+                 }   
+                     lista.remove(eliminar);
+                     System.out.println(rut);
+                     if(existe==false){
+                                                    String nombre = request.getParameter("nombreClienteE");
+                                                    String contacto = request.getParameter("contactoClienteE");
+                                                   request.setAttribute("nombreNuevo",nombre);
+                                                    request.setAttribute("contactoNuevo",contacto);
+                                                    System.out.println(nombre+" eliminar"+contacto);
+                                     }  
+                     request.setAttribute("carrito",lista);
+                     request.getRequestDispatcher("/paginas/admin/ventarut.jsp").forward(request, response);
+                     
+                 }else if(request.getParameter("actualizarCantidad")!= null){
+                 int cantProducto = Integer.parseInt(request.getParameter("numCan"));
+                 int idProducto = Integer.parseInt(request.getParameter("idPro"));
+                 
+                 for (productoCarroDTO dto : lista) { 
+                                if(idProducto == dto.getIdproducto()){
+                                    dto.setCantidad(cantProducto);
+                                   
+                                    int precioVenta = dto.getPrecioventa();
+                                    dto.setTotal(cantProducto*precioVenta);
+                                 
+                                    
+                                  
+                                    
+                                }
+                 }
+                  if(existe==false){
+                      String nombre = request.getParameter("nombreClienteA");
+                       String contacto = request.getParameter("contactoClienteA");
+                      request.setAttribute("nombreNuevo",nombre);
+                       request.setAttribute("contactoNuevo",contacto);
+                                     }
+                    request.setAttribute("carrito",lista);
+                      request.getRequestDispatcher("/paginas/admin/ventarut.jsp").forward(request, response);
+            
+                }else if(request.getParameter("finalizarVenta") != null){
                 
+                    
                 
                 boletaDAOIMP generandoBoleta = new boletaDAOIMP();
+                productoDAOIMP prodLocal = new productoDAOIMP();
                 int idBoleta=generandoBoleta.nuevoIDboleta();
-                int cantidad=1;
 
-                 for (productoDTO dto : lista) { 
+                 for (productoCarroDTO dto : lista) { 
+                        int idpro= dto.getIdproducto();
+                        int cant= dto.getCantidad();
                         boletaDTO boleta = new boletaDTO();
                           boleta.setIdboleta(idBoleta);
-                          boleta.setIdproducto(dto.getIdproducto());
-                          boleta.setCantidad(cantidad);
-                          boleta.setTotal((dto.getPrecioventa())*cantidad);
+                          boleta.setIdproducto(idpro);
+                          boleta.setCantidad(cant);
+                          boleta.setTotal(dto.getTotal());
+                          
                          generandoBoleta.agregar(boleta);
+                         //actualizar stock del producto seleccionado
+                         prodLocal.restarAlStockActual(cant, dto.getIdproducto());
                                     
                 }
                  if(existe==false){
                      
                             //NUEVOS CLIENTES-->
-                          String nombre = request.getParameter("nombreCliente");
-                          String contacto = request.getParameter("contactoCliente");
+                          String nombre = request.getParameter("nombreClienteF");
+                          String contacto = request.getParameter("contactoClienteF");
+                          System.out.println("PASANDO POR AQUI NUEVO CLIENTE: "+ nombre+contacto);
                           int idCliente= cliente.nuevoIDcliente();
                           clienteDTO cli = new clienteDTO();
                           cli.setIdcliente(idCliente);
@@ -133,8 +189,7 @@ public class carro extends HttpServlet {
                                     request.setAttribute("tipoBoleta",tipoBoleta);
                             } 
                             
-                            cliente.agregar(cli);
-                            
+                             cliente.agregar(cli);
                              request.setAttribute("idboleta",idBoleta);
                              request.setAttribute("nombre",nombre);
                              request.setAttribute("rut",rut);
@@ -150,7 +205,7 @@ public class carro extends HttpServlet {
                         if(idProducto!=0){
                             
                             
-                               for (productoDTO dto : lista) { 
+                               for (productoCarroDTO dto : lista) { 
                                 if(idProducto == dto.getIdproducto()){
                                     request.setAttribute("mensaje", "Ya agregaste ese Producto!");
                                     request.setAttribute("carrito",lista);
@@ -160,15 +215,31 @@ public class carro extends HttpServlet {
                                }
                             
                                
-
+                                                    
                                                     productoDTO producto = new productoDTO();
+                                                   productoCarroDTO proCarro = new productoCarroDTO();
+
                                                    productoDAOIMP pro = new productoDAOIMP();
-
-
+                                                  
+                                                 
+                                                   System.out.println("el id del producto: "+idProducto);
                                                    producto = pro.listarPorID(idProducto);
-
-                                                  lista.add(producto);
-
+                                                   proCarro.setIdproducto(producto.getIdproducto());
+                                                   proCarro.setNombre(producto.getNombre());
+                                                   proCarro.setPreciocompra(producto.getPreciocompra());
+                                                   proCarro.setPrecioventa(producto.getPrecioventa());
+                                                   proCarro.setIdfamilia(producto.getIdfamilia());
+                                                   proCarro.setMarca(producto.getMarca());
+                                                   proCarro.setFechavencimiento(producto.getFechavencimiento());
+                                                   proCarro.setCodigobarra(producto.getCodigobarra());
+                                                   proCarro.setDescripcion(producto.getDescripcion());
+                                                   proCarro.setStock(producto.getStock());
+                                                   proCarro.setStockcritico(producto.getStockcritico());
+                                                   proCarro.setCantidad(1);
+                                                   proCarro.setTotal(1*producto.getPrecioventa());
+                                                 
+                                                  lista.add(proCarro);
+                                                  
                                                    request.setAttribute("carrito",lista);
                                                                             if(existe==false){
                                                                                 

@@ -36,7 +36,7 @@
                             </div>
                          
                                   <hr>
-                                   <table class="table table-bordered fixTablefinalizadas">
+                                   <table class="table table-bordered">
                                 
                                 <thead>
                                     <tr>
@@ -78,10 +78,10 @@
                                                                     <input type="hidden" name="idUsuario" value="<%= usuario.getIdusuario()%>" >
                                                                     <input type="hidden" name="idProv" value="${ord.getIdproveedor()}" >
                                                                     <input type="submit" name="aceptarOrden" value="Aceptar Orden" class="btn-success rounded-pill fontBotonRecepcion">
-                                                                    <input type="submit" name="verOrden" value="Ver Orden" class="btn-info rounded-pill fontBotonRecepcion">  
+                                                                    <input type="submit" name="verOrden" value="Ver Orden" class="btn-info rounded-pill fontBotonRecepcion" onclick="redireccion()">   
                                                                 </c:when>
                                                                 <c:otherwise>
-                                                                    <input type="submit" name="verOrden" value="Ver Orden" class="btn-info rounded-pill fontBotonRecepcion"> 
+                                                                    <input type="submit" name="verOrden" value="Ver Orden" class="btn-info rounded-pill fontBotonRecepcion" onclick="redireccion()"> 
                                                                 </c:otherwise>
                                                      </c:choose>
                                                    </form>
@@ -97,11 +97,20 @@
                               <hr>
                          
                         </div>
-                        
+                   <div class="loader" id="loader" style="display:none;"></div>       
             </div>
             </div>
     </div>
 </div>
        </body>
+        <script>
+
+            function redireccion(){
+    
+             $(".loader").fadeIn("slow");
+             
+            }
+            
+       </script>
     
 </html>

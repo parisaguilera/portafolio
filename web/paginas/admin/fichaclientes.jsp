@@ -50,7 +50,7 @@
                                             <td>
                                               <form action="ficha.jsp" method="GET">
                                                     <input type="hidden" name="rut" value="${clientes.getRut()}"> 
-                                                    <input type="submit" value="Ver Ficha" class="btn-success rounded-pill font-12"> 
+                                                    <input type="submit" value="Ver Ficha" class="btn-success rounded-pill font-12" onclick="redireccion()"> 
                                                 </form>
                                                     </td>                                 
                                         </tr>
@@ -59,11 +59,20 @@
                             </table>
                              <hr>
                         </div>
-                        
+                         <div class="loader" id="loader" style="display:none;"></div>  
             </div>
             </div>
     </div>
 </div>
        </body>
+    <script>
+
+            function redireccion(){
     
+             $(".loader").fadeIn("slow");
+             
+            }
+            
+       </script>
+
 </html>

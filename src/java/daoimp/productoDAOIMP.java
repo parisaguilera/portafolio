@@ -293,6 +293,27 @@ public class productoDAOIMP implements productoDAO{
         }
         return false;
     }
+    @Override
+    public boolean restarAlStockActual(int cantidad,int idproducto) {
+               Connection conexion = Conexion.getConexion();
+        String query = "UPDATE producto SET stock=stock-? WHERE IDPRODUCTO=?";
+        try {
+            PreparedStatement update = conexion.prepareStatement(query);
+            update.setInt(1, cantidad);
+            update.setInt(2, idproducto);
+            update.executeUpdate();
+            update.close();
+          
+            
+                return true;
+  
+          } catch (SQLException e) {
+            System.out.println("Error SQL al Actualizar: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Actualizar: " + e.getMessage());
+        }
+        return false;
+    }
                 
     
 }

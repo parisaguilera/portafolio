@@ -73,7 +73,7 @@
                             </table>
                              <hr>
                         </div>
-                        
+                         <div class="loader" id="loader" style="display:none;"></div>
             </div>
             </div>
     </div>
@@ -81,7 +81,7 @@
 <script>
     function eliminar(idc,nombre){
     
-        document.getElementById("contenido").innerHTML="";
+        document.getElementById("contenido").innerHTML="";       
         $('#modalEliminar').modal('show');
         $("#contenido").load("/portafolio/paginas/admin/eliminarCategoria.jsp",{idc,nombre});
         
@@ -91,15 +91,17 @@
         alert("No puedes eliminar una categoria con productos asociados");
     }
      function agregar(){
-
+         
         $('#modalAgregar').modal('show');
     }
     
     function editar(idc,nombre){
         document.getElementById("titulo").innerHTML="";
+        $(".loader").fadeIn("slow");
         $('#modalEditar').modal('show');
         $("#titulo").load("/portafolio/paginas/admin/editarCategoria.jsp",{idc,nombre});
     }
+    
     
 </script>
 

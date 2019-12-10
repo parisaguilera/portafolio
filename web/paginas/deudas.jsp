@@ -29,7 +29,7 @@
                                 <label class="loginFont" >*RUT: </label>
                          </div>
                         <div class="col-sm-9">
-                                <input class="loginFont" value="${rut}" min="1000000" max="9999999999" id="rut" type="number" name="txtRut"/>
+                                <input class="loginFont" value="${rut}" min="00000000" max="9999999999" id="rut" type="number" name="txtRut"/>
                                 <p class="tooltips">* Solamente los primeros 8 numeros sin guion</p>
                         </div>
                         <div class="col-sm-0">
@@ -50,7 +50,7 @@
                          
                          <label class="loginFont text-center mb-5">Abona al total de tus Fiados</label>
                          <hr>
-                         <label class="loginFont text-center mt-5 mb-5">Boletas de fiados Aceptados</label>
+                         <label class="loginFont text-center mt-5 mb-5">Total de fiados Aceptados</label>
                             <table class="table table-bordered">
                                 
                                 <thead>
@@ -99,7 +99,7 @@
                                                 <input type="submit" name="abonar" value="Abonar" class="btn-primary rounded-pill font-12">
                                                 </c:otherwise>
                                             </c:choose>   
-                                                <input type="submit" name="descargarBoleta" value="Boleta" class="btn-primary rounded-pill font-12">
+                                                <input type="submit" name="descargarBoleta" value="PDF" class="btn-primary rounded-pill font-12">
                                                  </form>
                                             </td>  
                                         </tr>
@@ -140,7 +140,7 @@
                                             <input class="loginFont" value="" type="hidden" name="numDeuda"/>
                                             <input class="loginFont" value="${deuR.getDeuda()}" type="hidden" name="numTotal"/>
                                             <td>
-                                                <input type="submit" name="descargarBoleta" value="Boleta" class="btn-primary rounded-pill font-12">
+                                                <input type="submit" name="descargarBoleta" value="PDF" class="btn-primary rounded-pill font-12">
                                             </td>  
                                               
                                             </form>
@@ -183,7 +183,7 @@
                                             <input class="loginFont" value="" type="hidden" name="numDeuda"/>
                                             <input class="loginFont" value="${deuP.getDeuda()}" type="hidden" name="numTotal"/>
                                             <td>
-                                                <input type="submit" name="descargarBoleta" value="Boleta" class="btn-primary rounded-pill font-12">
+                                                <input type="submit" name="descargarBoleta" value="PDF" class="btn-primary rounded-pill font-12">
                                             </td>  
                                               
                                             </form>
