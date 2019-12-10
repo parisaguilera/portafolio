@@ -43,8 +43,6 @@ public class carro extends HttpServlet {
             
             
             String rut = request.getParameter("rut");
-           
-            
             request.setAttribute("rut",rut);
             
             clienteDAOIMP cliente = new clienteDAOIMP();
@@ -57,22 +55,53 @@ public class carro extends HttpServlet {
                  // estado 2 = PENDIENTE
                  // estado 1 = aceptado
                  // estado 0 = rechazado
-                 
-                if(request.getParameter("actualizarCantidad")!= null){
+                if(request.getParameter("eliminarProducto")!= null){ 
+                         int idProducto = Integer.parseInt(request.getParameter("idPro"));
+                         productoCarroDTO eliminar = new productoCarroDTO();
+                        
+                    for (productoCarroDTO dto : lista) { 
+                                if(idProducto == dto.getIdproducto()){
+                                    eliminar=dto;
+
+                                        
+                                }
+                 }   
+                     lista.remove(eliminar);
+                     System.out.println(rut);
+                     if(existe==false){
+                                                    String nombre = request.getParameter("nombreClienteE");
+                                                    String contacto = request.getParameter("contactoClienteE");
+                                                   request.setAttribute("nombreNuevo",nombre);
+                                                    request.setAttribute("contactoNuevo",contacto);
+                                                    System.out.println(nombre+" eliminar"+contacto);
+                                     }  
+                     request.setAttribute("carrito",lista);
+                     request.getRequestDispatcher("/paginas/admin/ventarut.jsp").forward(request, response);
+                     
+                 }else if(request.getParameter("actualizarCantidad")!= null){
                  int cantProducto = Integer.parseInt(request.getParameter("numCan"));
                  int idProducto = Integer.parseInt(request.getParameter("idPro"));
                  
                  for (productoCarroDTO dto : lista) { 
                                 if(idProducto == dto.getIdproducto()){
                                     dto.setCantidad(cantProducto);
-                                    int actualMonto = dto.getTotal();
-                                    dto.setTotal(cantProducto*actualMonto);
-                                    request.setAttribute("carrito",lista);
-                                    request.getRequestDispatcher("/paginas/admin/ventarut.jsp").forward(request, response);
+                                   
+                                    int precioVenta = dto.getPrecioventa();
+                                    dto.setTotal(cantProducto*precioVenta);
+                                 
+                                    
+                                  
                                     
                                 }
                  }
-                 
+                  if(existe==false){
+                      String nombre = request.getParameter("nombreClienteA");
+                       String contacto = request.getParameter("contactoClienteA");
+                      request.setAttribute("nombreNuevo",nombre);
+                       request.setAttribute("contactoNuevo",contacto);
+                                     }
+                    request.setAttribute("carrito",lista);
+                      request.getRequestDispatcher("/paginas/admin/ventarut.jsp").forward(request, response);
             
                 }else if(request.getParameter("finalizarVenta") != null){
                 
@@ -99,8 +128,9 @@ public class carro extends HttpServlet {
                  if(existe==false){
                      
                             //NUEVOS CLIENTES-->
-                          String nombre = request.getParameter("nombreCliente");
-                          String contacto = request.getParameter("contactoCliente");
+                          String nombre = request.getParameter("nombreClienteF");
+                          String contacto = request.getParameter("contactoClienteF");
+                          System.out.println("PASANDO POR AQUI NUEVO CLIENTE: "+ nombre+contacto);
                           int idCliente= cliente.nuevoIDcliente();
                           clienteDTO cli = new clienteDTO();
                           cli.setIdcliente(idCliente);
@@ -192,7 +222,7 @@ public class carro extends HttpServlet {
                                                    productoDAOIMP pro = new productoDAOIMP();
                                                   
                                                  
-                                                   
+                                                   System.out.println("el id del producto: "+idProducto);
                                                    producto = pro.listarPorID(idProducto);
                                                    proCarro.setIdproducto(producto.getIdproducto());
                                                    proCarro.setNombre(producto.getNombre());

@@ -44,6 +44,7 @@
           <c:set var="carrito" value="<%= lista %>" />
           <c:set var="nombreNuevo" scope="request" value="${nombreNuevo}" />
           <c:set var="contactoNuevo" scope="request" value="${contactoNuevo}" />
+           <c:set var="total" value="${0}"/>
           <script>
            $(".loader").fadeOut("slow");
            </script>
@@ -163,7 +164,7 @@
                                           <input id="con" name="contactoCliente" type="hidden" value="" >
                                         </c:if>
                                         <input name="idPro" type="hidden" value="" id="idproducto" >
-                                        <input type="submit" name="agregarProducto" value="Agregar" class="btn-success rounded-pill font-12" onclick="cliente()">
+                                        <input type="submit" name="agregarProducto" value="Agregar" class="btn-success rounded-pill font-12 mt-1" onclick="cliente()">
                                        
                                     </div>
                                      
@@ -184,12 +185,13 @@
                                         <th class="headTableText">Cantidad</th>  
                                         <th class="headTableText">Precio Unitario</th>
                                         <th class="headTableText">Precio Total</th>
+                                         <th class="headTableText">Eliminar</th>
                                     </tr>
                                 </thead>
                                 </thead>
                                 <tbody>
                                     
-                                   <c:set var="total" value="${0}"/>
+                                  
                                      <c:forEach var="carro" items="${carrito}">
                                          
                                          <c:set var="idfamiliaPROCarrito" value="${carro.getIdfamilia()}" />
@@ -200,14 +202,32 @@
                                             <td class="bodyTableText">${carro.getStock()}</td>
                                             <td class="bodyTableText"> 
                                                 <form method="POST" action="/portafolio/carro">
+                                                    <input type="hidden" value="<%= rut %>" name="rut">
+                                                    <c:if test="${existe==false}">
+                                                        <input id="nomVentaA" name="nombreClienteA" type="hidden" value="" >
+                                                        <input id="conVentaA" name="contactoClienteA" type="hidden" value="" >
+                                                      </c:if>
                                                   <input type="hidden" name="idPro" value="${carro.getIdproducto()}">
                                                  <input type="number" name="numCan" class="cantidad" value="${carro.getCantidad()}" min="1" max="${carro.getStock()}">
-                                                 <input type="submit" name="actualizarCantidad" value="Actualizar" class="btn-warning rounded-pill">
+                                                 <input type="submit" name="actualizarCantidad" value="Actualizar" class="btn-warning rounded-pill" onclick="cliente()">
                                                     
                                                 </form>
                                             </td> 
                                             <td class="bodyTableText">$ ${carro.getPrecioventa()}</td>
-                                            <td class="bodyTableText">$ ${carro.getTotal()}</td> 
+                                            <td class="bodyTableText">$ ${carro.getTotal()}</td>
+                                            <td class="bodyTableText">
+                                            <form method="POST" action="/portafolio/carro">
+                                                <input type="hidden" value="<%= rut %>" name="rut">
+                                                    <c:if test="${existe==false}">
+                                                        <input id="nomVentaE" name="nombreClienteE" type="hidden" value="" >
+                                                        <input id="conVentaE" name="contactoClienteE" type="hidden" value="" >
+                                                      </c:if>
+                                                  <input type="hidden" name="idPro" value="${carro.getIdproducto()}">
+                                                 <input type="submit" name="eliminarProducto" value="Eliminar" class="btn-danger rounded-pill" onclick="cliente()">
+                                                    
+                                                </form>
+                                            
+                                            </td> 
                                            <c:set var="total" value="${total + carro.getTotal()}" />
                                            
                                             
@@ -218,6 +238,7 @@
                                             <td colspan="4"></td>
                                             <td class="headTableText">TOTAL:</td> 
                                             <td class="headTableText">$ ${total}</td>
+                                            <td class="headTableText"></td> 
                                         </tr>
                                        
                                                     </tbody>
@@ -231,8 +252,8 @@
                                                     <input type="hidden" value="<%= rut %>" name="rut">
                                                     <input name="totalCarro" type="hidden" value="${total}" >
                                                      <c:if test="${existe==false}">
-                                                        <input id="nomVenta" name="nombreCliente" type="hidden" value="" >
-                                                        <input id="conVenta" name="contactoCliente" type="hidden" value="" >
+                                                        <input id="nomVentaF" name="nombreClienteF" type="hidden" value="" >
+                                                        <input id="conVentaF" name="contactoClienteF" type="hidden" value="" >
                                                       </c:if>
                                                         <div class="label">
                                                     <label class="mr-5 opcionFiado">¿Quiere optar por FIADO?   <input class="ml-3 form-check-input" type="checkbox" name="checkFiado" value="0"></label>
@@ -274,10 +295,22 @@
                var contacto = document.getElementById("clienteContacto").value;
                $("#nom").val(nombre);
                $("#con").val(contacto);
+               
                $("#nomVenta").val(nombre);
                $("#conVenta").val(contacto);
+               
+                $("#nomVentaE").val(nombre);
+               $("#conVentaE").val(contacto);
+               
+                  $("#nomVentaA").val(nombre);
+               $("#conVentaA").val(contacto);
+               
+               $("#nomVentaF").val(nombre);
+               $("#conVentaF").val(contacto);
              
            }
+          
+           
        </script>
 
 </html>
