@@ -1,0 +1,42 @@
+.mySlides {display:none}
+.w3-left, .w3-right, .w3-badge {cursor:pointer}
+.w3-badge {height:13px;width:13px;padding:0}
+.largoAncho {
+    width: 100% !important;
+    height: 500px !important;
+   
+}
+.border{
+     border-radius: 10px !important;
+     
+}
+.fixborder{
+    border: 0px !important;
+}
+.menuProveedorTitle{
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    margin-top:3px;
+    color: #6c757d;
+}
+.menuProveedor{
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    margin-top:3px;
+    color: #6c757d;
+}
+.footerP{
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    color: white;
+}
+
+.imgProveedor{
+      min-height: 100px;
+}
+
+.footer{
+    
+    min-height: 100px;
+  
+}
