@@ -99,6 +99,8 @@ public class carro extends HttpServlet {
                        String contacto = request.getParameter("contactoClienteA");
                       request.setAttribute("nombreNuevo",nombre);
                        request.setAttribute("contactoNuevo",contacto);
+                                           System.out.println(nombre + contacto);
+
                                      }
                     request.setAttribute("carrito",lista);
                       request.getRequestDispatcher("/paginas/admin/ventarut.jsp").forward(request, response);
