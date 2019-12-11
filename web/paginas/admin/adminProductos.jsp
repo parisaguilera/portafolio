@@ -20,6 +20,7 @@
                 alert("${mensaje}");
             </script> 
         </c:if>
+             <c:set var="pro" value="${listaProductos.listarTodos()}" />
      <div class="col">
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">
@@ -35,8 +36,15 @@
                                 <input type="submit" name="agregarModal" value="Agregar" class="btn-success rounded-pill font-12" onclick="agregar()">
                                 </div>
                             </div>
-
-                            <hr>
+                               <hr>
+                               <c:choose>
+                                   <c:when test="${pro.size()==0}">
+                                       <div class="text-center">
+                                                 <p class="loginFontTitle">Sin Productos</p>
+                                       </div>
+                                    </c:when>
+                                            <c:otherwise>
+                         
                                   <table class="table table-bordered">
                                 
                                 <thead>
@@ -56,7 +64,7 @@
                                 </thead>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="productos" items="${listaProductos.listarTodos()}">
+                                    <c:forEach var="productos" items="${pro}">
                                         <tr class="redaccion">
                                             <c:set var="categoria" value="${listaProductos.idtonombre(productos.getIdfamilia())}" />
                                              <td class="bodyTableTextImportante fondoImportante">${categoria}</td> 
@@ -83,7 +91,10 @@
                                 </tbody>
                             </table>
                      
-                             <hr>
+                                                  
+                                            </c:otherwise>
+                                        </c:choose>
+                                <hr>         
                         </div>
                       <div class="loader" id="loader" style="display:none;"></div>  
             </div>

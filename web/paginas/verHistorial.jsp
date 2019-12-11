@@ -38,6 +38,14 @@
                      <label class="loginFont mt-1">Estas abonando al total de tu deuda</label>
 
                     </div>
+                       <c:choose>
+                                   <c:when test="${fiados.size()==0}">
+                                       <div class="text-center m-5">
+                                                 <p class="loginFontTitle">Sin Abonos Realizados</p>
+                                       </div>
+                                    </c:when>
+                                            <c:otherwise>
+                         
                     <div class="mt-5">
                     <table class="table table-bordered"> 
                                 <thead>
@@ -59,6 +67,8 @@
                                 </tbody>
                             </table>
                     </div>
+                                                  </c:otherwise>
+                                        </c:choose>
                                     
                                      <div class="text-right mt-2 mr-4">
                                          <c:set var="totalAbonado" value="${totalAbonado}" />

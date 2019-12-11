@@ -224,7 +224,9 @@
                                 <div class="card-body p-0">
                                            <c:choose>
                                             <c:when test="${listaPagados.size()==0}">
+                                                 <div class="text-center">
                                                 <label class="loginFontTitle">Sin compras directas</label>
+                                                 </div>
                                             </c:when>
                                             <c:otherwise>
                                                 <table class="table table-bordered">

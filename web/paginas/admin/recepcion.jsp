@@ -23,6 +23,7 @@
                 alert("${mensaje}");
             </script> 
         </c:if>
+            <c:set var="orL" value="${orden.listarTodosAgrupados()}" />
      <div class="col">
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">
@@ -36,6 +37,13 @@
                             </div>
                          
                                   <hr>
+                                   <c:choose>
+                                   <c:when test="${orL.size()==0}">
+                                       <div class="text-center">
+                                                <p class="loginFontTitle">Sin Recepcion de Ordenes</p>
+                                       </div>
+                                    </c:when>
+                                            <c:otherwise>
                                    <table class="table table-bordered">
                                 
                                 <thead>
@@ -52,7 +60,7 @@
                                 
                                 <tbody>
                                    
-                                    <c:forEach var="ord" items="${orden.listarTodosAgrupados()}">
+                                    <c:forEach var="ord" items="${orL}">
                                          <c:set var="nombreProveedor" value="${prov.idtonombre(ord.getIdproveedor())}" />
                                          <c:set var="rubroProveedor" value="${prov.idtorubro(ord.getIdproveedor())}" />
                                         <tr class="redaccion">
@@ -94,6 +102,8 @@
                                     
                                 </tbody>
                             </table>
+                                     </c:otherwise>
+                                        </c:choose>
                               <hr>
                          
                         </div>

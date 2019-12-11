@@ -18,6 +18,7 @@
                 alert("${mensaje}");
             </script> 
         </c:if>
+            <c:set var="cli" value="${listaClientes.listarFicha()}" />
      <div class="col">
            <div class="mt-5 card w-100">
                 <div class="card-body p-5">
@@ -26,9 +27,16 @@
                             <p class="textoExplicativo">
                                Aqui podras ver y descargar todos las fichas de clientes que pidieron Fiados.
                             </p>
+                              <hr>
+                              <c:choose>
+                                   <c:when test="${cli.size()==0}">
+                                       <div class="text-center">
+                                                <p class="loginFontTitle">Sin Clientes</p>
+                                       </div>
+                                    </c:when>
+                                            <c:otherwise>
 
-
-                            <hr>
+                          
                                   <table class="table table-bordered">
                                 
                                 <thead>
@@ -41,7 +49,7 @@
                                 </thead>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="clientes" items="${listaClientes.listarFicha()}">
+                                    <c:forEach var="clientes" items="${cli}">
                                         <tr class="redaccion">
                                              <c:set var="idCliente" value="${clientes.getIdcliente()}"/>
                                             <td class="bodyTableText">${clientes.getNombre()}</td>
@@ -57,7 +65,10 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
-                             <hr>
+                             
+                                </c:otherwise>
+                                        </c:choose>
+                              <hr>
                         </div>
                          <div class="loader" id="loader" style="display:none;"></div>  
             </div>
