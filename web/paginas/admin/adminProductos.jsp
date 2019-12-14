@@ -81,7 +81,9 @@
                                                  <c:set var="idfam" value="${productos.getIdfamilia()}"/>
                                                  <c:set var="nombre" value="${productos.getNombre()}"/>
                                                  <c:set var="idc" value="${productos.getIdproducto()}"/>
+                                                 <c:if test="${cargoRol=='Admin'}">
                                              <input type="submit" name="editarProducto" value="Editar" class="btn-info rounded-pill font-12" onclick="editar(${idc},'${nombre}',${idfam})">
+                                                </c:if>
                                              <input type="submit" name="eliminarProducto" value="Eliminar" class="btn-danger rounded-pill font-12" onclick="eliminar(${idc},'${nombre}')">  
 
                                                  

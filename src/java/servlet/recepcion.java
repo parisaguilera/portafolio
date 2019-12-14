@@ -127,6 +127,14 @@ public class recepcion extends HttpServlet {
                 
               request.getRequestDispatcher("/paginas/admin/historialrecepcion.jsp").forward(request, response);
               
+              }else if (request.getParameter("rechazarOrden") != null){
+                  int idOrdenPedido = Integer.parseInt(request.getParameter("idorden"));
+                    ordenPedidoDAOIMP orden = new ordenPedidoDAOIMP();
+                  orden.rechazarOrden(idOrdenPedido);
+                  
+                    request.setAttribute("mensaje", "Se rechazo la orden");
+                  request.getRequestDispatcher("/paginas/admin/recepcion.jsp").forward(request, response);
+              
               }
         }
     }

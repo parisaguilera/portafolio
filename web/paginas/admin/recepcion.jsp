@@ -76,6 +76,9 @@
                                               <c:if test="${ord.getRecepcion()==1}">
                                               <td class="bodyTableText text-success">Aceptado</td>   
                                              </c:if>
+                                                 <c:if test="${ord.getRecepcion()==2}">
+                                              <td class="bodyTableText text-danger">Rechazada</td>   
+                                             </c:if>
                                               <td class="bodyTableText">
                                                      <form method="POST" action="/portafolio/recepcion">
                                                        <input type="hidden" name="idorden" value="${ord.getIdordenpedido()}" >
@@ -86,6 +89,7 @@
                                                                     <input type="hidden" name="idUsuario" value="<%= usuario.getIdusuario()%>" >
                                                                     <input type="hidden" name="idProv" value="${ord.getIdproveedor()}" >
                                                                     <input type="submit" name="aceptarOrden" value="Aceptar Orden" class="btn-success rounded-pill fontBotonRecepcion">
+                                                                    <input type="submit" name="rechazarOrden" value="Rechazar" class="btn-danger rounded-pill fontBotonRecepcion">
                                                                     <input type="submit" name="verOrden" value="Ver Orden" class="btn-info rounded-pill fontBotonRecepcion" onclick="redireccion()">   
                                                                 </c:when>
                                                                 <c:otherwise>

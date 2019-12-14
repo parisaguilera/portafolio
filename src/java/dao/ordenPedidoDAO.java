@@ -19,4 +19,6 @@ public interface ordenPedidoDAO extends BaseDAO<ordenpedidoDTO>{
     public int nuevoIDordenPedido();
     public int totalOrdenes();
     public boolean aprobarOrden(int idOrdenPedido);
+    public boolean rechazarOrden(int idOrdenPedido);
+    
 }

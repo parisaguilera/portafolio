@@ -11,7 +11,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <%
       usuarioDTO usuario = (usuarioDTO) session.getAttribute("usuario");
+      String cargoRol = usuario.getCargo();
         %>
+        <c:set var="cargoRol" value="<%= cargoRol %>" />
     <div class="navegador sticky-top">
         <nav class="navbar bg-secondary">    
            <%-- <li class="col-sm dropdownx"><a class="fontstyle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias <i class="fas fa-caret-down"></i></a>
@@ -27,7 +29,11 @@
               <p class="sesionstyle"><i class="fas fa-users-cog"></i> <%= usuario.getCargo()%></p>
                </a>
                 <div class="dropdown-sesion ">
-                        <a href="#"><p class="sesionstyle">Cerrar Sesion</p></a>         
+                    <form method="POST" action="/portafolio/loginOut">
+                      
+                         <input type="submit" value="Cerrar Sesion" class="sesionstyle"> 
+                        
+                    </form>
                 </div></li>
             <%-- <li class="text-left"><a class="fontstyle" href="/portafolio/paginas/carrito.jsp">Mi Carro<span class="label label-info">0</span> <i class="fas fa-shopping-cart"></i></a></li>--%>
         </nav>
@@ -40,23 +46,24 @@
                 <div class="pl-3 nav flex-sm-column">
                     <%-- primera seccion--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-store-alt"></i> Productos</p>
+                   
                     <a href="/portafolio/paginas/admin/categorias.jsp" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Modulo Categorias</a>
                     <a href="/portafolio/paginas/admin/adminProductos.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Modulo Productos</a>
                     <%-- siguiente seccion del sidebar--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-user-friends"></i> Cliente</p>
                     <a href="/portafolio/paginas/admin/fichaclientes.jsp" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Ficha Clientes</a>
                     <a href="/portafolio/paginas/admin/registrarventa.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Registrar Venta</a>
+                     <c:if test="${cargoRol=='Admin'}">
                     <a href="/portafolio/paginas/admin/fiados.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Admin Fiados</a>
+                     </c:if>
                     <%-- siguiente seccion del sidebar--%>
                     <p class="pt-5 sidebarFont"><i class="fas fa-boxes"></i> Proveedores</p>
                     <a href="/portafolio/paginas/admin/proveedor.jsp" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Modulo Proveedor</a>
                     <a href="/portafolio/paginas/admin/ordenarpedido.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Ordenar Pedido</a>
                     <a href="/portafolio/paginas/admin/recepcion.jsp" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Recepcion</a>
                     <%-- siguiente seccion del sidebar--%>
-                    <p class="pt-5 sidebarFont"><i class="fas fa-clipboard"></i> Informe y Estadisticas</p>
-                    <a href="" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Informes</a>
-                    <a href="" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Estadisticas</a>
-                    <a href="" class="pl-5 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Visitas Recibidas</a>
+                    <p class="pt-5 sidebarFont"><i class="fas fa-clipboard"></i>Estadisticas</p>
+                    <a href="/portafolio/paginas/admin/estadisticas.jsp" class="pl-5 mt-2 sidebarFont-item"><i class="fas fa-arrow-circle-right"></i> Estadisticas</a>
                 </div>
             </div>
         </div>

@@ -3,8 +3,16 @@
     font-size: 15px;
     margin-top:3px;
 }
-.textoExplicativoSub{
+.textoEstadisticas{
     font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+}
+.textoEstadisticasCantidad{
+     font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+.textoExplicativoSub{
+     font-family: 'Poppins', sans-serif;
     font-size: 13px;
     margin-top:3px;
 }

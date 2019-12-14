@@ -48,6 +48,18 @@
         <servlet-name>recepcion</servlet-name>
         <servlet-class>servlet.recepcion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loginOut</servlet-name>
+        <servlet-class>servlet.loginOut</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>fichaControlador</servlet-name>
+        <servlet-class>servlet.fichaControlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>reportes</servlet-name>
+        <servlet-class>servlet.reportes</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>deudas</servlet-name>
         <url-pattern>/deudas</url-pattern>
@@ -95,6 +107,18 @@
     <servlet-mapping>
         <servlet-name>recepcion</servlet-name>
         <url-pattern>/recepcion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loginOut</servlet-name>
+        <url-pattern>/loginOut</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>fichaControlador</servlet-name>
+        <url-pattern>/fichaControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reportes</servlet-name>
+        <url-pattern>/reportes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

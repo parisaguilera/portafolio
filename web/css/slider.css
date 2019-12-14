@@ -25,6 +25,11 @@
     margin-top:3px;
     color: #6c757d;
 }
+.textProveedor{
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
+    color: #6c757d;
+}
 .footerP{
     font-family: 'Poppins', sans-serif;
     font-size: 15px;
@@ -33,6 +38,12 @@
 
 .imgProveedor{
       min-height: 100px;
+}
+
+
+.imgProveedor:hover {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
 }
 
 .footer{
