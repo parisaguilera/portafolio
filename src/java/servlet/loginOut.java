@@ -5,22 +5,19 @@
  */
 package servlet;
 
-import daoimp.clienteDAOIMP;
-import daoimp.pagoFiadoDAOIMP;
-import dto.clienteDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author parisbastian
  */
-public class deudas extends HttpServlet {
+public class loginOut extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,34 +32,11 @@ public class deudas extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-             if (request.getParameter("buscar") != null){
-                 // estado 3 = pago sin fiado
-                 // estado 2 = PENDIENTE
-                 // estado 1 = aceptado
-                 // estado 0 = rechazado
-                 clienteDAOIMP deuda = new clienteDAOIMP();
-                
-           String rut = request.getParameter("txtRut");
-            //-> PARA SABER EL TOTAL ABONADO
-                 pagoFiadoDAOIMP abonado = new pagoFiadoDAOIMP();
-           int idcliente=deuda.rutToId(rut);
-           int deudaFiado = abonado.deudaFiado(idcliente);
-           //-> finalizar saber total abonado
-           deuda.listarTodosFicha(rut, deudaFiado);
-            ArrayList<clienteDTO> deudasAceptadas = deuda.listarTodos(rut,1);
-            ArrayList<clienteDTO> deudasPendientes = deuda.listarTodosFicha(rut,2);
-            ArrayList<clienteDTO> deudasRechazadas = deuda.listarTodosFicha(rut,0);
-            
-                 System.out.println(deudasPendientes.size());
-                 //enviamos el total abonado
-            request.setAttribute("deudaFiado", deudaFiado);
-            request.setAttribute("deudasAceptadas", deudasAceptadas);
-            request.setAttribute("deudasRechazadas", deudasRechazadas);
-             request.setAttribute("deudasPendientes", deudasPendientes);
-            request.setAttribute("rut", rut);
-           request.getRequestDispatcher("/paginas/deudas.jsp").forward(request, response);
-             }
+            HttpSession session = request.getSession();
+        if(session.getAttribute("usuario") != null){
+            session.removeAttribute("usuario");
+            response.sendRedirect("/portafolio/paginas/login.jsp");
+        }
         }
     }
 

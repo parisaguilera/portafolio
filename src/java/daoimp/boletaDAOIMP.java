@@ -124,5 +124,36 @@ public class boletaDAOIMP implements boletaDAO{
         }
         return null;  
     }
+      @Override
+    public ArrayList<boletaDTO> listarTodosTodosAceptados(String rut) {
+        Connection conexion = Conexion.getConexion();
+        String query =  "SELECT c.idboleta,b.idproducto,b.cantidad,b.total FROM CLIENTE c JOIN boleta b on(c.idboleta=b.idboleta) WHERE c.estado=1 AND c.rut=? ORDER BY b.idboleta asc";
+        
+        try {
+            PreparedStatement buscar= conexion.prepareStatement(query);
+
+            buscar.setString(1, rut);
+            
+            ResultSet rs = buscar.executeQuery();
+            
+             ArrayList<boletaDTO> lista = new ArrayList<>();
+            while(rs.next()){
+                boletaDTO boleta = new boletaDTO();
+                boleta.setIdboleta(rs.getInt("IDBOLETA"));
+                boleta.setIdproducto(rs.getInt("IDPRODUCTO"));
+                boleta.setCantidad(rs.getInt("CANTIDAD"));
+                boleta.setTotal(rs.getInt("TOTAL"));
+                lista.add(boleta);
+                
+            }
+             
+             return lista;
+         } catch (SQLException e) {
+            System.out.println("Error SQL al Listar : " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al Listar : " + e.getMessage());
+        }
+        return null;  
+    }
     
 }

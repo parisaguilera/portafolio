@@ -69,6 +69,7 @@
                         </div>
                     </div>
                         <!-- set arreglos -->
+                             <c:set var="listaAnuladas" value="<%= cli.listarTodosFicha(rut,4) %>"/>   
                             <c:set var="listaPagados" value="<%= cli.listarTodosFicha(rut,3) %>"/>    
                             <c:set var="listaPen" value="<%= cli.listarTodosFicha(rut,2) %>"/>
                             <c:set var="listaAce" value="<%= cli.listarTodosFicha(rut,1) %>"/>
@@ -236,7 +237,7 @@
                                                     <th class="headTableText">Nº Pago</th>
                                                     <th class="headTableText">N º Boleta</th>
                                                     <th class="headTableText">Total</th>  
-
+                                                    <th class="headTableText">Anular</th>  
                                                 </tr>
                                             </thead>
                                             
@@ -245,7 +246,15 @@
                                                             <tr class="redaccion">
                                                                 <td class="bodyTableText"><%= i+=1 %></td>
                                                                 <td class="bodyTableText">0000${listaPa.getIdboleta()}</td>
-                                                                <td class="bodyTableText">$ ${listaPa.getDeuda()}</td>                             
+                                                                <td class="bodyTableText">$ ${listaPa.getDeuda()}</td>
+                                                                <td>
+                                                        <form method="POST" action="/portafolio/fichaControlador">
+                                                             <input type="hidden" name="txtRut" value="<%= cliente.getRut() %>">
+                                                            
+                                                                 <input type="hidden" name="idBoleta" value="${listaPa.getIdboleta()}">
+                                                                <input type="submit" name="anularVenta" value="Anular" class="btn-danger rounded-pill font-12">
+                                                         </form>
+                                                                </td>
                                                             </tr>
                                                          </c:forEach>
                                                     </tbody>
@@ -255,6 +264,52 @@
                                 </div>
                                 <div class="card-footer text-muted text-center">
                                     <p class="text-primary"><%= i %> Compras directas</p>
+                                </div>
+                              </div>     
+                                    </div>
+                                </div>
+                                  <% 
+                        i=0;
+                            %>
+                                 <div class="row mt-5">
+                                    <div class="col">
+                                        <div class="card ">
+                                <div class="card-header text-center">
+                                  <h5 class="text-danger">Compras Anuladas</h5>
+                                </div>
+                                <div class="card-body p-0">
+                                           <c:choose>
+                                            <c:when test="${listaAnuladas.size()==0}">
+                                                 <div class="text-center">
+                                                <label class="loginFontTitle">Sin Anulaciones</label>
+                                                 </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <table class="table table-bordered">
+                                
+                                            <thead>
+                                                <tr>
+                                                    <th class="headTableText">Nº Pago</th>
+                                                    <th class="headTableText">N º Boleta</th>
+                                                    <th class="headTableText">Total</th>  
+                                                </tr>
+                                            </thead>
+                                            
+                                                    <tbody>
+                                                         <c:forEach var="listaAnu" items="${listaAnuladas}">
+                                                            <tr class="redaccion">
+                                                                <td class="bodyTableText"><%= i+=1 %></td>
+                                                                <td class="bodyTableText">0000${listaAnu.getIdboleta()}</td>
+                                                                <td class="bodyTableText">$ ${listaAnu.getDeuda()}</td>
+                                                            </tr>
+                                                         </c:forEach>
+                                                    </tbody>
+                                            </table>
+                                            </c:otherwise>
+                                        </c:choose>
+                                </div>
+                                <div class="card-footer text-muted text-center">
+                                    <p class="text-danger"><%= i %>  Compras Anuladas</p>
                                 </div>
                               </div>     
                                     </div>

@@ -53,13 +53,15 @@
                              </p>
                              <p class="textoExplicativoSub mt-2 pl-5 ml-5">
                                <i class="fas fa-angle-double-right text-info"></i> Registra una venta para nuevos y antiguos clientes en base a su rut. <br>                                
-                             </p>
+                             </p> 
+                             <c:if test="${cargoRol=='Admin'}">
                               <p class="textoExplicativo mt-2 pl-5">
                                    Admin Fiados:
                              </p>
                              <p class="textoExplicativoSub mt-2 pl-5 ml-5">
                                <i class="fas fa-angle-double-right text-info"></i> Seccion en donde se aceptan, rechazan o se dejan pendientes los fiados de toda la app. <br>                                
                              </p>
+                             </c:if>
                               <hr>
                              <p class="textoExplicativo mt-4">
                                  <STRONG class="text-primary">Proveedores</STRONG>:
@@ -84,14 +86,8 @@
                              </p>
                               <hr>
                              <p class="textoExplicativo mt-4">
-                                <STRONG class="text-primary">Informe y Estadisticas</STRONG>:
+                                <STRONG class="text-primary">Estadisticas</STRONG>:
                             </p>
-                             <p class="textoExplicativo mt-2 pl-5">
-                                    Informes:
-                             </p>
-                             <p class="textoExplicativoSub mt-2 pl-5 ml-5">
-                               <i class="fas fa-angle-double-right text-info"></i> Descargar toda clase de informacion necesaria en formato PDF y excel.<br>                                 
-                             </p>
                               <p class="textoExplicativo mt-2 pl-5">
                                    Estadisticas:
                              </p>

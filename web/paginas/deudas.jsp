@@ -86,6 +86,8 @@
                                         </c:choose>
                                             
                                             <td>
+                                                <div class="row">
+                                                    <div class="col-4">
                                                 <form method="POST" action="/portafolio/verHistorial">
                                                     <input class="loginFont" value="${rut}" maxlength="8" type="hidden" name="txtRut"/>
                                                     <input class="loginFont" value="${deu.getNombre()}" type="hidden" name="txtNombre"/>
@@ -98,9 +100,15 @@
                                                 <c:otherwise>
                                                 <input type="submit" name="abonar" value="Abonar" class="btn-primary rounded-pill font-12">
                                                 </c:otherwise>
-                                            </c:choose>   
-                                                <input type="submit" name="descargarBoleta" value="PDF" class="btn-primary rounded-pill font-12">
-                                                 </form>
+                                            </c:choose>
+                                                </div>
+                                                <div class="col-8 text-center mt-1">
+                                                       
+                                                       <a class="p-1 btn-primary rounded-pill font-12" href="/portafolio/reportes?deudas=${rut}&estado=${deu.getEstado()}">Boleta</a>
+                                                       
+                                                    </div> 
+                                                </form>
+                                                       </div>
                                             </td>  
                                         </tr>
 
@@ -140,7 +148,7 @@
                                             <input class="loginFont" value="" type="hidden" name="numDeuda"/>
                                             <input class="loginFont" value="${deuR.getDeuda()}" type="hidden" name="numTotal"/>
                                             <td>
-                                                <input type="submit" name="descargarBoleta" value="PDF" class="btn-primary rounded-pill font-12">
+                                                     <a class="p-1 btn-primary rounded-pill font-12" href="/portafolio/reportes?deudas=${rut}&idBoleta=${deuR.getIdboleta()}">Boleta</a>
                                             </td>  
                                               
                                             </form>
@@ -183,7 +191,7 @@
                                             <input class="loginFont" value="" type="hidden" name="numDeuda"/>
                                             <input class="loginFont" value="${deuP.getDeuda()}" type="hidden" name="numTotal"/>
                                             <td>
-                                                <input type="submit" name="descargarBoleta" value="PDF" class="btn-primary rounded-pill font-12">
+                                                    <a class="p-1 btn-primary rounded-pill font-12" href="/portafolio/reportes?deudas=${rut}&idBoleta=${deuP.getIdboleta()}">Boleta</a>
                                             </td>  
                                               
                                             </form>

@@ -289,7 +289,7 @@ public class clienteDAOIMP implements clienteDAO{
     @Override
     public ArrayList<clienteDTO> listarTodosFicha(String rut, int estado) {
            Connection conexion = Conexion.getConexion();
-        String query =  "SELECT idboleta,deuda FROM cliente where rut=? and estado=?";
+        String query =  "SELECT rut,nombre,contacto,idboleta,deuda FROM cliente where rut=? and estado=?";
         
         try {
             PreparedStatement buscar= conexion.prepareStatement(query);
@@ -301,6 +301,9 @@ public class clienteDAOIMP implements clienteDAO{
              ArrayList<clienteDTO> lista = new ArrayList<>();
             while(rs.next()){
                 clienteDTO cliente = new clienteDTO();
+                cliente.setRut(rs.getString("RUT"));
+                cliente.setNombre(rs.getString("NOMBRE"));
+                cliente.setContacto(rs.getString("CONTACTO"));
                 cliente.setIdboleta(rs.getInt("idboleta"));
                 cliente.setDeuda(rs.getInt("DEUDA"));
                 lista.add(cliente);

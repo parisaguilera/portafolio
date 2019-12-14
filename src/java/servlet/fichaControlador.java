@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import daoimp.clienteDAOIMP;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author parisbastian
  */
-public class test extends HttpServlet {
+public class fichaControlador extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,18 +32,16 @@ public class test extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-           
-            
-                if(request.getParameter("checkFiado") != null){
-                System.out.println("dijo que si");
-                
-                request.getRequestDispatcher("/paginas/test.jsp").forward(request, response);
-            }else{
-                System.out.println("dijo que no");
+             if(request.getParameter("anularVenta") != null){
+                 //estado 4 : anulado.
+                String rut = request.getParameter("txtRut");
+                int id = Integer.parseInt(request.getParameter("idBoleta"));
+                clienteDAOIMP cliente = new clienteDAOIMP();
                
-                request.getRequestDispatcher("/paginas/test.jsp").forward(request, response);
-            }
+                 cliente.actualizarEstado(4, id);
+                 
+                  request.getRequestDispatcher("/paginas/admin/ficha.jsp?rut="+rut).forward(request, response);
+             }
         }
     }
 

@@ -180,5 +180,24 @@ public class ordenPedidoDAOIMP implements ordenPedidoDAO{
         }
         return false;
     }
+    @Override
+    public boolean rechazarOrden(int idOrdenPedido) {
+           Connection conexion = Conexion.getConexion();
+        String query = "UPDATE ORDENPEDIDO SET recepcion=2 WHERE idordenpedido=?";
+        try {
+            PreparedStatement update = conexion.prepareStatement(query);
+
+            update.setInt(1, idOrdenPedido);
+            update.executeUpdate();
+            update.close();
+                return true;
+  
+          } catch (SQLException e) {
+            System.out.println("Error SQL al rechazar: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error al rechazar: " + e.getMessage());
+        }
+        return false;
+    }
     
 }

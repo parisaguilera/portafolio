@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="listaClientes" class="daoimp.clienteDAOIMP"/> 
+<jsp:useBean id="listaClientes" class="daoimp.clienteDAOIMP"/>
 <!DOCTYPE html>
 <html>
    <head>
